@@ -1,0 +1,985 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\assets\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\css\\dashboard.css",
+      "PackagePath": "staticwebassets\\assets\\css\\dashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\css\\icons.css",
+      "PackagePath": "staticwebassets\\assets\\css\\icons.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\css\\plugin.css",
+      "PackagePath": "staticwebassets\\assets\\css\\plugin.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\css\\style.css",
+      "PackagePath": "staticwebassets\\assets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\css\\style.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\style.css.map"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Flaticon.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Flaticon.eot"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Flaticon.svg",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Flaticon.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Flaticon.ttf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Flaticon.ttf"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Flaticon.woff",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Flaticon.woff"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Flaticon.woff2",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Flaticon.woff2"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Simple-Line-Icons.ttf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Simple-Line-Icons.ttf"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Simple-Line-Icons.woff",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Simple-Line-Icons.woff"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Simple-Line-Iconsb26c.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Simple-Line-Iconsb26c.eot"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Simple-Line-Iconsb26c.svg",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Simple-Line-Iconsb26c.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Simple-Line-Iconsb26c.ttf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Simple-Line-Iconsb26c.ttf"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Simple-Line-Iconsb26c.woff",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Simple-Line-Iconsb26c.woff"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\Simple-Line-Iconsb26c.woff2",
+      "PackagePath": "staticwebassets\\assets\\fonts\\Simple-Line-Iconsb26c.woff2"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\_flaticon.scss",
+      "PackagePath": "staticwebassets\\assets\\fonts\\_flaticon.scss"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\flaticon.css",
+      "PackagePath": "staticwebassets\\assets\\fonts\\flaticon.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\iconsmind.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\iconsmind.eot"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\iconsmind.svg",
+      "PackagePath": "staticwebassets\\assets\\fonts\\iconsmind.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\iconsmind.ttf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\iconsmind.ttf"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\iconsmind.woff",
+      "PackagePath": "staticwebassets\\assets\\fonts\\iconsmind.woff"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\ionicons28b528b5.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\ionicons28b528b5.eot"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\ionicons28b528b5.svg",
+      "PackagePath": "staticwebassets\\assets\\fonts\\ionicons28b528b5.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\ionicons28b528b5.ttf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\ionicons28b528b5.ttf"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\ionicons28b528b5.woff",
+      "PackagePath": "staticwebassets\\assets\\fonts\\ionicons28b528b5.woff"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\fonts\\line-icons.css",
+      "PackagePath": "staticwebassets\\assets\\fonts\\line-icons.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\404-1.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\404-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\404.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\404.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\about.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\about.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\bg\\bg1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\bg\\bg1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\bg\\bg2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\bg\\bg2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\bg\\bg3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\bg\\bg3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\bg\\bg4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\bg\\bg4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\bg\\bg5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\bg\\bg5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\bg\\bg6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\bg\\bg6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\bg\\bg7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\bg\\bg7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\bg\\bg8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\bg\\bg8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog\\blog1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog10.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog\\blog10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog\\blog2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog\\blog3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog\\blog4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog\\blog5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog\\blog6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog\\blog7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog\\blog8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog9.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog\\blog9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\border.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\border.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\cars\\1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\cars\\2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\cars\\3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\cars\\4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\cars\\5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\cars\\6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\cars\\7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\cars\\car.png",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\car.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\clients\\logo-01.png",
+      "PackagePath": "staticwebassets\\assets\\images\\clients\\logo-01.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\clients\\logo-02.png",
+      "PackagePath": "staticwebassets\\assets\\images\\clients\\logo-02.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\clients\\logo-03.png",
+      "PackagePath": "staticwebassets\\assets\\images\\clients\\logo-03.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\clients\\logo-04.png",
+      "PackagePath": "staticwebassets\\assets\\images\\clients\\logo-04.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\close.png",
+      "PackagePath": "staticwebassets\\assets\\images\\close.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\coming-1.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\coming-1.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\coming.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\coming.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\delivery.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\delivery.svg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination10.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination11.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination11.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination12.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination12.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination13.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination13.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination14.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination14.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination15.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination15.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\destination\\destination9.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\destination\\destination9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\dot-overlay.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dot-overlay.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\dummy.png",
+      "PackagePath": "staticwebassets\\assets\\images\\dummy.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\favicon.png",
+      "PackagePath": "staticwebassets\\assets\\images\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\1.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight_grid_2.png",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight_grid_2.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight_grid_3.png",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight_grid_3.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight_grid_4.png",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight_grid_4.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flight_grid_5.png",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flight_grid_5.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\flights\\flightbg.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\flights\\flightbg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\footer-bg1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\footer-bg1.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\insta\\ins-1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\insta\\ins-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\insta\\ins-10.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\insta\\ins-10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\insta\\ins-2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\insta\\ins-2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\insta\\ins-3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\insta\\ins-3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\insta\\ins-4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\insta\\ins-4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\insta\\ins-5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\insta\\ins-5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\insta\\ins-6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\insta\\ins-6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\insta\\ins-7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\insta\\ins-7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\insta\\ins-8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\insta\\ins-8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\insta\\ins-9.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\insta\\ins-9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\loader.gif",
+      "PackagePath": "staticwebassets\\assets\\images\\loader.gif"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\loading.gif",
+      "PackagePath": "staticwebassets\\assets\\images\\loading.gif"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\logo-white.png",
+      "PackagePath": "staticwebassets\\assets\\images\\logo-white.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\logo.png",
+      "PackagePath": "staticwebassets\\assets\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal10.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal11.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal11.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal12.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal12.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\new-deal\\deal9.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\new-deal\\deal9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\next.png",
+      "PackagePath": "staticwebassets\\assets\\images\\next.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\prev.png",
+      "PackagePath": "staticwebassets\\assets\\images\\prev.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\reviewer\\1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\reviewer\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\reviewer\\2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\reviewer\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\reviewer\\3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\reviewer\\3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\reviewer\\4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\reviewer\\4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\reviewer\\5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\reviewer\\5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\reviewer\\6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\reviewer\\6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\grid1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\grid1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\grid2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\grid2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\grid3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\grid3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\grid4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\grid4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\grid5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\grid5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\list1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\list1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\list2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\list2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\list3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\list3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\list4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\list4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\list5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\list5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\list6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\list6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\list7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\list7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\list8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\list8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\rooms\\list9.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\rooms\\list9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\search-angle.png",
+      "PackagePath": "staticwebassets\\assets\\images\\search-angle.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\shop\\shop1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\shop\\shop1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\shop\\shop10.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\shop\\shop10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\shop\\shop2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\shop\\shop2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\shop\\shop3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\shop\\shop3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\shop\\shop4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\shop\\shop4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\shop\\shop5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\shop\\shop5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\shop\\shop6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\shop\\shop6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\shop\\shop7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\shop\\shop7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\shop\\shop8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\shop\\shop8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\shop\\shop9.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\shop\\shop9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\10.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\9.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\streetmap.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\streetmap.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\team\\img1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\team\\img1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\team\\img2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\team\\img2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\team\\img3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\team\\img3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\team\\img4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\team\\img4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\team\\img5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\team\\img5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\testi-shape.png",
+      "PackagePath": "staticwebassets\\assets\\images\\testi-shape.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\testimonial.png",
+      "PackagePath": "staticwebassets\\assets\\images\\testimonial.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\testimonial\\img1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\testimonial\\img1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\testimonial\\img2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\testimonial\\img2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\testimonial\\img3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\testimonial\\img3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\tour.mp4",
+      "PackagePath": "staticwebassets\\assets\\images\\tour.mp4"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trains\\1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trains\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trains\\2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trains\\2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trains\\3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trains\\3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trains\\4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trains\\4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trains\\5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trains\\5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trains\\6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trains\\6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trains\\7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trains\\7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending10.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending11.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending11.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending12.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending12.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending13.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending13.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending14.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending14.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending15.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending15.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending16.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending16.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending17.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending17.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending18.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending18.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending19.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending19.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending21.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending21.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending22.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending22.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending23.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending23.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending24.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending24.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending25.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending25.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending26.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending26.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending9.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\trending9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\user-avatar.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\user-avatar.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\chart.js",
+      "PackagePath": "staticwebassets\\assets\\js\\chart.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-accordian.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-accordian.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-date.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-date.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-nav.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-nav.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-navscroll.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-navscroll.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-particular.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-particular.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-swiper.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-swiper.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-swiper1.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-swiper1.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-swiper2.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-swiper2.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-swiper3.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-swiper3.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-swiper4.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-swiper4.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\custom-swiper5.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom-swiper5.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\dashboard-custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\dashboard-custom.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\dashboard.js",
+      "PackagePath": "staticwebassets\\assets\\js\\dashboard.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\jpanelmenu.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\jpanelmenu.min.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\jquery-3.5.1.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\jquery-3.5.1.min.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\main.js",
+      "PackagePath": "staticwebassets\\assets\\js\\main.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\map.js",
+      "PackagePath": "staticwebassets\\assets\\js\\map.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\particlerun.js",
+      "PackagePath": "staticwebassets\\assets\\js\\particlerun.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\particles.js",
+      "PackagePath": "staticwebassets\\assets\\js\\particles.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\js\\plugin.js",
+      "PackagePath": "staticwebassets\\assets\\js\\plugin.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\scss\\_default.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_default.scss"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\scss\\_variable.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_variable.scss"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\scss\\style.css",
+      "PackagePath": "staticwebassets\\assets\\scss\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\scss\\style.css.map",
+      "PackagePath": "staticwebassets\\assets\\scss\\style.css.map"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\scss\\style.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\style.scss"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.TravelFinalProject.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.TravelFinalProject.props",
+      "PackagePath": "build\\TravelFinalProject.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.TravelFinalProject.props",
+      "PackagePath": "buildMultiTargeting\\TravelFinalProject.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.TravelFinalProject.props",
+      "PackagePath": "buildTransitive\\TravelFinalProject.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
