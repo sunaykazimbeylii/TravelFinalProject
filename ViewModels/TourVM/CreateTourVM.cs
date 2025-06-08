@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TravelFinalProject.Models.Base;
+using TravelFinalProject.Models;
 
-namespace TravelFinalProject.Models
+namespace TravelFinalProject.ViewModels.TourVM
 {
-    public class Tour : BaseEntity
+    public class CreateTourVM
     {
         [Required, StringLength(200)]
         public string Title { get; set; }
@@ -19,11 +19,9 @@ namespace TravelFinalProject.Models
         [Range(0, int.MaxValue)]
         public int Available_seats { get; set; }
         public string Location { get; set; }
-        public string Image { get; set; }
+        public IFormFile Photo { get; set; }
         [Required]
         public int? DestinationId { get; set; }
-        public Destination? Destination { get; set; }
-        public List<Booking>? Bookings { get; set; }
-
+        public List<Destination>? Destinations { get; set; }
     }
 }

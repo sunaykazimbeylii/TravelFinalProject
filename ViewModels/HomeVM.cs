@@ -1,0 +1,12 @@
+﻿using TravelFinalProject.Models;
+
+namespace TravelFinalProject.ViewModels
+{
+    public class HomeVM
+    {
+        public List<Tour> Tours { get; set; }
+        public List<Destination> Destinations { get; set; }
+        public List<Slide> Slides { get; set; }
+        //slide
+    }
+}

@@ -1,0 +1,129 @@
+﻿@using TravelFinalProject.Models
+@using TravelFinalProject.ViewModels.TourVM
+@model CreateTourVM
+<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+    <div class="dashboard-content">
+        <div class="add-listing">
+            <div class="listing-main">
+                <div class="addlist-inner mb-3">
+                    <div class="addlist-title">
+                        <h4 class="m-0"><i class="fa fa-user pr-2"></i>General Information</h4>
+                    </div>
+                    <div class="addlist-content bg-white">
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <label asp-for="Title" class="form-label">Title</label>
+                                            <input asp-for="Title"  placeholder="Title">
+                                            <span asp-validation-for="Title" class="txt txt-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <label asp-for="Description" class="form-label">Description</label>
+                                            <input asp-for="Description" placeholder="Title">
+                                            <span asp-validation-for="Description" class="txt txt-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label asp-for="DestinationId">Select Destination</label>
+                                        <div class="input-box">
+                                            <select asp-for="DestinationId" class="niceSelect">
+                                                <option selected disabled>Choose Category</option>
+
+                                                @foreach(Destination  destination in Model.Destinations)
+                                                {
+                                                <option value="@destination.Id">@destination.Name</option>
+                                                    
+                                                }
+                                            
+                                            </select>
+                                            <span class="text-danger" asp-validation-for="DestinationId"></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <label asp-for="Price" class="form-label">Price</label>
+                                            <input asp-for="Price" placeholder="Title">
+                                            <span asp-validation-for="Price" class="txt txt-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <label asp-for="Duration" class="form-label">Duration</label>
+                                            <input asp-for="Duration" placeholder="Duration">
+                                            <span asp-validation-for="Duration" class="txt txt-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <label asp-for="Start_Date" class="form-label">Start_Date</label>
+                                            <input asp-for="Start_Date" placeholder="Start_Date">
+                                            <span asp-validation-for="Start_Date" class="txt txt-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <div class="input-box">
+                                            <label asp-for="End_Date" class="form-label">End_Date</label>
+                                            <input asp-for="End_Date" placeholder="Start_Date">
+                                            <span asp-validation-for="End_Date" class="txt txt-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <label asp-for="Available_seats" class="form-label"></label>
+                                            <input asp-for="Available_seats" placeholder="Available_seats">
+                                            <span asp-validation-for="Available_seats" class="txt txt-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group mb-0">
+                                        <label>Company Logo</label>
+                                        <div class="input-box">
+                                            <label asp-for="Location" class="form-label"></label>
+                                            <input asp-for="Location" placeholder="Location">
+                                            <span asp-validation-for="Location" class="txt txt-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                    <div class="form-group mb-0">
+                                        <label> Photo</label>
+                                        <div class="input-box">
+                                            <label asp-for="Photo" class="form-label"></label>
+                                            <input asp-for="Photo" placeholder="Photo">
+                                            <span asp-validation-for="Photo" class="txt txt-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+             
+
+                <a href="#" class="nir-btn">Submit Listing</a>
+            </div>
+        </div>
+    </div>
+</div>

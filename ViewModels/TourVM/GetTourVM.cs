@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TravelFinalProject.Models.Base;
+using TravelFinalProject.Models;
 
-namespace TravelFinalProject.Models
+namespace TravelFinalProject.ViewModels
 {
-    public class Tour : BaseEntity
+    public class GetTourVM
     {
+        public int Id { get; set; }
         [Required, StringLength(200)]
         public string Title { get; set; }
         [StringLength(2000)]
@@ -24,6 +25,5 @@ namespace TravelFinalProject.Models
         public int? DestinationId { get; set; }
         public Destination? Destination { get; set; }
         public List<Booking>? Bookings { get; set; }
-
     }
 }

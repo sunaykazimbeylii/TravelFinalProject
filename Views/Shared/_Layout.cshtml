@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
 
 <head>
@@ -202,8 +203,8 @@
                         </div><!-- /.navbar-collapse -->
 
                         <div class="register-login">
-                            <a href="#" class="mr-2" data-toggle="modal" data-target="#register"><i class="icon-user mr-1"></i> Register</a>
-                            <a href="#" data-toggle="modal" data-target="#login"><i class="icon-login mr-1"></i> Login</a>
+                            <a asp-controller="account" asp-action="register" class="mr-2" data-toggle="modal" data-target="#register"><i class="icon-user mr-1"></i> Register</a>
+                            <a asp-action="login" data-toggle="modal" data-target="#login"><i class="icon-login mr-1"></i> Login</a>
                         </div>
 
                         <div id="slicknav-mobile"></div>
@@ -353,7 +354,8 @@
                             <p>Access thousands of online classes in design, business, and more!</p>
                         </div>
                         <div class="login-form text-center">
-                            <form>
+
+                            <form method="post" asp-action="register">
                                 <div class="form-group">
                                     <input type="text" placeholder="Enter Full Name">
                                 </div>
@@ -404,6 +406,7 @@
                             <h3 class="pink">Login</h3>
                         </div>
                         <div class="login-form">
+
                             <form>
                                 <div class="form-group">
                                     <input type="email" placeholder="Enter email address">
