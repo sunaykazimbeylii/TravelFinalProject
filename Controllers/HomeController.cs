@@ -20,6 +20,8 @@ namespace TravelFinalProject.Controllers
             {
                 Tours = await _context.Tours.ToListAsync(),
                 Slides = await _context.Slides.ToListAsync(),
+                DestinationCategories = await _context.DestinationCategories.ToListAsync(),
+                Destinations = await _context.Destinations.ToListAsync()
 
             };
             return View(homeVM);

@@ -12,6 +12,6 @@ namespace TravelFinalProject.DAL
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<Slide> Slides { get; set; }
-        public DbSet<Country> Countries { get; set; }
+        public DbSet<DestinationCategory> DestinationCategories { get; set; }
     }
 }

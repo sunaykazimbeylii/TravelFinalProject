@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TravelFinalProject.Models;
 
 namespace TravelFinalProject.ViewModels
 {
@@ -20,8 +19,6 @@ namespace TravelFinalProject.ViewModels
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
         public int PhoneNumber { get; set; }
-        public List<Country>? Countries { get; set; }
-        public int CountryId { get; set; }
         public DateOnly BirthDate { get; set; }
 
 

@@ -753,6 +753,14 @@
       "PackagePath": "staticwebassets\\assets\\images\\trains\\7.jpg"
     },
     {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\Istanbul.png",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\Istanbul.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\b370060b-f4c0-471b-802d-106d7d71e5fe.png",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\b370060b-f4c0-471b-802d-106d7d71e5fe.png"
+    },
+    {
       "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending1.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\trending\\trending1.jpg"
     },

@@ -1,0 +1,60 @@
+﻿@model List<GetDestinationVM>
+<!-- BreadCrumb Starts -->
+<section class="breadcrumb-main pb-2" style="background-image: url(images/bg/bg8.jpg);">
+    <div class="dot-overlay"></div>
+</section>
+<!-- BreadCrumb Ends -->
+<!-- Dashboard -->
+<div id="dashboard" class="pt-10 pb-10">
+    <div class="container">
+        <div class="dashboard-main">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="dashboard-list-box with-icons">
+                        <div class="dashboard-title">
+                            <h4 class="mb-0">Tour DashBoard</h4>
+                            <a asp-action="create" class="btn btn-success">Create</a>
+
+                        </div>
+                        <div class="table-responsive table-desi">
+                            <table class="basic-table table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Country</th>
+
+                                        <th rowspan="2">Settings</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (GetDestinationVM destinationVM in Model)
+                                    {
+                                        <tr>
+
+                                            <td><img src="~/assets/images//trending/@destinationVM.Image"/></td>
+                                            <td>@destinationVM.Name</td>
+                                            <td>@destinationVM.Description</td>
+                                            <td>@destinationVM.Country</td>
+                                            <td style="display: flex; gap: 10px;">
+
+                                                <a asp-action="delete" asp-route-id="@destinationVM.Id" class="btn"><i class="fa fa-trash-alt text-danger" aria-hidden="true"></i></a>
+                                                <a asp-action="update" asp-route-id="@destinationVM.Id" class="btn">  <i class="fa fa-pencil-square-o text-success" aria-hidden="true"></i></a>
+                                            </td>
+
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content / End -->
+    </div>
+</div>
+<!-- Dashboard / End -->

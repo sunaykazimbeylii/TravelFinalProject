@@ -11,6 +11,9 @@ namespace TravelFinalProject.Models
         public string Description { get; set; }
         public string Country { get; set; }
         public string Image { get; set; }
+        [Required]
+        public int? CategoryId { get; set; }
+        public DestinationCategory? Category { get; set; }
         public List<Tour>? Tours { get; set; }
     }
 }

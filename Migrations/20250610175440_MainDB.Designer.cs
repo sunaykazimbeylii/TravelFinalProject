@@ -12,8 +12,8 @@ using TravelFinalProject.DAL;
 namespace TravelFinalProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250608095637_BookingDestinationTourMainClass")]
-    partial class BookingDestinationTourMainClass
+    [Migration("20250610175440_MainDB")]
+    partial class MainDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -294,6 +294,10 @@ namespace TravelFinalProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -323,7 +327,88 @@ namespace TravelFinalProject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Destinations");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.DestinationCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DestinationCategories");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.Slide", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ButtonText")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ButtonUrl")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subtitle")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Slides");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Tour", b =>
@@ -367,7 +452,8 @@ namespace TravelFinalProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal?>("Price")
+                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateOnly>("Start_Date")
@@ -450,6 +536,17 @@ namespace TravelFinalProject.Migrations
                     b.Navigation("Tour");
                 });
 
+            modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>
+                {
+                    b.HasOne("TravelFinalProject.Models.DestinationCategory", "Category")
+                        .WithMany("Destinations")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("TravelFinalProject.Models.Tour", b =>
                 {
                     b.HasOne("TravelFinalProject.Models.Destination", "Destination")
@@ -464,6 +561,11 @@ namespace TravelFinalProject.Migrations
             modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>
                 {
                     b.Navigation("Tours");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.DestinationCategory", b =>
+                {
+                    b.Navigation("Destinations");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Tour", b =>

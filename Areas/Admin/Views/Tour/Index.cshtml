@@ -11,49 +11,7 @@
         <div class="container">
             <div class="dashboard-main">
                 <div class="row">
-                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                        <div class="dashboard-sidebar">
-                            <div class="profile-sec">
-                                <div class="author-news mb-3">
-                                    <div class="author-news-content text-center p-3">
-                                        <div class="author-thumb mt-0">
-                                            <img src="images/team/img1.jpg" alt="author">
-                                        </div>
-                                        <div class="author-content pt-2 p-0">
-                                            <h3 class="mb-1 white"><a href="#" class="white">Ketty Nelson</a></h3>
-                                            <p class="detail"><i class="fa fa-map-marker"></i> 264, Carson Street USA, KY 40539</p>
-                                            <p class="detail"><i class="fa fa-phone"></i> +45 8547 9851</p>
-                                            <div class="header-social mt-2">
-                                                <ul>
-                                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                                    <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="dot-overlay"></div>
-                                </div>
-                            </div>
-                            <!-- Responsive Navigation Trigger -->
-                            <a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>  
-                            <div class="dashboard-nav">
-                                <div class="dashboard-nav-inner">
-                                    <ul>
-                                        <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
-                                        <li><a href="dashboard-my-profile.html"><i class="sl sl-icon-user"></i> Profile</a></li>                     
-                                        <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
-                                        <li><a href="dashboard-reviews.html"><i class="sl sl-icon-star"></i> Reviews</a></li>
-                                        <li><a href="dashboard-add-new.html"><i class="sl sl-icon-plus"></i> Add listing</a></li>
-                                        <li class="active"><a href="dashboard-list.html"><i class="sl sl-icon-layers"></i> Listing</a></li>
-                                        <li><a href="dashboard-history.html"><i class="fa fa-list-ul"></i>Booking History</a></li>
-                                        <li><a href="login.html"><i class="sl sl-icon-power"></i> Logout</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">    
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">    
                         <div class="dashboard-list-box with-icons">
                             <div class="dashboard-title">
                                 <h4 class="mb-0">Tour DashBoard</h4>
@@ -82,7 +40,7 @@
                                     {
                                         <tr>
                                             <td>
-                                                <span class="list-img"><img src="images/reviewer/@tourVM.Image" alt="" class="w-50"></span>
+                                                <span class="list-img"><img src="~/assets/images/trending/@tourVM.Image" alt="" class="w-50"></span>
                                             </td>
                                             <td>@tourVM.Title</td>
                                             <td>@tourVM.Description</td>
@@ -98,11 +56,11 @@
                                                 @tourVM.Available_seats
                                             </td>
                                             <td>@tourVM.Location</td>
-                                            <td>@tourVM.Destination</td>
-                                            <td>
+                                            <td>@tourVM.Destination.Name</td>
+                                            <td style="display: flex; gap: 10px;">
 
-                                                <a asp-action="delete" asp-route-id="Id" class="btn btn-danger">Delete</a>
-                                                <a asp-action="update" asp-route-id="Id" class="btn btn-primary">Update</a>
+                                                <a asp-action="delete" asp-route-id="@tourVM.Id" class="btn"><i class="fa fa-trash-alt text-danger" aria-hidden="true"></i></a>
+                                                <a asp-action="update" asp-route-id="@tourVM.Id" class="btn">  <i class="fa fa-pencil-square-o text-success" aria-hidden="true"></i></a>
                                             </td>
 
                                         </tr>

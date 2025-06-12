@@ -7,6 +7,7 @@ namespace TravelFinalProject.ViewModels
         public List<Tour> Tours { get; set; }
         public List<Destination> Destinations { get; set; }
         public List<Slide> Slides { get; set; }
+        public List<DestinationCategory> DestinationCategories { get; set; }
         //slide
     }
 }

@@ -283,32 +283,6 @@ namespace TravelFinalProject.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("TravelFinalProject.Models.Country", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdateAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Countries");
-                });
-
             modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>
                 {
                     b.Property<int>("Id")
@@ -316,6 +290,10 @@ namespace TravelFinalProject.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -346,7 +324,36 @@ namespace TravelFinalProject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Destinations");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.DestinationCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DestinationCategories");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Slide", b =>
@@ -442,7 +449,8 @@ namespace TravelFinalProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal?>("Price")
+                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateOnly>("Start_Date")
@@ -525,6 +533,17 @@ namespace TravelFinalProject.Migrations
                     b.Navigation("Tour");
                 });
 
+            modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>
+                {
+                    b.HasOne("TravelFinalProject.Models.DestinationCategory", "Category")
+                        .WithMany("Destinations")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("TravelFinalProject.Models.Tour", b =>
                 {
                     b.HasOne("TravelFinalProject.Models.Destination", "Destination")
@@ -539,6 +558,11 @@ namespace TravelFinalProject.Migrations
             modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>
                 {
                     b.Navigation("Tours");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.DestinationCategory", b =>
+                {
+                    b.Navigation("Destinations");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Tour", b =>
