@@ -11,16 +11,16 @@
                 <div class="col-lg-6 col-md-6 col-xs-12">
                     <div class="form-group">
                         <div class="input-box">
-                       <img style="width:150px; height:100px;" src="~/assets/images/trending/@Model.Image"/>
-                            <input type="hidden" asp-for="Image" class="form-control" />
+                       <img style="width:150px; height:100px;" src="~/assets/images/trending/@Model.PrimaryImage"/>
+                            <input type="hidden" asp-for="PrimaryImage" class="form-control" />
                             
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-box">
-                            <label asp-for="Photo" class="form-label">Photo</label>
-                            <input asp-for="Photo" class="form-control" />
-                            <span asp-validation-for="Photo" class="text-danger"></span>
+                            <label asp-for="MainPhoto" class="form-label">Photo</label>
+                            <input asp-for="MainPhoto" class="form-control" />
+                            <span asp-validation-for="MainPhoto" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -42,6 +42,10 @@
                                 <input asp-for="Country" class="form-control" placeholder="Country" />
                                 <span asp-validation-for="Country" class="text-danger"></span>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Show in Home Page?</label>
+                            <input asp-for="IsFeatured" type="checkbox" />
                         </div>
                     </div>
                 </div>

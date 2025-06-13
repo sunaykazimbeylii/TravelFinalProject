@@ -1,4 +1,5 @@
-﻿@model CreateDestinationVM
+﻿@using TravelFinalProject.Models
+@model CreateDestinationVM
 
 <div class="addlist-inner mb-3">
     <div class="addlist-title">
@@ -11,9 +12,24 @@
                 <div class="col-lg-6 col-md-6 col-xs-12">
                     <div class="form-group">
                         <div class="input-box">
-                            <label asp-for="Photo" class="form-label">Photo</label>
-                            <input asp-for="Photo" class="form-control"/>
-                            <span asp-validation-for="Photo" class="text-danger"></span>
+                            <label asp-for="MainPhoto" class="form-label">Photo</label>
+                            <input asp-for="MainPhoto" class="form-control"/>
+                            <span asp-validation-for="MainPhoto" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-box">
+                            <label asp-for="CategoryId" class="form-label">Destination</label>
+                            <select asp-for="CategoryId" class="form-control niceSelect">
+                                <option selected disabled>Choose Destination</option>
+                            @foreach(DestinationCategory dc in Model.Categories)
+                            {
+
+                                    <option value="@dc.Id">@dc.Name</option>
+                                }
+                            </select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -21,6 +37,20 @@
                             <label asp-for="Name" class="form-label">Name</label>
                             <input asp-for="Name" class="form-control" placeholder="Name" />
                             <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-box">
+                            <label asp-for="Address" class="form-label">Address</label>
+                            <input asp-for="Address" class="form-control" placeholder="Address" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-box">
+                            <label asp-for="City" class="form-label">City</label>
+                            <input asp-for="City" class="form-control" placeholder="City" />
+                            <span asp-validation-for="City" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -35,6 +65,10 @@
                                 <input asp-for="Country" class="form-control" placeholder="Country" />
                                 <span asp-validation-for="Country" class="text-danger"></span>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Show in Home Page?</label>
+                            <input asp-for="IsFeatured" type="checkbox" />
                         </div>
                     </div>
                 </div>

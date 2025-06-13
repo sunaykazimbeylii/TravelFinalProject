@@ -10,9 +10,18 @@ namespace TravelFinalProject.Models
         [StringLength(1000)]
         public string Description { get; set; }
         public string Country { get; set; }
-        public string Image { get; set; }
         [Required]
         public int? CategoryId { get; set; }
+        public bool IsFeatured { get; set; }
+        [Required]
+        public decimal? Price { get; set; }
+        [StringLength(100)]
+        public string City { get; set; }
+
+        [StringLength(200)]
+        public string Address { get; set; }
+        public List<DestinationImage>? DestinationImages { get; set; }
+
         public DestinationCategory? Category { get; set; }
         public List<Tour>? Tours { get; set; }
     }

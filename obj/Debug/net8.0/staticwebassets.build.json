@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DkK79FGcOxXKXGNAeJxVFgltTd/Vm6m4ZIPN9G42TGs=",
+  "Hash": "ox747tO4wlwEiyf8So7Mw3ICxO5jdgS3oNqix1s9cLc=",
   "Source": "TravelFinalProject",
   "BasePath": "_content/TravelFinalProject",
   "Mode": "Default",
@@ -3589,6 +3589,25 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\trains\\7.jpg"
     },
     {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\4d2bf006-2f38-449c-b0bf-5622676c41ae.png",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/trending/4d2bf006-2f38-449c-b0bf-5622676c41ae.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\4d2bf006-2f38-449c-b0bf-5622676c41ae.png"
+    },
+    {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\b370060b-f4c0-471b-802d-106d7d71e5fe.png",
       "SourceId": "TravelFinalProject",
       "SourceType": "Discovered",
@@ -3606,6 +3625,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\b370060b-f4c0-471b-802d-106d7d71e5fe.png"
+    },
+    {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\bafea1cb-f1dd-45b6-a4d7-edd7db17e88f.png",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/trending/bafea1cb-f1dd-45b6-a4d7-edd7db17e88f.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\bafea1cb-f1dd-45b6-a4d7-edd7db17e88f.png"
     },
     {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\Istanbul.png",

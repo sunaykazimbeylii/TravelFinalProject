@@ -291,9 +291,19 @@ namespace TravelFinalProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<int?>("CategoryId")
                         .IsRequired()
                         .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -307,17 +317,20 @@ namespace TravelFinalProject.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFeatured")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal?>("Price")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
@@ -354,6 +367,40 @@ namespace TravelFinalProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DestinationCategories");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.DestinationImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DestinationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsPrimary")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DestinationId");
+
+                    b.ToTable("DestinationImages");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Slide", b =>
@@ -544,6 +591,17 @@ namespace TravelFinalProject.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("TravelFinalProject.Models.DestinationImage", b =>
+                {
+                    b.HasOne("TravelFinalProject.Models.Destination", "Destination")
+                        .WithMany("DestinationImages")
+                        .HasForeignKey("DestinationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Destination");
+                });
+
             modelBuilder.Entity("TravelFinalProject.Models.Tour", b =>
                 {
                     b.HasOne("TravelFinalProject.Models.Destination", "Destination")
@@ -557,6 +615,8 @@ namespace TravelFinalProject.Migrations
 
             modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>
                 {
+                    b.Navigation("DestinationImages");
+
                     b.Navigation("Tours");
                 });
 

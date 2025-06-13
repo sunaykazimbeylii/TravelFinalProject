@@ -21,10 +21,28 @@ namespace TravelFinalProject.Controllers
                 Tours = await _context.Tours.ToListAsync(),
                 Slides = await _context.Slides.ToListAsync(),
                 DestinationCategories = await _context.DestinationCategories.ToListAsync(),
-                Destinations = await _context.Destinations.ToListAsync()
+                Destinations = await _context.Destinations.Where(d => d.IsFeatured == true).ToListAsync()
 
             };
             return View(homeVM);
+        }
+
+
+        public async Task<IActionResult> DestinationDetails(int? id)
+        {
+            if (id is null || id < 1) return BadRequest();
+            var destination = await _context.Destinations
+                .Include(d => d.Category)
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (destination == null) return NotFound();
+            DestinationDetailVM detailVM = new DestinationDetailVM
+            {
+                Destination = destination,
+                RelatedDestinations = await _context.Destinations.Where(d => d.CategoryId == destination.Id && d.Id != destination.Id).Include(d => d.DestinationImages).ToListAsync(),
+
+            };
+            return View(detailVM);
         }
     }
 }

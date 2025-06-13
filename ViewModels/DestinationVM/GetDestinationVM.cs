@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TravelFinalProject.Models;
 
 namespace TravelFinalProject.ViewModels
 {
@@ -11,7 +10,13 @@ namespace TravelFinalProject.ViewModels
         [StringLength(1000)]
         public string Description { get; set; }
         public string Country { get; set; }
-        public string Image { get; set; }
-        public List<Tour>? Tours { get; set; }
+        public string MainImage { get; set; }
+        public string City { get; set; }
+
+        [StringLength(200)]
+        public string Address { get; set; }
+        public bool IsFeatured { get; set; }
+        public string CategoryName { get; set; }
+        //public List<Tour>? Tours { get; set; }
     }
 }

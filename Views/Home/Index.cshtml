@@ -454,11 +454,11 @@
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="trend-item">
                                     <div class="trend-image">
-                                        <img src="~/assets/images/trending/@destination.Image" alt="image">
+                                        <img src="~/assets/images/trending/@destination.DestinationImages.FirstOrDefault(di=>di.IsPrimary==true).Image" alt="image">
                                     </div>
                                     <div class="trend-content-main">
                                         <div class="trend-content">
-                                            <div class="rating-main d-flex align-items-center pb-1">
+                                            <div  class="rating-main d-flex align-items-center pb-1">
                                                 <div class="rating">
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
@@ -468,8 +468,8 @@
                                                 </div>
                                                 <span class="ml-2">38 Reviews</span>
                                             </div>
-                                            <h4><a href="#">Nepal Special Tour</a></h4>
-                                            <p class="mb-0"><i class="fa fa-eye mr-1"></i> @destination.Name <i class="fa fa-map-marker mr-1 ml-3"></i>@destination.Country</p>
+                                            <h4><a asp-action="destinationdetail" asp-route-id="@destination.Id">@destination.Name</a></h4>
+                                            <p  class="mb-0"><i class="fa fa-eye mr-1"></i><i class="fa fa-map-marker mr-1 ml-3"></i>@destination.Country</p>
                                         </div>
                                         <div class="trend-last-main">
                                             <p class="mb-0 trend-para">@destination.Description</p>
