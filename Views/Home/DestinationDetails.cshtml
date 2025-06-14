@@ -1,4 +1,5 @@
-﻿@using TravelFinalProject.ViewModels
+﻿@using TravelFinalProject.Models
+@using TravelFinalProject.ViewModels
 @model DestinationDetailVM
     <!-- BreadCrumb Starts -->  
     <section class="breadcrumb-main pb-0" style="background-image: url(images/bg/bg8.jpg);">
@@ -28,9 +29,9 @@
                     <div class="single-content">
                         <div class="single-full-title border-b mb-2 pb-2">
                             <div class="single-title">
-                                <h3 class="mb-1">Adriatic Adventure–Zagreb to Athens</h3>
+                                <h3 class="mb-1">@Model.Destination.Name</h3>
                                 <div class="rating-main d-sm-flex align-items-center">
-                                    <p class="mb-0 mr-2"><i class="flaticon-location-pin"></i> Greater London, United Kingdom</p>
+                                <p class="mb-0 mr-2"><i class="flaticon-location-pin"></i>  @Model.Destination.City, @Model.Destination.Country</p>
                                     <div class="rating mr-2">
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
@@ -45,69 +46,55 @@
                         <div class="description-images mb-4">
                             <div class="thumbnail-images">
                                 <div class="slider-store">
+                                @foreach(DestinationImage image in Model.Destination.DestinationImages)
+                                {
                                     <div>
-                                       <img src="images/slider/1.jpg" alt="1">
+                                       <img src="~/assets/images/trending/@image.Image" alt="1">
                                     </div>
-                                    <div>
-                                        <img src="images/slider/2.jpg" alt="1">
-                                    </div>
-                                    <div>
-                                        <img src="images/slider/3.jpg" alt="1">
-                                    </div>
-                                    <div>
-                                        <img src="images/slider/7.jpg" alt="1">
-                                    </div>
-                                    <div>
-                                        <img src="images/slider/8.jpg" alt="1">
-                                    </div> 
-                                    <div>
-                                        <img src="images/slider/2.jpg" alt="1">
-                                    </div>   
+                                    
+                                }
+                           
+                                    
                                 </div>
                                 <div class="slider-thumbs">
+                                @foreach (DestinationImage image in Model.Destination.DestinationImages)
+                                {
                                     <div>
-                                       <img src="images/slider/1.jpg" alt="1">
+                                        <img src="~/assets/images/trending/@image.Image" alt="1">
                                     </div>
-                                    <div>
-                                        <img src="images/slider/2.jpg" alt="1">
-                                    </div>
-                                    <div>
-                                        <img src="images/slider/3.jpg" alt="1">
-                                    </div>
-                                    <div>
-                                        <img src="images/slider/7.jpg" alt="1">
-                                    </div>
-                                    <div>
-                                        <img src="images/slider/8.jpg" alt="1">
-                                    </div>  
-                                    <div>
-                                        <img src="images/slider/2.jpg" alt="1">
-                                    </div> 
-                                </div>
+
+                                }
+
+                            </div>
                             </div>
                         </div>
 
-                        <div class="tour-includes mb-4">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td><i class="fa fa-clock-o pink mr-1" aria-hidden="true"></i></td>
-                                        <td><i class="fa fa-group pink mr-1" aria-hidden="true"></i> Max People : 26</td>
-                                        <td><i class="fa fa-calendar pink mr-1" aria-hidden="true"></i> Jan 18 - Dec 21</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa fa-user pink mr-1" aria-hidden="true"></i> Min Age : 10+</td>
-                                        <td><i class="fa fa-map-signs pink mr-1" aria-hidden="true"></i> Pickup : Airport</td>
-                                        <td><i class="fa fa-file-alt pink mr-1" aria-hidden="true"></i> Langauge - English, Thai</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
+                    @foreach (Tour tour in Model.Destination.Tours)
+                    {
+                    <div class="tour-includes mb-4">
+                        <h5>@tour.Title</h5>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td><i class="fa fa-clock-o pink mr-1" aria-hidden="true"></i> @tour.Duration</td>
+                                    <td><i class="fa fa-group pink mr-1" aria-hidden="true"></i> Max People: @tour.Available_seats</td>
+                                    <td>
+                                        <i class="fa fa-calendar pink mr-1" aria-hidden="true"></i>
+                                        @tour.Start_Date.ToString("MMM dd") - @tour.End_Date.ToString("MMM dd")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-user pink mr-1" aria-hidden="true"></i> Min Age: 10+</td>
+                                    <td><i class="fa fa-map-signs pink mr-1" aria-hidden="true"></i> Pickup: Airport</td>
+                                    <td><i class="fa fa-file-alt pink mr-1" aria-hidden="true"></i> Language: English</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    }
                         <div class="description mb-2">
                             <h4>Description</h4>
-                            <p>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.</p>
-                            <p class="mb-0">The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.</p>
+                            <p>@Model.Destination.Description</p>
                         </div>
 
                         <div class="description mb-2">
@@ -477,10 +464,12 @@
             </div>  
             <div class="trend-box">
                 <div class="row team-slider">
+                @foreach(Destination destination in Model.RelatedDestinations)
+                {
                     <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
                         <div class="trend-item">
                             <div class="trend-image">
-                                <img src="images/trending/trending1.jpg" alt="image">
+                                <img src="~/assets/images/trending/@destination.DestinationImages.FirstOrDefault(di=>di.IsPrimary==true).Image" alt="image">
                                 <div class="trend-tags">
                                     <a href="#"><i class="flaticon-like"></i></a>
                                 </div>
@@ -501,122 +490,20 @@
                                     </div>
                                 </div>
                                 <div class="trend-last-main">
-                                    <p class="mb-0 trend-para">A wonderful little cottage right on the seashore - perfect for exploring.</p>
+                                    <p class="mb-0 trend-para">@destination.Description</p>
                                     <div class="trend-last d-flex align-items-center justify-content-between">
                                         <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
                                         <div class="trend-price">
-                                            <p class="price white mb-0">From <span>$350.00</span></p>
+                                            <p class="price white mb-0">From <span>$@destination.Price</span></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
-                        <div class="trend-item">
-                            <div class="trend-image">
-                                <img src="images/trending/trending2.jpg" alt="image">
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                            </div>
-                            <div class="trend-content-main">
-                                <div class="trend-content">
-                                    <h6 class="font-weight-normal"><i class="fa fa-map-marker-alt"></i> Germany</h6>
-                                    <h4><a href="#">Bosphorus and Black Sea Cruise from Istanbul</a></h4>
-                                    <div class="rating-main d-flex align-items-center">
-                                        <div class="rating">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <span class="ml-2">38 Reviews</span>
-                                    </div>
-                                </div>
-                                <div class="trend-last-main">
-                                    <p class="mb-0 trend-para">A wonderful little cottage right on the seashore - perfect for exploring.</p>
-                                    <div class="trend-last d-flex align-items-center justify-content-between">
-                                        <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                                        <div class="trend-price">
-                                            <p class="price white mb-0">From <span>$350.00</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
-                        <div class="trend-item">
-                            <div class="trend-image">
-                                <img src="images/trending/trending3.jpg" alt="image">
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                            </div>
-                            <div class="trend-content-main">
-                                <div class="trend-content">
-                                    <h6 class="font-weight-normal"><i class="fa fa-map-marker-alt"></i> Denmark</h6>
-                                    <h4><a href="#">NYC One World Observatory Skip-the-Line Ticket</a></h4>
-                                    <div class="rating-main d-flex align-items-center">
-                                        <div class="rating">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <span class="ml-2">38 Reviews</span>
-                                    </div>
-                                </div>
-                                <div class="trend-last-main">
-                                    <p class="mb-0 trend-para">A wonderful little cottage right on the seashore - perfect for exploring.</p>
-                                    <div class="trend-last d-flex align-items-center justify-content-between">
-                                        <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                                        <div class="trend-price">
-                                            <p class="price white mb-0">From <span>$350.00</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
-                        <div class="trend-item">
-                            <div class="trend-image">
-                                <img src="images/trending/trending4.jpg" alt="image">
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                            </div>
-                            <div class="trend-content-main">
-                                <div class="trend-content">
-                                    <h6 class="font-weight-normal"><i class="fa fa-map-marker-alt"></i> Japan</h6>
-                                    <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-                                    <div class="rating-main d-flex align-items-center">
-                                        <div class="rating">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <span class="ml-2">38 Reviews</span>
-                                    </div>
-                                </div>
-                                <div class="trend-last-main">
-                                    <p class="mb-0 trend-para">A wonderful little cottage right on the seashore - perfect for exploring.</p>
-                                    <div class="trend-last d-flex align-items-center justify-content-between">
-                                        <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                                        <div class="trend-price">
-                                            <p class="price white mb-0">From <span>$350.00</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                }
+             
+                    
                 </div>
             </div>    
         </div>

@@ -10,7 +10,7 @@
                 @foreach(Slide slide in Model.Slides){
                     <div class="swiper-slide">
                         <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(images/slider/@slide.ImageUrl)"></div>
+                            <div class="slide-image" style="background-image:url(~/assets/images/slider/@slide.ImageUrl)"></div>
                             <div class="swiper-content container">
                                 <h4 class="blue">@slide.Subtitle</h4>
                                 <h1 class="white mb-4">@slide.Title</h1>
@@ -468,7 +468,7 @@
                                                 </div>
                                                 <span class="ml-2">38 Reviews</span>
                                             </div>
-                                            <h4><a asp-action="destinationdetail" asp-route-id="@destination.Id">@destination.Name</a></h4>
+                                            <h4><a asp-action="DestinationDetails" asp-route-id="@destination.Id">@destination.Name</a></h4>
                                             <p  class="mb-0"><i class="fa fa-eye mr-1"></i><i class="fa fa-map-marker mr-1 ml-3"></i>@destination.Country</p>
                                         </div>
                                         <div class="trend-last-main">

@@ -21,7 +21,8 @@ namespace TravelFinalProject.Controllers
                 Tours = await _context.Tours.ToListAsync(),
                 Slides = await _context.Slides.ToListAsync(),
                 DestinationCategories = await _context.DestinationCategories.ToListAsync(),
-                Destinations = await _context.Destinations.Where(d => d.IsFeatured == true).ToListAsync()
+                DestinationImages = await _context.DestinationImages.ToListAsync(),
+                Destinations = await _context.Destinations.Where(d => d.IsFeatured == true).ToListAsync(),
 
             };
             return View(homeVM);
@@ -33,13 +34,18 @@ namespace TravelFinalProject.Controllers
             if (id is null || id < 1) return BadRequest();
             var destination = await _context.Destinations
                 .Include(d => d.Category)
+                .Include(d => d.DestinationImages)
+                .Include(d => d.Tours)
                 .FirstOrDefaultAsync(d => d.Id == id);
 
             if (destination == null) return NotFound();
             DestinationDetailVM detailVM = new DestinationDetailVM
             {
                 Destination = destination,
-                RelatedDestinations = await _context.Destinations.Where(d => d.CategoryId == destination.Id && d.Id != destination.Id).Include(d => d.DestinationImages).ToListAsync(),
+                RelatedDestinations = await _context.Destinations
+                .Where(d => d.CategoryId == destination.CategoryId && d.Id != destination.Id)
+                .Include(d => d.DestinationImages)
+                .ToListAsync(),
 
             };
             return View(detailVM);

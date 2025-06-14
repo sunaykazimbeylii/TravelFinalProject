@@ -203,8 +203,28 @@
                         </div><!-- /.navbar-collapse -->
 
                         <div class="register-login">
-                            <a asp-controller="account" asp-action="register" class="mr-2" data-toggle="modal" data-target="#register"><i class="icon-user mr-1"></i> Register</a>
-                            <a asp-action="login" data-toggle="modal" data-target="#login"><i class="icon-login mr-1"></i> Login</a>
+                            <ul>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>
+                                    <a href="my-account.html">@User.Identity.Name</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Account" asp-action="Logout"> Log out</a>
+                                </li>
+                            }
+                            else
+                            {
+
+                                <li>
+                                        <a class="mr-2"  asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path.Value"><i class="icon-login mr-1"></i>Log in</a>
+                                </li>
+                                <li>
+                                    <a class="mr-2" asp-controller="Account" asp-action="Register"><i class="icon-user mr-1"></i>Register</a>
+                                </li>
+                                }
+                            </ul>
+                        
                         </div>
 
                         <div id="slicknav-mobile"></div>
@@ -339,7 +359,7 @@
     </div>
     <!-- Back to top ends -->
     <!-- Register Modal -->
-    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-hidden="true">
+@*     <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bordernone p-0">
@@ -355,20 +375,38 @@
                         </div>
                         <div class="login-form text-center">
 
-                            <form method="post" asp-action="register">
+                            <form id="registerForm" asp-controller="Account" asp-action="Register" method="post">
                                 <div class="form-group">
-                                    <input type="text" placeholder="Enter Full Name">
+                                    <input asp-for="@Model.Register.Name" class="form-control" placeholder="Enter Full Name" />
+                                    <span asp-validation-for="@Model.Register.Name" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" placeholder="Enter email address">
+                                    <input asp-for="@Model.Register.Surname" class="form-control" placeholder="Enter Surname" />
+                                    <span asp-validation-for="@Model.Register.Surname" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" placeholder="Enter password">
+                                    <input asp-for="@Model.Register.UserName" class="form-control" placeholder="Enter Username" />
+                                    <span asp-validation-for="@Model.Register.UserName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" placeholder="Confirm password">
+                                    <input asp-for="@Model.Register.Email" class="form-control" placeholder="Enter Email" />
+                                    <span asp-validation-for="@Model.Register.Email" class="text-danger"></span>
                                 </div>
+                                <div class="form-group">
+                                    <input asp-for="@Model.Register.Password" class="form-control" placeholder="Enter Password" type="password" />
+                                    <span asp-validation-for="@Model.Register.Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="@Model.Register.ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password" />
+                                    <span asp-validation-for="@Model.Register.ConfirmPassword" class="text-danger"></span>
+                                </div>
+                                <div class="form-btn">
+                                    <button type="submit" class="nir-btn">Register</button>
+                                </div>
+                                <div id="registerError" class="text-danger mt-2"></div>
                             </form>
+
+
                             <div class="form-btn">
                                 <a href="#" class="nir-btn">Register</a>
                             </div>
@@ -389,10 +427,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> *@
 
     <!-- login Modal -->
-    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
+@*    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bordernone p-0">
@@ -407,14 +445,26 @@
                         </div>
                         <div class="login-form">
 
-                            <form>
+                            <form id="loginForm" asp-controller="Account" asp-action="Login" method="post">
                                 <div class="form-group">
-                                    <input type="email" placeholder="Enter email address">
+                                    <input asp-for="@Model.Login.UserNameOrEmail" class="form-control" placeholder="Enter Username or Email" />
+                                    <span asp-validation-for="@Model.Login.UserNameOrEmail" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" placeholder="Enter password">
+                                    <input asp-for="@Model.Login.Password" class="form-control" placeholder="Enter Password" type="password" />
+                                    <span asp-validation-for="@Model.Login.Password" class="text-danger"></span>
                                 </div>
+                                <div class="form-group form-check">
+                                    <input asp-for="@Model.Login.IsPersistent" class="form-check-input" />
+                                    <label asp-for="@Model.Login.IsPersistent" class="form-check-label">Remember Me</label>
+                                </div>
+                                <div class="form-btn">
+                                    <button type="submit" class="nir-btn">Login</button>
+                                </div>
+                                <div id="loginError" class="text-danger mt-2"></div>
                             </form>
+
+
                             <div class="form-btn">
                                 <a href="#" class="nir-btn">LOGIN</a>
                             </div>
@@ -434,7 +484,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> *@
 
     <!-- header side menu -->
     <div class="header_sidemenu">

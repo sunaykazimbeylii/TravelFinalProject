@@ -14,6 +14,8 @@ namespace TravelFinalProject.ViewModels
         public string Country { get; set; }
         public IFormFile MainPhoto { get; set; }
         public string City { get; set; }
+        [Required]
+        public decimal? Price { get; set; }
 
         [StringLength(200)]
         public string Address { get; set; }

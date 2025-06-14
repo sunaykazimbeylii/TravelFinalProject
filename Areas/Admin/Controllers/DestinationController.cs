@@ -29,6 +29,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 City = d.City,
                 Country = d.Country,
                 CategoryName = d.Category.Name,
+                Price = d.Price,
                 MainImage = d.DestinationImages.FirstOrDefault(di => di.IsPrimary == true).Image,
 
             }).ToListAsync();
@@ -81,6 +82,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 Description = destinationVM.Description,
                 Country = destinationVM.Country,
                 City = destinationVM.City,
+                Price = destinationVM.Price,
                 Address = destinationVM.Address,
 
                 CategoryId = destinationVM.CategoryId,
@@ -110,6 +112,9 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 Description = destination.Description,
                 Country = destination.Country,
                 CategoryId = destination.CategoryId,
+                Address = destination.Address,
+                City = destination.City,
+                Price = destination.Price,
                 IsFeatured = destination.IsFeatured,
                 PrimaryImage = destination.DestinationImages.FirstOrDefault(pi => pi.IsPrimary == true).Image,
                 Categories = await _context.DestinationCategories.ToListAsync()
@@ -172,6 +177,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             existed.Name = destinationVM.Name;
             existed.Description = destinationVM.Description;
             existed.Country = destinationVM.Country;
+            existed.Price = destinationVM.Price;
             existed.Address = destinationVM.Address;
             existed.City = destinationVM.City;
 

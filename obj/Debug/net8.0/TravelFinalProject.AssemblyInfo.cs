@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TravelFinalProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e70ce5109972eb3c0640938f41c2a94ddd29e7d5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+560b7c28736f8eb3b06fe6f882c984e69013873d")]
 [assembly: System.Reflection.AssemblyProductAttribute("TravelFinalProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TravelFinalProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
