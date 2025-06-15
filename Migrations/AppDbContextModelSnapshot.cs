@@ -177,8 +177,8 @@ namespace TravelFinalProject.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly?>("DateOfBirth")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -276,11 +276,75 @@ namespace TravelFinalProject.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TourId");
 
+                    b.HasIndex("UserId1");
+
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.BookingTraveller", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Nationality")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassportNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
+
+                    b.ToTable("BookingTravellers");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>
@@ -485,10 +549,6 @@ namespace TravelFinalProject.Migrations
                     b.Property<DateOnly>("End_Date")
                         .HasColumnType("date");
 
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -516,6 +576,40 @@ namespace TravelFinalProject.Migrations
                     b.HasIndex("DestinationId");
 
                     b.ToTable("Tours");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.TourImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsPrimary")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TourId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TourId");
+
+                    b.ToTable("TourImages");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -577,7 +671,24 @@ namespace TravelFinalProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TravelFinalProject.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("Tour");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.BookingTraveller", b =>
+                {
+                    b.HasOne("TravelFinalProject.Models.Booking", "Booking")
+                        .WithMany()
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>
@@ -613,6 +724,17 @@ namespace TravelFinalProject.Migrations
                     b.Navigation("Destination");
                 });
 
+            modelBuilder.Entity("TravelFinalProject.Models.TourImage", b =>
+                {
+                    b.HasOne("TravelFinalProject.Models.Tour", "Tour")
+                        .WithMany("TourImages")
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tour");
+                });
+
             modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>
                 {
                     b.Navigation("DestinationImages");
@@ -628,6 +750,8 @@ namespace TravelFinalProject.Migrations
             modelBuilder.Entity("TravelFinalProject.Models.Tour", b =>
                 {
                     b.Navigation("Bookings");
+
+                    b.Navigation("TourImages");
                 });
 #pragma warning restore 612, 618
         }

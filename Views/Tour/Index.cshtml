@@ -41,16 +41,20 @@
                             </div>
                         </div>
                     </div>
-                    @foreach (var tour in Model)
+                    @foreach (Tour tour in Model)
                     {
                         <div class="blog-full d-flex justify-content-around mb-4">
                             <div class="row w-100">
                                 <div class="col-lg-5 col-md-4 col-xs-12 blog-height">
                                     <div class="blog-image">
-                                        <a href="@Url.Action("Details", "Tour", new { id = tour.Id })"
-                                           style="background-image: url(@tour.Image);">
-                                        </a>
+                                        <div class="blog-image">
+                                            <a href="@Url.Action("Details", "Tour", new { id = tour?.Id })"
+                                               style="background-image: url('@Url.Content("~/assets/images/trending/" + (tour.TourImages?.FirstOrDefault(ti => ti.IsPrimary == true)?.Image ?? "default.jpg"))');">
+                                            </a>
+                                        </div>
+
                                     </div>
+
                                 </div>
                                 <div class="col-lg-7 col-md-8 col-xs-12">
                                     <div class="blog-content p-0">

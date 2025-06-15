@@ -18,8 +18,12 @@ namespace TravelFinalProject.ViewModels
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public DateOnly BirthDate { get; set; }
+        public string Country { get; set; }
+
+        [StringLength(100)]
+        public string City { get; set; }
 
 
     }

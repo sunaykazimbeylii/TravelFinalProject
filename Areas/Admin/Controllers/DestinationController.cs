@@ -50,6 +50,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateDestinationVM destinationVM)
         {
+            destinationVM.Categories = await _context.DestinationCategories.ToListAsync();
             if (!ModelState.IsValid) return View(destinationVM);
 
 

@@ -14,6 +14,6 @@ namespace TravelFinalProject.Models
         public string City { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime? DateOfBirth { get; set; }
+        public DateOnly? DateOfBirth { get; set; }
     }
 }

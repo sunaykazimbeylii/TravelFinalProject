@@ -14,19 +14,32 @@ namespace TravelFinalProject.Controllers
             _context = context;
 
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? categoryId)
         {
+            var destinationsQuery = _context.Destinations
+        .Include(d => d.Category)
+        .Where(d => d.IsFeatured == true)
+        .AsQueryable();
+
+            if (categoryId.HasValue && categoryId.Value > 0)
+            {
+                destinationsQuery = destinationsQuery.Where(d => d.CategoryId == categoryId);
+            }
+            var destinations = await destinationsQuery.ToListAsync();
             HomeVM homeVM = new HomeVM
             {
                 Tours = await _context.Tours.ToListAsync(),
                 Slides = await _context.Slides.ToListAsync(),
                 DestinationCategories = await _context.DestinationCategories.ToListAsync(),
                 DestinationImages = await _context.DestinationImages.ToListAsync(),
-                Destinations = await _context.Destinations.Where(d => d.IsFeatured == true).ToListAsync(),
+                //Destinations = await _context.Destinations.Where(d => d.IsFeatured == true).ToListAsync(),
+                Destinations = destinations,
+                CurrentCategoryId = categoryId
 
             };
             return View(homeVM);
         }
+
 
 
         public async Task<IActionResult> DestinationDetails(int? id)

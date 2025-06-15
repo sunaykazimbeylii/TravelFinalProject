@@ -98,6 +98,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/user/source/repos/TravelFinalProject/Views/Booking/Book.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ1xCb29rLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/user/source/repos/TravelFinalProject/Views/Home/DestinationDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXN0aW5hdGlvbkRldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -112,6 +116,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/user/source/repos/TravelFinalProject/Views/Tour/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG91clxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/source/repos/TravelFinalProject/Views/Tour/TourDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG91clxUb3VyRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/user/source/repos/TravelFinalProject/Views/_ViewImports.cshtml]

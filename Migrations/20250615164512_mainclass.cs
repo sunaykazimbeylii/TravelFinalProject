@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace TravelFinalProject.Migrations
 {
     /// <inheritdoc />
-    public partial class NewChange : Migration
+    public partial class mainclass : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +33,7 @@ namespace TravelFinalProject.Migrations
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -266,7 +265,6 @@ namespace TravelFinalProject.Migrations
                     End_Date = table.Column<DateOnly>(type: "date", nullable: false),
                     Available_seats = table.Column<int>(type: "int", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DestinationId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -295,6 +293,7 @@ namespace TravelFinalProject.Migrations
                     GuestsCount = table.Column<int>(type: "int", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -303,9 +302,68 @@ namespace TravelFinalProject.Migrations
                 {
                     table.PrimaryKey("PK_Bookings", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Bookings_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Bookings_Tours_TourId",
                         column: x => x.TourId,
                         principalTable: "Tours",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TourImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsPrimary = table.Column<bool>(type: "bit", nullable: true),
+                    TourId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TourImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TourImages_Tours_TourId",
+                        column: x => x.TourId,
+                        principalTable: "Tours",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BookingTravellers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookingId = table.Column<int>(type: "int", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DateOfBirth = table.Column<DateOnly>(type: "date", nullable: false),
+                    Nationality = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PassportNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingTravellers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BookingTravellers_Bookings_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Bookings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -355,6 +413,16 @@ namespace TravelFinalProject.Migrations
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_UserId1",
+                table: "Bookings",
+                column: "UserId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookingTravellers_BookingId",
+                table: "BookingTravellers",
+                column: "BookingId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DestinationImages_DestinationId",
                 table: "DestinationImages",
                 column: "DestinationId");
@@ -363,6 +431,11 @@ namespace TravelFinalProject.Migrations
                 name: "IX_Destinations_CategoryId",
                 table: "Destinations",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TourImages_TourId",
+                table: "TourImages",
+                column: "TourId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tours_DestinationId",
@@ -389,7 +462,7 @@ namespace TravelFinalProject.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Bookings");
+                name: "BookingTravellers");
 
             migrationBuilder.DropTable(
                 name: "DestinationImages");
@@ -398,7 +471,13 @@ namespace TravelFinalProject.Migrations
                 name: "Slides");
 
             migrationBuilder.DropTable(
+                name: "TourImages");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Bookings");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

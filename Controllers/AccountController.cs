@@ -41,7 +41,12 @@ namespace TravelFinalProject.Controllers
                 Name = registerVM.Name,
                 Surname = registerVM.Surname,
                 UserName = registerVM.UserName,
-                Email = registerVM.Email
+                Email = registerVM.Email,
+                City = registerVM.City,
+                Country = registerVM.Country,
+                DateOfBirth = registerVM.BirthDate,
+                PhoneNumber = registerVM.PhoneNumber
+
             };
             IdentityResult result = await _userManager.CreateAsync(user, registerVM.Password);
             if (!result.Succeeded)

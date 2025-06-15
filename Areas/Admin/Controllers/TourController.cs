@@ -32,7 +32,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 Duration = t.Duration,
                 Start_Date = t.Start_Date,
                 End_Date = t.End_Date,
-                Image = t.Image,
+                Image = t.TourImages.FirstOrDefault(ti => ti.IsPrimary == true).Image,
                 Available_seats = t.Available_seats,
                 Location = t.Location
 
@@ -44,7 +44,8 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         {
             CreateTourVM tourVM = new CreateTourVM
             {
-                Destinations = await _context.Destinations.ToListAsync()
+                Destinations = await _context.Destinations.ToListAsync(),
+
             };
             return View(tourVM);
         }
@@ -110,7 +111,13 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Another tour is already planned for this date and location.");
                 return View(tourVM);
             }
-            string fileName = await tourVM.Photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "trending");
+
+            TourImage main = new TourImage
+            {
+                Image = await tourVM.Photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "trending"),
+                IsPrimary = true,
+                CreatedAt = DateTime.Now
+            };
             Tour tour = new Tour
             {
                 Title = tourVM.Title,
@@ -121,11 +128,12 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 End_Date = tourVM.End_Date,
                 Available_seats = tourVM.Available_seats.Value,
                 Location = tourVM.Location,
-                Image = fileName,
+                TourImages = new List<TourImage>(),
                 DestinationId = tourVM.DestinationId,
                 CreatedAt = DateTime.Now
 
             };
+            tour.TourImages.Add(main);
             await _context.Tours.AddAsync(tour);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -146,7 +154,8 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 Available_seats = tour.Available_seats,
                 Location = tour.Location,
                 DestinationId = tour.DestinationId,
-                Destinations = await _context.Destinations.ToListAsync()
+                Destinations = await _context.Destinations.ToListAsync(),
+                Image = tour.TourImages.FirstOrDefault(pi => pi.IsPrimary == true).Image,
             };
 
             return View(tourVM);
@@ -159,7 +168,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
 
             if (!ModelState.IsValid) return View(tourVM);
 
-            Tour? existTour = await _context.Tours.FirstOrDefaultAsync(t => t.Id == id);
+            Tour? existTour = await _context.Tours.Include(t => t.TourImages).FirstOrDefaultAsync(t => t.Id == id);
             if (existTour is null) return NotFound();
 
             if (!await _context.Destinations.AnyAsync(d => d.Id == tourVM.DestinationId))
@@ -194,12 +203,22 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                     return View(tourVM);
                 }
 
-                string fileName = await tourVM.Photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "trending");
-                existTour.Image.DeleteFile(_env.WebRootPath, "assets", "images", "trending");
-                existTour.Image = fileName;
+
 
             }
-
+            if (tourVM.Photo != null)
+            {
+                TourImage main = new TourImage
+                {
+                    IsPrimary = true,
+                    Image = await tourVM.Photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "trending"),
+                    CreatedAt = DateTime.Now
+                };
+                TourImage? exitedMain = existTour.TourImages.FirstOrDefault(p => p.IsPrimary == true);
+                exitedMain.Image.DeleteFile(_env.WebRootPath, "assets", "images", "trending");
+                existTour.TourImages.Remove(exitedMain);
+                existTour.TourImages.Add(main);
+            }
             existTour.Title = tourVM.Title;
             existTour.Description = tourVM.Description;
             existTour.Price = tourVM.Price;
@@ -218,9 +237,12 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (id is null || id < 1) return BadRequest();
-            Tour? tour = await _context.Tours.FirstOrDefaultAsync(s => s.Id == id);
+            Tour? tour = await _context.Tours.Include(t => t.TourImages).FirstOrDefaultAsync(s => s.Id == id);
             if (tour is null) return NotFound();
-            tour.Image.DeleteFile(_env.WebRootPath, "assets", "images", "website-images");
+            foreach (TourImage TImage in tour.TourImages)
+            {
+                TImage.Image.DeleteFile(_env.WebRootPath, "assets", "images", "website-images");
+            };
             _context.Remove(tour);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

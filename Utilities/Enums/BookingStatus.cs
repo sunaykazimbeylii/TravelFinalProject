@@ -2,14 +2,14 @@
 {
     public enum BookingStatus
     {
-        pending,
-        confirmed,
-        cancelled,
-        paid,
-        unpaid,
-        failed,
-        completed,
-        expired
+        Pending,
+        Confirmed,
+        Cancelled,
+        Paid,
+        Unpaid,
+        Failed,
+        Completed,
+        Expired
 
     }
 }

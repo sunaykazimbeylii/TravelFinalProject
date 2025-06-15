@@ -10,7 +10,8 @@
                 @foreach(Slide slide in Model.Slides){
                     <div class="swiper-slide">
                         <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(~/assets/images/slider/@slide.ImageUrl)"></div>
+                            <div class="slide-image" style='background-image:url("@Url.Content("~/assets/images/slider/" + slide.ImageUrl)")'></div>
+
                             <div class="swiper-content container">
                                 <h4 class="blue">@slide.Subtitle</h4>
                                 <h1 class="white mb-4">@slide.Title</h1>
@@ -184,16 +185,21 @@
                 {
                     <div class="col-lg-4 col-md-6 col-xs-12 mb-4">
                         <div class="trend-item">
-                            <div class="trend-image">
-                                <img src="~/assets/images/trending/@tour.Image" alt="image">
+                            <img src="@Url.Content("~/assets/images/trending/" + (tour.TourImages != null && tour.TourImages.Any()
+    ? (tour.TourImages.FirstOrDefault(ti => ti.IsPrimary==true)?.Image ?? "default.jpg")
+    : "default.jpg"))" alt="tour photo" />
+
+
+
+
                                 <div class="trend-tags">
                                     <a href="#"><i class="flaticon-like"></i></a>
                                 </div>
-                            </div>
+                            </div> 
                             <div class="trend-content-main">
                                 <div class="trend-content">
                                     <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i>@tour.Location</h6>
-                                    <h4><a href="#">@tour.Title</a></h4>
+                                    <h4><a asp-action="TourDetail" asp-controller="Tour" asp-route-id="@tour.Id">@tour.Title</a></h4>
                                     <div class="rating-main d-flex align-items-center">
                                         <div class="rating">
                                             <span class="fa fa-star checked"></span>
@@ -216,7 +222,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                  
                 }
              
               
@@ -438,10 +444,17 @@
         <div class="trend-box">
             <div class="price-navtab text-center mb-4">
                 <ul class="nav nav-tabs">
+                    <li class="@(Model.CurrentCategoryId == null ? "active" : "")">
+                        <a asp-action="Index"  asp-route-categoryId="">All</a>
+                    </li>
                     @foreach (DestinationCategory category in Model.DestinationCategories)
                     {
-                        
-                    <li class="active"><a data-toggle="tab" href="#historical">@category.Name</a></li>
+                        <li class="@(Model.CurrentCategoryId == category.Id ? "active" : "")">
+                            <a asp-action="Index"  asp-route-categoryId="@category.Id">
+                                @category.Name
+                            </a>
+                        </li>
+                  @*   <li class="active"><a data-toggle="tab" href="#historical">@category.Name</a></li> *@
                     }
                     
                 </ul>
