@@ -32,6 +32,7 @@ namespace TravelFinalProject.Controllers
                 Slides = await _context.Slides.ToListAsync(),
                 DestinationCategories = await _context.DestinationCategories.ToListAsync(),
                 DestinationImages = await _context.DestinationImages.ToListAsync(),
+                TourImages = await _context.TourImages.ToListAsync(),
                 //Destinations = await _context.Destinations.Where(d => d.IsFeatured == true).ToListAsync(),
                 Destinations = destinations,
                 CurrentCategoryId = categoryId
@@ -49,6 +50,8 @@ namespace TravelFinalProject.Controllers
                 .Include(d => d.Category)
                 .Include(d => d.DestinationImages)
                 .Include(d => d.Tours)
+
+
                 .FirstOrDefaultAsync(d => d.Id == id);
 
             if (destination == null) return NotFound();

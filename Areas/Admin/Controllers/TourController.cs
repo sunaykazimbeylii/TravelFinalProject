@@ -21,7 +21,8 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<GetTourVM> tourVMs = await _context.Tours.Select(t => new GetTourVM
+
+            List<GetTourVM> tourVMs = await _context.Tours.Include(t => t.TourImages).Select(t => new GetTourVM
             {
                 Id = t.Id,
                 Title = t.Title,
@@ -32,9 +33,11 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 Duration = t.Duration,
                 Start_Date = t.Start_Date,
                 End_Date = t.End_Date,
-                Image = t.TourImages.FirstOrDefault(ti => ti.IsPrimary == true).Image,
                 Available_seats = t.Available_seats,
-                Location = t.Location
+                Location = t.Location,
+                Image = t.TourImages.FirstOrDefault(ti => ti.IsPrimary == true).Image
+
+
 
             }).ToListAsync();
 
@@ -140,7 +143,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Update(int id)
         {
-            Tour? tour = await _context.Tours.FirstOrDefaultAsync(t => t.Id == id);
+            Tour? tour = await _context.Tours.Include(t => t.TourImages).FirstOrDefaultAsync(t => t.Id == id);
             if (tour is null) return NotFound();
 
             var tourVM = new UpdateTourVM
@@ -210,8 +213,8 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             {
                 TourImage main = new TourImage
                 {
-                    IsPrimary = true,
                     Image = await tourVM.Photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "trending"),
+                    IsPrimary = true,
                     CreatedAt = DateTime.Now
                 };
                 TourImage? exitedMain = existTour.TourImages.FirstOrDefault(p => p.IsPrimary == true);

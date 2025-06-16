@@ -8,7 +8,7 @@ namespace TravelFinalProject.Models
 
     {
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         [Required]
         public int TourId { get; set; }
         [Required]

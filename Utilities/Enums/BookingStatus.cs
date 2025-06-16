@@ -5,11 +5,7 @@
         Pending,
         Confirmed,
         Cancelled,
-        Paid,
-        Unpaid,
-        Failed,
         Completed,
-        Expired
 
     }
 }

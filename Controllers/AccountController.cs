@@ -88,10 +88,12 @@ namespace TravelFinalProject.Controllers
                 return View();
 
             }
+
             if (returnUrl is null) return RedirectToAction(nameof(HomeController.Index), "Home");
 
 
             return Redirect(returnUrl);
+
 
         }
 

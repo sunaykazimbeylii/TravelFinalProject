@@ -1,13 +1,14 @@
 ﻿@using TravelFinalProject.Models
 @using TravelFinalProject.ViewModels
    @model HomeVM
- 
+
 <!-- banner starts -->
 <section class="banner overflow-hidden">
     <div class="slider">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                @foreach(Slide slide in Model.Slides){
+                @foreach (Slide slide in Model.Slides)
+                {
                     <div class="swiper-slide">
                         <div class="slide-inner">
                             <div class="slide-image" style='background-image:url("@Url.Content("~/assets/images/slider/" + slide.ImageUrl)")'></div>
@@ -25,7 +26,7 @@
                     </div>
 
                 }
-              
+
             </div>
             <!-- Add Arrows -->
             <div class="swiper-button-next"></div>
@@ -181,51 +182,45 @@
         </div>
         <div class="trend-box">
             <div class="row">
-                @foreach(Tour tour in Model.Tours)
+                @foreach (Tour tour in Model.Tours)
                 {
                     <div class="col-lg-4 col-md-6 col-xs-12 mb-4">
                         <div class="trend-item">
-                            <img src="@Url.Content("~/assets/images/trending/" + (tour.TourImages != null && tour.TourImages.Any()
-    ? (tour.TourImages.FirstOrDefault(ti => ti.IsPrimary==true)?.Image ?? "default.jpg")
-    : "default.jpg"))" alt="tour photo" />
-
-
-
-
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                            </div> 
-                            <div class="trend-content-main">
-                                <div class="trend-content">
-                                    <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i>@tour.Location</h6>
-                                    <h4><a asp-action="TourDetail" asp-controller="Tour" asp-route-id="@tour.Id">@tour.Title</a></h4>
-                                    <div class="rating-main d-flex align-items-center">
-                                        <div class="rating">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <span class="ml-2">38 Reviews</span>
+                            <img src="~/assets/images/trending/@tour?.TourImages?.FirstOrDefault(ti=>ti.IsPrimary==true)?.Image" alt="">
+                            <div class="trend-tags">
+                                <a href="#"><i class="flaticon-like"></i></a>
+                            </div>
+                        </div>
+                        <div class="trend-content-main">
+                            <div class="trend-content">
+                                <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i>@tour.Location</h6>
+                                <h4><a asp-action="TourDetail" asp-controller="Tour" asp-route-id="@tour.Id">@tour.Title</a></h4>
+                                <div class="rating-main d-flex align-items-center">
+                                    <div class="rating">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
                                     </div>
+                                    <span class="ml-2">38 Reviews</span>
                                 </div>
-                                <div class="trend-last-main">
-                                    <p class="mb-0 trend-para">@tour.Description</p>
-                                    <div class="trend-last d-flex align-items-center justify-content-between">
-                                        <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                                        <div class="trend-price">
-                                            <p class="price white mb-0">From <span>$@tour.Price</span></p>
-                                        </div>
+                            </div>
+                            <div class="trend-last-main">
+                                <p class="mb-0 trend-para">@tour.Description</p>
+                                <div class="trend-last d-flex align-items-center justify-content-between">
+                                    <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
+                                    <div class="trend-price">
+                                        <p class="price white mb-0">From <span>$@tour.Price</span></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                  
+                    </div>
+
                 }
-             
-              
+
+
             </div>
         </div>
     </div>
@@ -445,24 +440,24 @@
             <div class="price-navtab text-center mb-4">
                 <ul class="nav nav-tabs">
                     <li class="@(Model.CurrentCategoryId == null ? "active" : "")">
-                        <a asp-action="Index"  asp-route-categoryId="">All</a>
+                        <a asp-action="Index" asp-route-categoryId="">All</a>
                     </li>
                     @foreach (DestinationCategory category in Model.DestinationCategories)
                     {
                         <li class="@(Model.CurrentCategoryId == category.Id ? "active" : "")">
-                            <a asp-action="Index"  asp-route-categoryId="@category.Id">
+                            <a asp-action="Index" asp-route-categoryId="@category.Id">
                                 @category.Name
                             </a>
                         </li>
-                  @*   <li class="active"><a data-toggle="tab" href="#historical">@category.Name</a></li> *@
+                        @*   <li class="active"><a data-toggle="tab" href="#historical">@category.Name</a></li> *@
                     }
-                    
+
                 </ul>
             </div>
             <div class="tab-content">
                 <div id="historical" class="tab-pane fade in active">
                     <div class="row">
-                        @foreach(Destination destination in Model.Destinations)
+                        @foreach (Destination destination in Model.Destinations)
                         {
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="trend-item">
@@ -471,7 +466,7 @@
                                     </div>
                                     <div class="trend-content-main">
                                         <div class="trend-content">
-                                            <div  class="rating-main d-flex align-items-center pb-1">
+                                            <div class="rating-main d-flex align-items-center pb-1">
                                                 <div class="rating">
                                                     <span class="fa fa-star checked"></span>
                                                     <span class="fa fa-star checked"></span>
@@ -482,12 +477,12 @@
                                                 <span class="ml-2">38 Reviews</span>
                                             </div>
                                             <h4><a asp-action="DestinationDetails" asp-route-id="@destination.Id">@destination.Name</a></h4>
-                                            <p  class="mb-0"><i class="fa fa-eye mr-1"></i><i class="fa fa-map-marker mr-1 ml-3"></i>@destination.Country</p>
+                                            <p class="mb-0"><i class="fa fa-eye mr-1"></i><i class="fa fa-map-marker mr-1 ml-3"></i>@destination.Country</p>
                                         </div>
                                         <div class="trend-last-main">
                                             <p class="mb-0 trend-para">@destination.Description</p>
                                             <div class="trend-last d-flex align-items-center justify-content-between">
-                                              <p class="mb-0 white d-flex align-items-center"><img src="~/assets/images/revjpg" class="d-author mr-2" alt=""> Thu Astudillo</p>
+                                                <p class="mb-0 white d-flex align-items-center"><img src="~/assets/images/revjpg" class="d-author mr-2" alt=""> Thu Astudillo</p>
                                                 <div class="trend-price">
                                                     <p class="price white mb-0"><a href="#"><i class="flaticon-like white"></i></a></p>
                                                 </div>
@@ -498,7 +493,7 @@
                             </div>
 
                         }
-                        
+
                     </div>
                 </div>
 

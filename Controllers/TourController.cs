@@ -17,7 +17,8 @@ namespace TravelFinalProject.Controllers
 
         public IActionResult Index()
         {
-            var tours = _context.Tours.Include(t => t.Destination).ToList();
+
+            var tours = _context.Tours.Include(t => t.TourImages).Include(t => t.Destination).ToList();
             return View(tours);
         }
         public async Task<IActionResult> TourDetail(int? id)
