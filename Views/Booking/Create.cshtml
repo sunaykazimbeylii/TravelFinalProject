@@ -28,7 +28,25 @@
                         <div class="customer-information mb-2">
                             <h3 class="border-b pb-2 mb-2">Traveller Information</h3>
                             <form asp-action="Create" asp-controller="booking" method="post">
-                                @Html.AntiForgeryToken()
+                                @Html.AntiForgeryToken()@if (!ViewData.ModelState.IsValid)
+                                {
+                                    <div class="text-danger">
+                                        <strong>ModelState Xətaları:</strong>
+                                        <ul>
+                                            @foreach (var error in ViewData.ModelState)
+                                            {
+                                                <li>
+                                                    @error.Key:
+                                                    @foreach (var e in error.Value.Errors)
+                                                    {
+                                                        <span>@e.ErrorMessage</span>
+                                                    }
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+
                                 <h3 class="border-b pb-2 mb-2">Traveller Information</h3>
                                 @for (int i = 0; i < Model.Travellers.Count; i++)
                                 {
@@ -78,7 +96,11 @@
                                             <input asp-for="@Model.Travellers[i].Email" type="email" class="form-control" placeholder="Email Address" />
                                             <span asp-validation-for="@Model.Travellers[i].Email" class="text-danger"></span>
                                         </div>
-
+                                        <div class="col-md-6">
+                                            <label asp-for="@Model.Travellers[i].PassportNumber"></label>
+                                            <input asp-for="@Model.Travellers[i].PassportNumber" class="form-control" placeholder="Passport Number" />
+                                            <span asp-validation-for="@Model.Travellers[i].PassportNumber" class="text-danger"></span>
+                                        </div>
                                         <div class="col-md-6">
                                             <label asp-for="@Model.Travellers[i].PhoneNumber"></label>
                                             <input asp-for="@Model.Travellers[i].PhoneNumber" class="form-control" placeholder="Phone No." />
@@ -87,10 +109,10 @@
                                     </div>
                                 }
 
-                                <input asp-for="Booking.UserId" type="hidden" />
+                           @*      <input asp-for="Booking.UserId" type="hidden" />
                                 <input asp-for="Booking.TourId" type="hidden" />
                                 <input asp-for="Booking.GuestsCount" type="hidden" />
-                                <input asp-for="Booking.TotalPrice" type="hidden" />
+                                <input asp-for="Booking.TotalPrice" type="hidden" /> *@
 
                                 <button type="submit" class="btn btn-primary mt-3">Submit Booking</button>
                             </form>

@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Net.Mail;
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities.Enums;
 using TravelFinalProject.ViewModels;
 using TravelFinalProject.ViewModels.Users;
+using ResetPasswordVM = TravelFinalProject.ViewModels.Users.ResetPasswordVM;
 
 namespace TravelFinalProject.Controllers
 {
@@ -121,5 +125,77 @@ namespace TravelFinalProject.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
 
         }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword() => View(new ForgotPasswordVM());
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordVM model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                model.EmailSent = true;
+                return View(model);
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var resetLink = Url.Action("ResetPassword", "Account", new { token, email = model.Email }, Request.Scheme);
+
+            await SendEmailAsync(user.Email, "Reset your password",
+                $"<p>Click <a href='{resetLink}'>here</a> to reset your password.</p>");
+
+            model.EmailSent = true;
+            return View(model);
+        }
+
+        private async Task SendEmailAsync(string to, string subject, string body)
+        {
+            var message = new MailMessage();
+            message.To.Add(to);
+            message.Subject = subject;
+            message.Body = body;
+            message.IsBodyHtml = true;
+            message.From = new MailAddress("your-email@gmail.com", "Your App Name");
+
+            using var smtp = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential("your-email@gmail.com", "your-app-password"),
+                EnableSsl = true
+            };
+
+            await smtp.SendMailAsync(message);
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            if (token == null || email == null) return BadRequest();
+            return View(new ResetPasswordVM { Token = token, Email = email });
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null) return RedirectToAction("ResetPasswordConfirmation");
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+            if (result.Succeeded)
+                return RedirectToAction("ResetPasswordConfirmation");
+
+            foreach (var error in result.Errors)
+                ModelState.AddModelError("", error.Description);
+
+            return View(model);
+        }
+
+
     }
 }
