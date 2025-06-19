@@ -46,46 +46,36 @@ public class BookingController : Controller
         };
         return View(model);
     }
+    [HttpPost("create")]
 
-    [HttpPost]
-    [Route("create")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(BookingVM bookingVM)
     {
         if (bookingVM.Booking == null)
             bookingVM.Booking = new Booking();
-
-        // Tour-u al
         var tour = await _context.Tours
             .Include(t => t.TourImages)
             .Include(t => t.Destination)
             .FirstOrDefaultAsync(t => t.Id == bookingVM.Booking.TourId);
         if (tour == null) return NotFound();
-
-        // İstifadəçi adını al
         string currentUsername = User.Identity?.Name;
         if (currentUsername == null) return Unauthorized();
 
         var currentUser = await _userManager.FindByNameAsync(currentUsername);
         if (currentUser == null) return Unauthorized();
-
-        // İndi bookingVM.Booking-in lazımi sahələrini doldur
-        bookingVM.Booking.TourId = tour.Id;
-        bookingVM.Booking.UserId = currentUser.Id;
-        bookingVM.Booking.BookingDate = DateTime.UtcNow;
-        bookingVM.Booking.GuestsCount = bookingVM.Travellers.Count;
+        //bookingVM.Booking.TourId = tour.Id;
+        //bookingVM.Booking.UserId = currentUser.Id;
+        //bookingVM.Booking.BookingDate = DateTime.UtcNow;
+        //bookingVM.Booking.GuestsCount = bookingVM.Travellers.Count;
         bookingVM.Booking.TotalPrice = tour.Price ?? 0;
         bookingVM.Booking.Status = BookingStatus.Pending;
         bookingVM.Booking.Tour = tour;
         bookingVM.Booking.User = currentUser;
-
-        // ModelState-i indi yoxla, çünki artıq bütün lazımi sahələr doludur
         if (!ModelState.IsValid)
         {
             return View(bookingVM);
         }
 
-        // Sonra məlumatları bazaya yaz
         _context.Bookings.Add(bookingVM.Booking);
         await _context.SaveChangesAsync();
 
@@ -99,7 +89,12 @@ public class BookingController : Controller
             await _context.SaveChangesAsync();
         }
 
-        return Content("Success.");
+        return RedirectToAction("BookingConfirmation");
     }
-
+    [HttpGet("confirmation")]
+    public async Task<IActionResult> BookingConfirmation()
+    {
+        await _context.BookingTravellers.ToListAsync();
+        return View();
+    }
 }
