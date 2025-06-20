@@ -1,6 +1,6 @@
 ﻿@using TravelFinalProject.ViewModels
   @model BookingVM
- <!-- BreadCrumb Starts -->
+<!-- BreadCrumb Starts -->
 <section class="breadcrumb-main pb-0" style="background-image: url(images/bg/bg8.jpg);">
     <div class="breadcrumb-outer pt-10">
         <div class="container">
@@ -27,21 +27,18 @@
                     <div class="booking-box">
                         <div class="customer-information mb-2">
                             <h3 class="border-b pb-2 mb-2">Traveller Information</h3>
-                            <form asp-action="Create" asp-controller="booking" method="post">
+                            <form action="/booking/create" method="post">
                                 @Html.AntiForgeryToken()@if (!ViewData.ModelState.IsValid)
                                 {
                                     <div class="text-danger">
                                         <strong>ModelState Xətaları:</strong>
                                         <ul>
-                                            @foreach (var error in ViewData.ModelState)
+                                            @foreach (var kvp in ViewData.ModelState)
                                             {
-                                                <li>
-                                                    @error.Key:
-                                                    @foreach (var e in error.Value.Errors)
-                                                    {
-                                                        <span>@e.ErrorMessage</span>
-                                                    }
-                                                </li>
+                                                foreach (var error in kvp.Value.Errors)
+                                                {
+                                                    <li><strong>@kvp.Key:</strong> @error.ErrorMessage</li>
+                                                }
                                             }
                                         </ul>
                                     </div>
@@ -72,7 +69,7 @@
                                             <span asp-validation-for="@Model.Travellers[i].LastName" class="text-danger"></span>
                                         </div>
 
-                                      
+
                                         <div class="col-md-4 col-sm-6">
                                             <label asp-for="@Model.Travellers[i].DateOfBirth"></label>
                                             <input asp-for="@Model.Travellers[i].DateOfBirth" type="date" class="form-control" />
@@ -106,14 +103,13 @@
                                             <input asp-for="@Model.Travellers[i].PhoneNumber" class="form-control" placeholder="Phone No." />
                                             <span asp-validation-for="@Model.Travellers[i].PhoneNumber" class="text-danger"></span>
                                         </div>
+
                                     </div>
                                 }
 
- @*                           <input asp-for="Booking.UserId" type="hidden" /> *@
                                 <input asp-for="Booking.TourId" type="hidden" />
                                 <input asp-for="Booking.GuestsCount" type="hidden" />
-                                <input asp-for="Booking.TotalPrice" type="hidden" />
-
+                                <input type="hidden" asp-for="Booking.TotalPrice" value="@Model.Booking.TotalPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)" />
                                 <button type="submit" class="btn btn-primary mt-3">Submit Booking</button>
                             </form>
 

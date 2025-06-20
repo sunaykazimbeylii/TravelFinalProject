@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelFinalProject.DAL;
+using TravelFinalProject.Services;
 using TravelFinalProject.ViewModels;
 
 namespace TravelFinalProject.Controllers
@@ -8,14 +9,16 @@ namespace TravelFinalProject.Controllers
     public class HomeController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly EmailService _emailService;
 
-        public HomeController(AppDbContext context)
+        public HomeController(AppDbContext context, EmailService emailService)
         {
             _context = context;
-
+            _emailService = emailService;
         }
         public async Task<IActionResult> Index(int? categoryId)
         {
+            await _emailService.SendEmailAsync();
             var destinationsQuery = _context.Destinations
         .Include(d => d.Category)
         .Where(d => d.IsFeatured == true)

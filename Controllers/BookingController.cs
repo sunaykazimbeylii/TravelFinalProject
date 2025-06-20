@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelFinalProject.DAL;
+using TravelFinalProject.Interfaces;
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities;
 using TravelFinalProject.ViewModels;
@@ -13,11 +14,13 @@ public class BookingController : Controller
 {
     private readonly AppDbContext _context;
     private readonly UserManager<AppUser> _userManager;
+    private readonly IEmailService _emailService;
 
-    public BookingController(AppDbContext context, UserManager<AppUser> userManager)
+    public BookingController(AppDbContext context, UserManager<AppUser> userManager, IEmailService emailService)
     {
         _context = context;
         _userManager = userManager;
+        _emailService = emailService;
     }
 
     [HttpGet("create/{tourId?}")]
@@ -47,54 +50,78 @@ public class BookingController : Controller
         return View(model);
     }
     [HttpPost("create")]
-
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(BookingVM bookingVM)
     {
-        if (bookingVM.Booking == null)
-            bookingVM.Booking = new Booking();
+        if (bookingVM.Booking == null || bookingVM.Booking.TourId < 1)
+            return BadRequest();
+
         var tour = await _context.Tours
             .Include(t => t.TourImages)
             .Include(t => t.Destination)
             .FirstOrDefaultAsync(t => t.Id == bookingVM.Booking.TourId);
-        if (tour == null) return NotFound();
-        string currentUsername = User.Identity?.Name;
-        if (currentUsername == null) return Unauthorized();
 
-        var currentUser = await _userManager.FindByNameAsync(currentUsername);
-        if (currentUser == null) return Unauthorized();
-        //bookingVM.Booking.TourId = tour.Id;
-        //bookingVM.Booking.UserId = currentUser.Id;
-        //bookingVM.Booking.BookingDate = DateTime.UtcNow;
-        //bookingVM.Booking.GuestsCount = bookingVM.Travellers.Count;
-        bookingVM.Booking.TotalPrice = tour.Price ?? 0;
-        bookingVM.Booking.Status = BookingStatus.Pending;
-        bookingVM.Booking.Tour = tour;
-        bookingVM.Booking.User = currentUser;
-        if (!ModelState.IsValid)
+        if (tour == null)
         {
+            ModelState.AddModelError("", "Seçdiyiniz tur tapılmadı.");
             return View(bookingVM);
         }
 
+        var currentUser = await _userManager.GetUserAsync(User);
+        if (currentUser == null) return Unauthorized();
+
+        bookingVM.Booking.TotalPrice = tour.Price ?? 0;
+        bookingVM.Booking.Status = BookingStatus.Pending;
+        bookingVM.Booking.Tour = tour;
+        bookingVM.Booking.UserId = currentUser.Id;
+        bookingVM.Booking.User = currentUser;
+        if (!ModelState.IsValid) return View(bookingVM);
+
         _context.Bookings.Add(bookingVM.Booking);
         await _context.SaveChangesAsync();
+        string body = @" 
+                      your order successfuly placed:
+                     <table border="""">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>                                        
+                                        <th>Price</th>
+                                        <th>Tour</th>
+                                    </tr>
+                                </thead>
+                                <tbody>";
+        foreach (var item in bookingVM.Bookings)
+        {
+            body += @$"
+                                       <tr>
+                                            <td>{item.User.Name}</td>
+                                            <td>{item.TotalPrice}</td>                                           
+                                            <td>{item.Tour.Title}</td>
+                                        </tr>";
+        }
+        body += @"</tbody>
+                                            </table>";
 
-        if (bookingVM.Travellers != null)
+
+        if (bookingVM.Travellers != null && bookingVM.Travellers.Any())
         {
             foreach (var traveller in bookingVM.Travellers)
             {
                 traveller.BookingId = bookingVM.Booking.Id;
                 _context.BookingTravellers.Add(traveller);
             }
+
             await _context.SaveChangesAsync();
         }
-
-        return RedirectToAction("BookingConfirmation");
+        await _emailService.SendMailAsync(currentUser.Email, "Your Order", body, true);
+        return RedirectToAction("BookingConfirmation", new { id = bookingVM.Booking.Id });
     }
+
     [HttpGet("confirmation")]
     public async Task<IActionResult> BookingConfirmation()
     {
-        await _context.BookingTravellers.ToListAsync();
-        return View();
+        var booking = await _context.Bookings
+        .Include(b => b.Tour).ToListAsync();
+        return View(booking);
     }
 }

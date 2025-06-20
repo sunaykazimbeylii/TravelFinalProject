@@ -6,6 +6,7 @@ namespace TravelFinalProject.ViewModels
     public class BookingVM
     {
         public Booking Booking { get; set; } = new Booking();
+        public List<Booking> Bookings { get; set; }
         [MinLength(1, ErrorMessage = "Azı 1 qonaq əlavə edilməlidir")]
         public List<BookingTraveller> Travellers { get; set; } = new List<BookingTraveller>();
     }

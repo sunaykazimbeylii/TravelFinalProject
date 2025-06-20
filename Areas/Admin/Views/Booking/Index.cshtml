@@ -1,4 +1,5 @@
-﻿<!-- BreadCrumb Starts -->
+﻿@using TravelFinalProject.Models
+@model BookingHistoryVM
 <section class="breadcrumb-main pb-2" style="background-image: url(images/bg/bg8.jpg);">
     <div class="dot-overlay"></div>
 </section>
@@ -14,12 +15,12 @@
                             <div class="author-news mb-3">
                                 <div class="author-news-content text-center p-3">
                                     <div class="author-thumb mt-0">
-                                        <img src="images/team/img1.jpg" alt="author">
+                                        <img src="images/team/" alt="author">
                                     </div>
                                     <div class="author-content pt-2 p-0">
-                                        <h3 class="mb-1 white"><a href="#" class="white">Ketty Nelson</a></h3>
-                                        <p class="detail"><i class="fa fa-map-marker"></i> 264, Carson Street USA, KY 40539</p>
-                                        <p class="detail"><i class="fa fa-phone"></i> +45 8547 9851</p>
+                                        <h3 class="mb-1 white"><a href="#" class="white">@Model.User.Name @Model.User.Surname</a></h3>
+                                        <p class="detail"><i class="fa fa-map-marker"></i>@Model.User.Country</p>
+                                        <p class="detail"><i class="fa fa-phone"></i>@Model.User.PhoneNumber</p>
                                         <div class="header-social mt-2">
                                             <ul>
                                                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -67,166 +68,34 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>359645</td>
-                                            <td>Park Avenue Baker Street London</td>
-                                            <td>Jul 7 2019</td>
-                                            <td>Jul 7 2019 - Aug 25 2019</td>
-                                            <td>$558.00</td>
-                                            <td><span class="text-success">Pending</span></td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="fa fa-plus"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Send Email</a>
-                                                        <a class="dropdown-item" href="#">Print PDF</a>
-                                                        <a class="dropdown-item del" href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>359645</td>
-                                            <td>Park Avenue Baker Street London</td>
-                                            <td>Jul 7 2019</td>
-                                            <td>Jul 7 2019 - Aug 25 2019</td>
-                                            <td>$558.00</td>
-                                            <td>Pending</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="fa fa-plus"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Send Email</a>
-                                                        <a class="dropdown-item" href="#">Print PDF</a>
-                                                        <a class="dropdown-item del" href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>359645</td>
-                                            <td>Park Avenue Baker Street London</td>
-                                            <td>Jul 7 2019</td>
-                                            <td>Jul 7 2019 - Aug 25 2019</td>
-                                            <td>$558.00</td>
-                                            <td>Pending</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="fa fa-plus"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Send Email</a>
-                                                        <a class="dropdown-item" href="#">Print PDF</a>
-                                                        <a class="dropdown-item del" href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>359645</td>
-                                            <td>Park Avenue Baker Street London</td>
-                                            <td>Jul 7 2019</td>
-                                            <td>Jul 7 2019 - Aug 25 2019</td>
-                                            <td>$558.00</td>
-                                            <td>Pending</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="fa fa-plus"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Send Email</a>
-                                                        <a class="dropdown-item" href="#">Print PDF</a>
-                                                        <a class="dropdown-item del" href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>359645</td>
-                                            <td>Park Avenue Baker Street London</td>
-                                            <td>Jul 7 2019</td>
-                                            <td>Jul 7 2019 - Aug 25 2019</td>
-                                            <td>$558.00</td>
-                                            <td>Pending</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="fa fa-plus"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Send Email</a>
-                                                        <a class="dropdown-item" href="#">Print PDF</a>
-                                                        <a class="dropdown-item del" href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>359645</td>
-                                            <td>Park Avenue Baker Street London</td>
-                                            <td>Jul 7 2019</td>
-                                            <td>Jul 7 2019 - Aug 25 2019</td>
-                                            <td>$558.00</td>
-                                            <td>Pending</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="fa fa-plus"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Send Email</a>
-                                                        <a class="dropdown-item" href="#">Print PDF</a>
-                                                        <a class="dropdown-item del" href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>359645</td>
-                                            <td>Park Avenue Baker Street London</td>
-                                            <td>Jul 7 2019</td>
-                                            <td>Jul 7 2019 - Aug 25 2019</td>
-                                            <td>$558.00</td>
-                                            <td>Pending</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="fa fa-plus"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Send Email</a>
-                                                        <a class="dropdown-item" href="#">Print PDF</a>
-                                                        <a class="dropdown-item del" href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>359645</td>
-                                            <td>Park Avenue Baker Street London</td>
-                                            <td>Jul 7 2019</td>
-                                            <td>Jul 7 2019 - Aug 25 2019</td>
-                                            <td>$558.00</td>
-                                            <td>Pending</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton8" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="fa fa-plus"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Send Email</a>
-                                                        <a class="dropdown-item" href="#">Print PDF</a>
-                                                        <a class="dropdown-item del" href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                     @foreach(Booking vm in Model.Bookings)
+        {
+            <tr>
+                <td>@vm.Id</td>
+                <td>@vm.Tour?.Title</td>
+                <td>@vm.BookingDate.ToString("MMM d yyyy")</td>
+                <td>@(vm.Tour != null ? $"{vm.Tour.Start_Date:MMM d yyyy} - {vm.Tour.End_Date:MMM d yyyy}" : "")</td>
+                <td>@vm.TotalPrice.ToString("C")</td>
+                <td>@vm.Status.ToString()</td>
+                <td>
+                    @foreach(BookingTraveller traveller in Model.BookingTravellers)
+                    {
+                        <div>@traveller.FirstName</div>
+                    }
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown">
+                            <span class="fa fa-plus"></span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Send Email</a>
+                            <a class="dropdown-item" href="#">Print PDF</a>
+                            <a class="dropdown-item del" href="#">Delete</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>}
                                     </tbody>
                                 </table>
                             </div>

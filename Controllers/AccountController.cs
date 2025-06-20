@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Net.Mail;
+using TravelFinalProject.Interfaces;
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities.Enums;
 using TravelFinalProject.ViewModels;
@@ -17,15 +18,19 @@ namespace TravelFinalProject.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmailService _emailService;
 
         public AccountController(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IEmailService emailService
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _emailService = emailService;
         }
 
 
@@ -63,8 +68,20 @@ namespace TravelFinalProject.Controllers
                 return View();
             }
             await _userManager.AddToRoleAsync(user, UserRole.Member.ToString());
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, Email = user.Email }, Request.Scheme);
+            await _emailService.SendMailAsync(user.Email, " Email Confirmation", confirmationLink);
             await _signInManager.SignInAsync(user, false);
             return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
+        {
+            AppUser user = await _userManager.FindByEmailAsync(email);
+            if (user == null) return NotFound();
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded) return BadRequest();
+            await _signInManager.SignInAsync(user, isPersistent: false);
+            return View();
         }
         public IActionResult Login()
         {
@@ -84,6 +101,11 @@ namespace TravelFinalProject.Controllers
             if (result.IsLockedOut)
             {
                 ModelState.AddModelError(string.Empty, "You are blocked");
+                return View();
+            }
+            if (!user.EmailConfirmed)
+            {
+                ModelState.AddModelError(string.Empty, "Please confirm your email");
                 return View();
             }
             if (!result.Succeeded)
@@ -127,29 +149,26 @@ namespace TravelFinalProject.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult ForgotPassword() => View(new ForgotPasswordVM());
+        public async Task<IActionResult> ForgotPassword()
+        {
+            return View();
+        }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordVM model)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordVM forgotPassword)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View(forgotPassword);
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
-            {
-                model.EmailSent = true;
-                return View(model);
-            }
+            var user = await _userManager.FindByEmailAsync(forgotPassword.Email);
+            if (user == null) return View(forgotPassword);
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var resetLink = Url.Action("ResetPassword", "Account", new { token, email = model.Email }, Request.Scheme);
+            var resetLink = Url.Action("ResetPassword", "Account", new { token, email = forgotPassword.Email }, HttpContext.Request.Scheme);
 
             await SendEmailAsync(user.Email, "Reset your password",
                 $"<p>Click <a href='{resetLink}'>here</a> to reset your password.</p>");
-
-            model.EmailSent = true;
-            return View(model);
+            return View(resetLink);
         }
 
         private async Task SendEmailAsync(string to, string subject, string body)
@@ -170,30 +189,29 @@ namespace TravelFinalProject.Controllers
             await smtp.SendMailAsync(message);
         }
         [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ResetPassword(string token, string email)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(string userId, string token)
         {
-            if (token == null || email == null) return BadRequest();
-            return View(new ResetPasswordVM { Token = token, Email = email });
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(token)) return BadRequest();
+            var user = await _userManager.FindByEmailAsync(userId);
+            if (user == null) return NotFound();
+
+            return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM resetPassword, string userId, string token)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(token)) return BadRequest();
+            if (!ModelState.IsValid) return View(resetPassword);
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null) return RedirectToAction("ResetPasswordConfirmation");
+            var user = await _userManager.FindByEmailAsync(resetPassword.Email);
+            if (user == null) return NotFound();
 
-            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
-            if (result.Succeeded)
-                return RedirectToAction("ResetPasswordConfirmation");
+            var result = await _userManager.ResetPasswordAsync(user, token, resetPassword.ConfirmPassword);
+            return RedirectToAction(nameof(Login));
 
-            foreach (var error in result.Errors)
-                ModelState.AddModelError("", error.Description);
-
-            return View(model);
         }
 
 

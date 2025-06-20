@@ -36,3 +36,7 @@ namespace TravelFinalProject.Models
 
     }
 }
+//booking
+//forgot
+//myprofile
+//rew
