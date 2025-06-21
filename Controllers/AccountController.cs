@@ -156,19 +156,23 @@ namespace TravelFinalProject.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordVM forgotPassword)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordVM model)
         {
-            if (!ModelState.IsValid) return View(forgotPassword);
+            if (!ModelState.IsValid)
+                return View(model);
 
-            var user = await _userManager.FindByEmailAsync(forgotPassword.Email);
-            if (user == null) return View(forgotPassword);
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user != null)
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var resetLink = Url.Action("ResetPassword", "Account", new { token = Uri.EscapeDataString(token), email = model.Email }, Request.Scheme);
 
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var resetLink = Url.Action("ResetPassword", "Account", new { token, email = forgotPassword.Email }, HttpContext.Request.Scheme);
+                string emailBody = $"Please reset your password by clicking here: <a href='{resetLink}'>link</a>";
+                await _emailService.SendMailAsync(model.Email, "Reset your password", emailBody, true);
+            }
+            ViewBag.Message = "If your email is registered, you will receive a password reset link.";
 
-            await SendEmailAsync(user.Email, "Reset your password",
-                $"<p>Click <a href='{resetLink}'>here</a> to reset your password.</p>");
-            return View(resetLink);
+            return View();
         }
 
         private async Task SendEmailAsync(string to, string subject, string body)
@@ -186,18 +190,24 @@ namespace TravelFinalProject.Controllers
                 EnableSsl = true
             };
 
+
             await smtp.SendMailAsync(message);
         }
-        [HttpGet]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(string userId, string token)
+        public async Task<IActionResult> ResetPassword(string email, string token)
         {
-            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(token)) return BadRequest();
-            var user = await _userManager.FindByEmailAsync(userId);
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token)) return BadRequest();
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null) return NotFound();
 
-            return View();
+            var model = new ResetPasswordVM
+            {
+                Email = email,
+                Token = token
+            };
+
+            return View(model);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -213,7 +223,6 @@ namespace TravelFinalProject.Controllers
             return RedirectToAction(nameof(Login));
 
         }
-
 
     }
 }

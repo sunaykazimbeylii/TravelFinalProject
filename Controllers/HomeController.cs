@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelFinalProject.DAL;
-using TravelFinalProject.Services;
 using TravelFinalProject.ViewModels;
 
 namespace TravelFinalProject.Controllers
@@ -9,40 +8,98 @@ namespace TravelFinalProject.Controllers
     public class HomeController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly EmailService _emailService;
 
-        public HomeController(AppDbContext context, EmailService emailService)
+
+        public HomeController(AppDbContext context)
         {
             _context = context;
-            _emailService = emailService;
+
         }
-        public async Task<IActionResult> Index(int? categoryId)
+        public async Task<IActionResult> Index(int? categoryId, TourSearchVM search)
         {
-            await _emailService.SendEmailAsync();
+
             var destinationsQuery = _context.Destinations
-        .Include(d => d.Category)
-        .Where(d => d.IsFeatured == true)
-        .AsQueryable();
+                .Include(d => d.Category)
+                .Where(d => d.IsFeatured == true)
+                .AsQueryable();
 
             if (categoryId.HasValue && categoryId.Value > 0)
             {
                 destinationsQuery = destinationsQuery.Where(d => d.CategoryId == categoryId);
             }
+
             var destinations = await destinationsQuery.ToListAsync();
+
+
+            var toursQuery = _context.Tours.AsQueryable();
+
+
+            if (!string.IsNullOrWhiteSpace(search?.Destination))
+            {
+                var dest = search.Destination.Trim().ToLower();
+                toursQuery = toursQuery.Where(t => t.Destination.Name.ToLower().Contains(dest));
+            }
+
+            if (search.CheckIn.HasValue)
+            {
+                DateOnly checkInDate = search.CheckIn.Value;
+                toursQuery = toursQuery.Where(t => t.Start_Date == checkInDate);
+            }
+
+            if (search.CheckOut.HasValue)
+            {
+                DateOnly checkOutDate = search.CheckOut.Value;
+                toursQuery = toursQuery.Where(t => t.End_Date <= checkOutDate);
+            }
+
+
+
+            var tours = await toursQuery.ToListAsync();
+
+            // ViewModel-i doldur
             HomeVM homeVM = new HomeVM
             {
-                Tours = await _context.Tours.ToListAsync(),
+                Tours = tours,
                 Slides = await _context.Slides.ToListAsync(),
                 DestinationCategories = await _context.DestinationCategories.ToListAsync(),
                 DestinationImages = await _context.DestinationImages.ToListAsync(),
                 TourImages = await _context.TourImages.ToListAsync(),
-                //Destinations = await _context.Destinations.Where(d => d.IsFeatured == true).ToListAsync(),
                 Destinations = destinations,
-                CurrentCategoryId = categoryId
-
+                CurrentCategoryId = categoryId,
+                Search = search // burda axtarış kriteriyalarını da göndəririk
             };
+
             return View(homeVM);
         }
+
+        //public async Task<IActionResult> Index(int? categoryId)
+        //{
+
+        //    var destinationsQuery = _context.Destinations
+        //.Include(d => d.Category)
+        //.Where(d => d.IsFeatured == true)
+        //.AsQueryable();
+
+        //    if (categoryId.HasValue && categoryId.Value > 0)
+        //    {
+        //        destinationsQuery = destinationsQuery.Where(d => d.CategoryId == categoryId);
+        //    }
+        //    var destinations = await destinationsQuery.ToListAsync();
+        //    HomeVM homeVM = new HomeVM
+        //    {
+        //        Tours = await _context.Tours.ToListAsync(),
+        //        Slides = await _context.Slides.ToListAsync(),
+        //        DestinationCategories = await _context.DestinationCategories.ToListAsync(),
+        //        DestinationImages = await _context.DestinationImages.ToListAsync(),
+        //        TourImages = await _context.TourImages.ToListAsync(),
+
+        //        //Destinations = await _context.Destinations.Where(d => d.IsFeatured == true).ToListAsync(),
+        //        Destinations = destinations,
+        //        CurrentCategoryId = categoryId
+
+        //    };
+        //    return View(homeVM);
+        //}
 
 
 
@@ -69,5 +126,43 @@ namespace TravelFinalProject.Controllers
             };
             return View(detailVM);
         }
+        //public ActionResult SearchTours(TourSearchVM searchModel)
+        //{
+        //    Başlanğıc query -bütün turlar
+        //   var query = _context.Tours.AsQueryable();
+
+        //    Destination - a görə filter
+        //    if (!string.IsNullOrWhiteSpace(searchModel.Destination))
+        //    {
+        //        string destination = searchModel.Destination.Trim().ToLower();
+        //        query = query.Where(t => t.Destination.Name.ToLower().Contains(destination));
+        //    }
+
+        //    Check -in tarixinə görə filter(tur başlanğıc tarixi)
+        //    if (searchModel.CheckIn.HasValue)
+        //    {
+        //        query = query.Where(t => t.StartDate >= searchModel.CheckIn.Value);
+        //    }
+
+        //    Check -out tarixinə görə filter(tur bitiş tarixi)
+        //    if (searchModel.CheckOut.HasValue)
+        //    {
+        //        query = query.Where(t => t.EndDate <= searchModel.CheckOut.Value);
+        //    }
+
+
+        //    Sorğunu icra et və nəticələri al
+        //    var toursResult = query.ToList();
+
+        //    ViewModel - i hazırla
+        //   var vm = new HomeVM
+        //   {
+        //       Tours = toursResult,
+        //       Search = searchModel
+        //   };
+
+        //    return View("Index", vm);
+        //}
+
     }
 }

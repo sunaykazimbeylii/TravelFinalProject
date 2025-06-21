@@ -45,38 +45,44 @@
                     <div class="input-box">
                         <i class="fa fa-map-marker"></i>
                         <select class="niceSelect">
-                            <option value="1">Your Destination</option>
-                            <option value="2">Argentina</option>
-                            <option value="3">Belgium</option>
-                            <option value="4">Canada</option>
-                            <option value="5">Denmark</option>
+                            <option disabled selected>Choose Destination</option>
+
+                            @foreach(Destination d in Model.Destinations)
+                            {
+                            <option >@d.Name</option>
+                                
+                            }
+                           
                         </select>
                     </div>
                 </div>
                 <div class="form-group pr-4 m-0">
                     <div class="input-box">
                         <i class="fa fa-calendar"></i>
-                        <input id="date-range0" type="text" placeholder="Depart Date">
+                        <input asp-for="@Model.Search.CheckIn" type="text" placeholder="Depart Date">
                     </div>
                 </div>
 
                 <div class="form-group pr-4 m-0">
                     <div class="input-box">
                         <i class="fa fa-calendar"></i>
-                        <input id="date-range1" type="text" placeholder="Return Date">
+                        <input asp-for="@Model.Search.CheckOut" type="text" placeholder="Return Date">
                     </div>
                 </div>
 
                 <div class="form-group pr-4 m-0">
                     <div class="input-box">
                         <i class="fa fa-clock"></i>
-                        <select class="niceSelect">
-                            <option value="1">Total Duration</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
+                        <select asp-for="Search.Duration" class="niceSelect">
+                            <option value="">Total Duration</option>
+                            <option value="1">1 day</option>
+                            <option value="2">2 days</option>
+                            <option value="3">3 days</option>
+                            <option value="4">4 days</option>
+                            <option value="5">5 days</option>
                         </select>
+
+
                     </div>
                 </div>
 

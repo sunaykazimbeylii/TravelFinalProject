@@ -23,9 +23,10 @@ namespace TravelFinalProject
                 opt.SignIn.RequireConfirmedEmail = true;
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
             builder.Services.AddDbContext<AppDbContext>(opt =>
-              opt.UseSqlServer(builder.Configuration.GetConnectionString("default"))
+              opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
                 );
             builder.Services.AddScoped<IEmailService, EmailService>();
+
             var app = builder.Build();
             app.UseAuthentication();
             app.UseAuthorization();

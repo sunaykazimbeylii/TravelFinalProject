@@ -11,5 +11,6 @@ namespace TravelFinalProject.ViewModels
         public List<DestinationImage> DestinationImages { get; set; }
         public List<TourImage> TourImages { get; set; }
         public int? CurrentCategoryId { get; set; }
+        public TourSearchVM Search { get; set; }
     }
 }

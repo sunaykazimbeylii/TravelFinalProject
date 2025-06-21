@@ -12,23 +12,35 @@ namespace TravelFinalProject.Services
         {
             _configuration = configuration;
         }
-        public async Task SendEmailAsync(IEmailService emailServices, string emailTo, string subject, string body, bool isHtml = false)
+
+
+        public async Task SendMailAsync(string emailTo, string subject, string body, bool isHtml = false)
         {
-            SmtpClient smpt = new SmtpClient(_configuration["Email:Host"], Convert.ToInt32(_configuration["Email:Port"]));
-            smpt.EnableSsl = true;
-            smpt.Credentials = new NetworkCredential(_configuration["Email:LoginEmail"], _configuration["Email:Password"]);
-            MailAddress from = new MailAddress(_configuration["Email:LoginEmail"]);
-            MailAddress to = new MailAddress(_configuration[emailTo]);
-            MailMessage message = new MailMessage(from, to);
-            message.Subject = subject;
-            message.Body = body;
-            message.IsBodyHtml = isHtml;
-            await smpt.SendMailAsync(message);
+            try
+            {
+                SmtpClient smpt = new SmtpClient(_configuration["Email:Host"], Convert.ToInt32(_configuration["Email:Port"]));
+                smpt.EnableSsl = true;
+                smpt.Credentials = new NetworkCredential(_configuration["Email:LoginEmail"], _configuration["Email:Password"]);
+                smpt.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smpt.UseDefaultCredentials = false;
+
+                MailAddress from = new MailAddress(_configuration["Email:LoginEmail"]);
+                MailAddress to = new MailAddress(emailTo);
+
+                MailMessage message = new MailMessage(from, to);
+                message.Subject = subject;
+                message.Body = body;
+                message.IsBodyHtml = isHtml;
+
+                await smpt.SendMailAsync(message);
+            }
+            catch (Exception ex)
+            {
+                // Əlavə edin loglama və ya konsola çıxış üçün:
+                Console.WriteLine("EMAIL ERROR: " + ex.Message);
+                throw; // Əlavə loglama servisi varsa oraya da göndərin
+            }
         }
 
-        public Task SendMailAsync(string emailTo, string subject, string body, bool isHtml = false)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
