@@ -610,6 +610,36 @@ namespace TravelFinalProject.Migrations
                     b.ToTable("TourImages");
                 });
 
+            modelBuilder.Entity("TravelFinalProject.Models.TravellerPassportNumber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookingTravellerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PassportNumber")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingTravellerId");
+
+                    b.ToTable("passportNumbers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -733,6 +763,22 @@ namespace TravelFinalProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Tour");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.TravellerPassportNumber", b =>
+                {
+                    b.HasOne("TravelFinalProject.Models.BookingTraveller", "BookingTraveller")
+                        .WithMany("PassportNumbers")
+                        .HasForeignKey("BookingTravellerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BookingTraveller");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.BookingTraveller", b =>
+                {
+                    b.Navigation("PassportNumbers");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>

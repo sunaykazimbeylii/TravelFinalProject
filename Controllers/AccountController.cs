@@ -70,8 +70,7 @@ namespace TravelFinalProject.Controllers
             await _userManager.AddToRoleAsync(user, UserRole.Member.ToString());
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, Email = user.Email }, Request.Scheme);
-            await _emailService.SendMailAsync(user.Email, " Email Confirmation", confirmationLink);
-            await _signInManager.SignInAsync(user, false);
+            await _emailService.SendMailAsync(user.Email, "Email Confirmation", confirmationLink);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
         public async Task<IActionResult> ConfirmEmail(string token, string email)
@@ -182,11 +181,11 @@ namespace TravelFinalProject.Controllers
             message.Subject = subject;
             message.Body = body;
             message.IsBodyHtml = true;
-            message.From = new MailAddress("your-email@gmail.com", "Your App Name");
+            message.From = new MailAddress("kazimbeyliii@gmail.com", "TravelApp");
 
             using var smtp = new SmtpClient("smtp.gmail.com", 587)
             {
-                Credentials = new NetworkCredential("your-email@gmail.com", "your-app-password"),
+                Credentials = new NetworkCredential("kazimbeyliii@gmail.com", "xuzskszbukamltfn"),
                 EnableSsl = true
             };
 

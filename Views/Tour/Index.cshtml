@@ -1,15 +1,17 @@
 ﻿@using TravelFinalProject.Models
-@model List<Tour>
+@using TravelFinalProject.Utilities.Enums
+@using TravelFinalProject.ViewModels
+@model TourListPageVM
 <!-- BreadCrumb Starts -->
 <section class="breadcrumb-main pb-0" style="background-image: url(images/bg/bg8.jpg);">
     <div class="breadcrumb-outer pt-10">
         <div class="container">
             <div class="breadcrumb-content d-md-flex align-items-center pt-10">
-                <h2 class="mb-0">Destination List</h2>
+                <h2 class="mb-0">Tour List</h2>
                 <nav aria-label="breadcrumb">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Destination List</li>
+                        <li class="breadcrumb-item active" aria-current="page">Tour List</li>
                     </ul>
                 </nav>
             </div>
@@ -32,25 +34,30 @@
                             <div class="change-list f-active mr-2"><a href="destination-list.html"><i class="fa fa-bars"></i></a></div>
                             <div class="change-grid"><a href="destination-grid.html"><i class="fa fa-th"></i></a></div>
                             <div class="sortby d-flex align-items-center justify-content-between ml-2">
-                                <select class="niceSelect">
-                                    <option value="1">Sort By</option>
-                                    <option value="2">Average rating</option>
-                                    <option value="3">Price: low to high</option>
-                                    <option value="4">Price: high to low</option>
-                                </select>
+                                <form asp-action="Index">
+                                    <select name="key" onchange="this.form.submit()" class="niceSelect">
+                                        <option value="1">Sort By</option>
+                                        @foreach (SortType sort in Enum.GetValues(typeof(SortType)))
+                                        {
+                                            <option value="@((int)sort)"> Sort by @sort.ToString()</option>
+                                        }
+                                    </select>
+
+                                </form>
                             </div>
                         </div>
                     </div>
-                    @foreach (Tour tour in Model)
+                    @foreach (var tour in Model.PaginatedTours.Items)
                     {
                         <div class="blog-full d-flex justify-content-around mb-4">
                             <div class="row w-100">
                                 <div class="col-lg-5 col-md-4 col-xs-12 blog-height">
                                     <div class="blog-image">
                                         <div class="blog-image">
-                                            <a href="@Url.Action("Details", "Tour", new { id = tour?.Id })"
-                                               style="background-image: url('@Url.Content("~/assets/images/trending/" + (tour.TourImages?.FirstOrDefault(ti => ti.IsPrimary == true)?.Image ?? "default.jpg"))');">
+                                            <a href="@Url.Action("TourDetail", "Tour", new { id = tour?.Id })"
+                                               style="background-image: url('@Url.Content("~/assets/images/trending/" + (tour.Image ?? "default.jpg"))');">
                                             </a>
+
                                         </div>
 
                                     </div>
@@ -67,7 +74,11 @@
                                         <p class="mb-2 pink">
                                             <i class="fa fa-map-marker mr-1"></i> @tour.Location, @tour.Destination.Name
                                         </p>
-                                        <p class="mb-2 border-t pt-2">@tour.Description?.Length > 150 ? tour.Description.Substring(0, 150) + "..." : tour.Description</p>
+                                        <p class="mb-2 border-t pt-2">
+                                            @((tour.Description != null && tour.Description.Length > 150)
+                                                ? tour.Description.Substring(0, 150) + "..."
+                                                : tour.Description)
+                                        </p>
                                         <div class="deal-price">
                                             <p class="price mb-0">From <span>$@tour.Price</span> / @tour.Duration</p>
                                         </div>
@@ -81,17 +92,38 @@
                     }
 
 
-              
-                    <div class="text-center">
-                        <a href="#" class="nir-btn">Load More <i class="fa fa-long-arrow-alt-right"></i></a>
-                    </div>
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item @(Model.PaginatedTours.CurrentPage <= 1 ? "disabled" : "")">
+                                <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginatedTours.CurrentPage - 1)" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= Model.PaginatedTours.TotalPage; i++)
+                            {
+                                <li class="page-item @(Model.PaginatedTours.CurrentPage == i ? "active" : "")">
+                                    <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(Model.PaginatedTours.CurrentPage >= Model.PaginatedTours.TotalPage ? "disabled" : "")">
+                                <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginatedTours.CurrentPage + 1)" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
                 </div>
             </div>
 
             <div class="col-lg-4 col-xs-12 mb-4">
                 <div class="sidebar-sticky">
                     <div class="sidebar-item mb-4">
-                        <form class="form-content">
+
+                        <form asp-action="Index"  class="form-content">
                             <h4 class="title white">Find The Places</h4>
                             <div class="row">
                                 <div class="col-lg-12">
@@ -99,12 +131,12 @@
                                         <label class="white">Your Destination</label>
                                         <div class="input-box">
                                             <i class="flaticon-placeholder"></i>
-                                            <select class="niceSelect">
-                                                <option value="1">Where are you going?</option>
-                                                <option value="2">Argentina</option>
-                                                <option value="3">Belgium</option>
-                                                <option value="4">Canada</option>
-                                                <option value="5">Denmark</option>
+                                            <select name="Destination" class="form-control">
+                                                <option value="">Select Tour</option>
+                                                @foreach (var destination in Model.Destinations)
+                                                {
+                                                    <option value="@destination.Name">@destination.Name</option>
+                                                }
                                             </select>
                                         </div>
                                     </div>
@@ -115,7 +147,7 @@
                                         <label class="white">Check In</label>
                                         <div class="input-box">
                                             <i class="flaticon-calendar"></i>
-                                            <input id="date-range0" type="text" placeholder="yyyy-mmm-dd">
+                                            <input name="ChekIn" type="date" class="form-control" placeholder="yyyy-mm-dd" />
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +157,7 @@
                                         <label class="white">Check Out</label>
                                         <div class="input-box">
                                             <i class="flaticon-calendar"></i>
-                                            <input id="date-range1" type="text" placeholder="yyyy-mm-dd">
+                                            <input name="CkekOut" type="date" class="form-control" placeholder="yyyy-mm-dd" />
                                         </div>
                                     </div>
                                 </div>
@@ -135,12 +167,12 @@
                                         <label class="white">Adult</label>
                                         <div class="input-box">
                                             <i class="flaticon-add-user"></i>
-                                            <select class="niceSelect">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
+                                            <select name="Adults" class="form-control">
+                                                <option value="">Adults</option>
+                                                @for (int i = 1; i <= 3; i++)
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
                                             </select>
                                         </div>
                                     </div>
@@ -151,23 +183,25 @@
                                         <label class="white">Children</label>
                                         <div class="input-box">
                                             <i class="flaticon-add-user"></i>
-                                            <select class="niceSelect">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
+                                            <select name="Children" class="form-control">
+                                                <option value="">Children</option>
+                                                @for (int i = 1; i <= 3; i++)
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
                                             </select>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-12">
                                     <div class="form-group mb-0">
-                                        <a href="#" class="nir-btn w-100"><i class="fa fa-search"></i> Check Availability</a>
+                                        <button type="submit" class="nir-btn w-100"><i class="fa fa-search"></i> Check Availability</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
+
                     </div>
                     <div class="list-sidebar">
                         <div class="sidebar-item">
@@ -286,81 +320,43 @@
                         </div>
                         <div class="sidebar-item">
                             <h4>Price Range($)</h4>
-                            <div class="range-slider">
-                                <div data-min="0" data-max="2000" data-unit="$" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                                    <span class="min-value">0 $</span>
-                                    <span class="max-value">2000 $</span>
-                                    <div class="ui-slider-range ui-widget-header ui-corner-all full" style="left: 0%; width: 100%;"></div>
+                            <form asp-action="Index" method="get" id="priceFilterForm">
+                                <div class="range-slider">
+                                    <label class="mb-2 d-block fw-bold">Price Range ($)</label>
+                                    <div id="price-slider" class="ui-slider ui-widget ui-widget-content ui-corner-all"></div>
+
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <span id="min-value">0 $</span>
+                                        <span id="max-value">2000 $</span>
+                                    </div>
+
+                                    <!-- Hidden inputs -->
+                                    <input type="hidden" name="min_price" id="min_price" value="0" />
+                                    <input type="hidden" name="max_price" id="max_price" value="2000" />
+
+                                    <button type="submit" class="nir-btn w-100 mt-3">Apply</button>
                                 </div>
-                                <div class="clearfix"></div>
-                            </div>
+                            </form>
+
                         </div>
                         <div class="sidebar-item">
                             <h4>City</h4>
-                            <div class="pretty p-default p-thick p-pulse">
-                                <input type="checkbox" />
-                                <div class="state">
-                                    <label>
-                                        Amsterdam<span class="number">749</span>
-                                    </label>
+                            <form id="filterForm" asp-action="Index" method="get">
+                                <div class="pretty p-default p-thick p-pulse">
+                                    <a asp-action="Index">All</a>
                                 </div>
-                            </div>
-                            <div class="pretty p-default p-thick p-pulse">
-                                <input type="checkbox" checked />
-                                <div class="state">
-                                    <label>
-                                        Rotterdam<span class="number">630</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="pretty p-default p-thick p-pulse">
-                                <input type="checkbox" />
-                                <div class="state">
-                                    <label>
-                                        Copenghan<span class="number">58</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="pretty p-default p-thick p-pulse">
-                                <input type="checkbox" />
-                                <div class="state">
-                                    <label>
-                                        New Delhi<span class="number">29</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="pretty p-default p-thick p-pulse">
-                                <input type="checkbox" />
-                                <div class="state">
-                                    <label>
-                                        New York<span class="number">29</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="pretty p-default p-thick p-pulse">
-                                <input type="checkbox" />
-                                <div class="state">
-                                    <label>
-                                        Kathmandu<span class="number">29</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="pretty p-default p-thick p-pulse">
-                                <input type="checkbox" />
-                                <div class="state">
-                                    <label>
-                                        Brisbane<span class="number">29</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="pretty p-default p-thick p-pulse">
-                                <input type="checkbox" />
-                                <div class="state">
-                                    <label>
-                                        Tokyo<span class="number">29</span>
-                                    </label>
-                                </div>
-                            </div>
+                                @foreach (var destination in Model.Destinations)
+                                {
+                                    <div class="pretty p-default p-thick p-pulse">
+                                        <input type="checkbox" name="destinationId" value="@destination.Id" id="dest_@destination.Id"
+                                               onchange="document.getElementById('filterForm').submit();" />
+                                        <label for="dest_@destination.Id">@destination.Name</label>
+                                    </div>
+                                }
+                            </form>
+
+
+
                         </div>
                     </div>
                 </div>
@@ -522,4 +518,22 @@
         </div>
     </div>
 </section>
+@section Scripts {
+    <script>
+        $(function () {
+            $("#price-slider").slider({
+                range: true,
+                min: 0,
+                max: 2000,
+                values: [0, 2000],
+                slide: function (event, ui) {
+                    $("#min-value").text(ui.values[0] + " $");
+                    $("#max-value").text(ui.values[1] + " $");
+                    $("#min_price").val(ui.values[0]);
+                    $("#max_price").val(ui.values[1]);
+                }
+            });
+        });
+    </script>
+}
 <!-- Trending Ends -->

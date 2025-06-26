@@ -21,9 +21,9 @@ namespace TravelFinalProject.Models
         [Required]
         [DataType(DataType.Date)]
         public DateOnly DateOfBirth { get; set; }
-
+        public string PassportNumber { get; set; }
         [Required]
-        public string Nationality { get; set; }  // Ölkə adı və ya kod (ISO code ola bilər)
+        public string Nationality { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -32,7 +32,7 @@ namespace TravelFinalProject.Models
         [Required]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
-        public string PassportNumber { get; set; }
+
 
     }
 }

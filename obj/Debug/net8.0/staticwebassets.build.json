@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+8eyKFSy+XZKUcCAKQBLtrbqbFlH5dFLshclh106h/U=",
+  "Hash": "YpX4Ne5SyZuDFPRpzHaTX1h2cXaxMCKNyEs+o8cA3XE=",
   "Source": "TravelFinalProject",
   "BasePath": "_content/TravelFinalProject",
   "Mode": "Default",
@@ -3665,6 +3665,25 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\54d42ab0-6cac-47d0-8e62-ad68931aee8f.png"
     },
     {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\55523f5d-c866-4b6c-9fa0-16948f02be33.jpg",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/trending/55523f5d-c866-4b6c-9fa0-16948f02be33.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\55523f5d-c866-4b6c-9fa0-16948f02be33.jpg"
+    },
+    {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\60c3e6e7-7bd3-434c-92f5-11934333f423.jpg",
       "SourceId": "TravelFinalProject",
       "SourceType": "Discovered",
@@ -3722,6 +3741,25 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\666681f4-c167-4994-812c-14e23922c3a0.png"
     },
     {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\6942b317-4288-46a3-833b-ee72bfa6de83.jpg",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/trending/6942b317-4288-46a3-833b-ee72bfa6de83.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\6942b317-4288-46a3-833b-ee72bfa6de83.jpg"
+    },
+    {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\69625735-1618-43e9-bb42-baba66b1e77a.jpg",
       "SourceId": "TravelFinalProject",
       "SourceType": "Discovered",
@@ -3741,6 +3779,25 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\69625735-1618-43e9-bb42-baba66b1e77a.jpg"
     },
     {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\85e79427-7554-456c-8630-2b1d029a8469.jpg",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/trending/85e79427-7554-456c-8630-2b1d029a8469.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\85e79427-7554-456c-8630-2b1d029a8469.jpg"
+    },
+    {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\8b117f01-89ad-44be-80b3-c3a4ff07c72a.jpg",
       "SourceId": "TravelFinalProject",
       "SourceType": "Discovered",
@@ -3758,6 +3815,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\8b117f01-89ad-44be-80b3-c3a4ff07c72a.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\8e41433a-384e-4381-9f5a-e28b8ec16339.jpg",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/trending/8e41433a-384e-4381-9f5a-e28b8ec16339.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\8e41433a-384e-4381-9f5a-e28b8ec16339.jpg"
     },
     {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\ac5df855-cc6d-44ff-87c2-1ac9fe7e4745.jpg",
@@ -3853,6 +3929,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\bafea1cb-f1dd-45b6-a4d7-edd7db17e88f.png"
+    },
+    {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\c137cec7-fc2f-4727-bf8c-16e462fae675.jpg",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/trending/c137cec7-fc2f-4727-bf8c-16e462fae675.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\c137cec7-fc2f-4727-bf8c-16e462fae675.jpg"
     },
     {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\fe44ac67-81a4-4a80-9825-be7b714f11ad.jpg",

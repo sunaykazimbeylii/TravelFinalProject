@@ -55,8 +55,6 @@ namespace TravelFinalProject.Controllers
 
 
             var tours = await toursQuery.ToListAsync();
-
-            // ViewModel-i doldur
             HomeVM homeVM = new HomeVM
             {
                 Tours = tours,
@@ -66,7 +64,7 @@ namespace TravelFinalProject.Controllers
                 TourImages = await _context.TourImages.ToListAsync(),
                 Destinations = destinations,
                 CurrentCategoryId = categoryId,
-                Search = search // burda axtarış kriteriyalarını da göndəririk
+                Search = search
             };
 
             return View(homeVM);

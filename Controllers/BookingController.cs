@@ -24,7 +24,7 @@ public class BookingController : Controller
     }
 
     [HttpGet("create/{tourId?}")]
-    public async Task<IActionResult> Create(int? tourId)
+    public async Task<IActionResult> Create(int? tourId, int adults = 1, int children = 0)
     {
 
         if (tourId == null || tourId < 1) return BadRequest();
@@ -43,9 +43,15 @@ public class BookingController : Controller
                 TourId = tourId.Value,
                 GuestsCount = 1,
                 TotalPrice = tour.Price ?? 0,
-                Tour = tour
+                Tour = tour,
+
             },
-            Travellers = new List<BookingTraveller> { new BookingTraveller() }
+            Adults = adults,
+            Children = children,
+            //        TravellerCount = await _context.BookingTravellers
+            //.Where(bt => bt.BookingId == booking.Id)
+            //.CountAsync()
+
         };
         return View(model);
     }
@@ -55,6 +61,14 @@ public class BookingController : Controller
     {
         if (bookingVM.Booking == null || bookingVM.Booking.TourId < 1)
             return BadRequest();
+
+        if (!ModelState.IsValid)
+        {
+            bookingVM.Booking.Tour = await _context.Tours
+                .Include(t => t.Destination)
+                .FirstOrDefaultAsync(t => t.Id == bookingVM.Booking.TourId);
+            return View(bookingVM);
+        }
 
         var tour = await _context.Tours
             .Include(t => t.TourImages)
@@ -70,58 +84,97 @@ public class BookingController : Controller
         var currentUser = await _userManager.GetUserAsync(User);
         if (currentUser == null) return Unauthorized();
 
-        bookingVM.Booking.TotalPrice = tour.Price ?? 0;
-        bookingVM.Booking.Status = BookingStatus.Pending;
-        bookingVM.Booking.Tour = tour;
-        bookingVM.Booking.UserId = currentUser.Id;
-        bookingVM.Booking.User = currentUser;
-        if (!ModelState.IsValid) return View(bookingVM);
+        Booking booking = new()
+        {
+            TotalPrice = bookingVM.TotalPrice,
+            Status = BookingStatus.Pending,
+            UserId = currentUser.Id,
+            User = currentUser,
+            Tour = tour,
+            GuestsCount = bookingVM.Adults + bookingVM.Children
+        };
 
-        _context.Bookings.Add(bookingVM.Booking);
+        _context.Bookings.Add(booking);
         await _context.SaveChangesAsync();
-        string body = @" 
-                      your order successfuly placed:
-                     <table border="""">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>                                        
-                                        <th>Price</th>
-                                        <th>Tour</th>
-                                    </tr>
-                                </thead>
-                                <tbody>";
-        foreach (var item in bookingVM.Bookings)
-        {
-            body += @$"
-                                       <tr>
-                                            <td>{item.User.Name}</td>
-                                            <td>{item.TotalPrice}</td>                                           
-                                            <td>{item.Tour.Title}</td>
-                                        </tr>";
-        }
-        body += @"</tbody>
-                                            </table>";
 
-
-        if (bookingVM.Travellers != null && bookingVM.Travellers.Any())
+        if (bookingVM.PassportNumbers != null && bookingVM.PassportNumbers.Any())
         {
-            foreach (var traveller in bookingVM.Travellers)
+            foreach (var passport in bookingVM.PassportNumbers)
             {
-                traveller.BookingId = bookingVM.Booking.Id;
-                _context.BookingTravellers.Add(traveller);
-            }
+                if (!string.IsNullOrWhiteSpace(passport))
+                {
+                    var traveller = new BookingTraveller
+                    {
+                        BookingId = booking.Id,
+                        PassportNumber = passport.Trim()
+                    };
 
+                    _context.BookingTravellers.Add(traveller);
+                }
+            }
             await _context.SaveChangesAsync();
         }
-        await _emailService.SendMailAsync(currentUser.Email, "Your Order", body, true);
-        return RedirectToAction("BookingConfirmation", new { id = bookingVM.Booking.Id });
+
+        return RedirectToAction("BookingConfirmation", new { id = booking.Id });
     }
 
-    [HttpGet("confirmation")]
-    public async Task<IActionResult> BookingConfirmation()
+    [HttpGet]
+    public async Task<IActionResult> BookingConfirmation(int id)
     {
         var booking = await _context.Bookings
-        .Include(b => b.Tour).ToListAsync();
+            .Include(b => b.Tour)
+            .FirstOrDefaultAsync(b => b.Id == id);
+
+        if (booking == null) return NotFound();
+
         return View(booking);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> BookNow(int tourId)
+    {
+        var tour = await _context.Tours
+            .Include(t => t.TourImages)
+            .Include(t => t.Destination)
+            .FirstOrDefaultAsync(t => t.Id == tourId);
+
+        if (tour == null) return NotFound();
+
+        var vm = new BookingVM
+        {
+            TourId = tourId,
+            TotalPrice = tour.Price ?? 0
+        };
+
+        return View(vm);
+    }
+    //[HttpPost]
+    //[ValidateAntiForgeryToken]
+    //public async Task<IActionResult> BookNow(BookingVM vm)
+    //{
+    //    if (!ModelState.IsValid) return View(vm);
+
+    //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // İstifadəçi ID-si
+
+    //    var tour = await _context.Tours.FirstOrDefaultAsync(t => t.Id == vm.TourId);
+    //    if (tour == null) return NotFound();
+
+    //    var booking = new Booking
+    //    {
+    //        UserId = userId,
+    //        TourId = vm.TourId,
+    //        BookingDate = DateTime.Now,
+    //        GuestsCount = vm.TravellerCount,
+    //        TotalPrice = vm.TotalPrice,
+    //        Status = BookingStatus.Pending
+    //    };
+
+    //    _context.Bookings.Add(booking);
+    //    await _context.SaveChangesAsync();
+
+    //    return RedirectToAction("Success");
+    //}
+
+
+
 }

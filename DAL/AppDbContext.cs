@@ -16,6 +16,7 @@ namespace TravelFinalProject.DAL
         public DbSet<DestinationImage> DestinationImages { get; set; }
         public DbSet<TourImage> TourImages { get; set; }
         public DbSet<BookingTraveller> BookingTravellers { get; set; }
+        public DbSet<TravellerPassportNumber> passportNumbers { get; set; }
 
     }
 }
