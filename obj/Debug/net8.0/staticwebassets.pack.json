@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\css\\Custom.css",
+      "PackagePath": "staticwebassets\\assets\\css\\Custom.css"
+    },
+    {
       "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\assets\\css\\bootstrap.min.css"
     },

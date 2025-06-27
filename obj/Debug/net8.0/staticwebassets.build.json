@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YpX4Ne5SyZuDFPRpzHaTX1h2cXaxMCKNyEs+o8cA3XE=",
+  "Hash": "Qqff+FVk27C+rpk9QF8vpRycUocHcpErXq0iaZM4hLg=",
   "Source": "TravelFinalProject",
   "BasePath": "_content/TravelFinalProject",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\css\\bootstrap.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\css\\Custom.css",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/css/Custom.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\css\\Custom.css"
     },
     {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\css\\dashboard.css",

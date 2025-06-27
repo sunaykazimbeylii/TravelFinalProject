@@ -24,47 +24,52 @@ public class BookingController : Controller
     }
 
     [HttpGet("create/{tourId?}")]
-    public async Task<IActionResult> Create(int? tourId, int adults = 1, int children = 0)
+    public IActionResult Create(int tourId, int adults = 1, int children = 0)
     {
+        var tour = _context.Tours.Include(t => t.TourImages).Include(t => t.Destination).FirstOrDefault(t => t.Id == tourId);
+        if (tour == null)
+            return NotFound();
 
-        if (tourId == null || tourId < 1) return BadRequest();
+        int travellerCount = adults + children;
 
-        var tour = await _context.Tours
-                     .Include(t => t.TourImages)
-                     .Include(t => t.Destination)
-                     .FirstOrDefaultAsync(t => t.Id == tourId);
-
-        if (tour == null) return NotFound();
+        decimal basePrice = tour.Price.Value * travellerCount;
+        decimal totalPrice = basePrice + 10 - 15; // misal booking fee + endirim
 
         var model = new BookingVM
         {
+            TourId = tourId,
+            Adults = adults,
+            Children = children,
+            TotalPrice = totalPrice,
+            PassportNumbers = new List<string>(new string[travellerCount]),
             Booking = new Booking
             {
-                TourId = tourId.Value,
+                TourId = tourId,
                 GuestsCount = 1,
                 TotalPrice = tour.Price ?? 0,
                 Tour = tour,
 
             },
-            Adults = adults,
-            Children = children,
-            //        TravellerCount = await _context.BookingTravellers
-            //.Where(bt => bt.BookingId == booking.Id)
-            //.CountAsync()
-
         };
+
         return View(model);
     }
+
+
     [HttpPost("create")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(BookingVM bookingVM)
     {
+        // ModelState-dən UserId yoxlamasını çıxarırıq, çünki formda yoxdur
+        ModelState.Remove("Booking.UserId");
+
         if (bookingVM.Booking == null || bookingVM.Booking.TourId < 1)
             return BadRequest();
 
         if (!ModelState.IsValid)
         {
-            bookingVM.Booking.Tour = await _context.Tours
+            // Tour məlumatını yenidən doldur
+            bookingVM.Booking.Tour = await _context.Tours.Include(t => t.TourImages)
                 .Include(t => t.Destination)
                 .FirstOrDefaultAsync(t => t.Id == bookingVM.Booking.TourId);
             return View(bookingVM);
@@ -91,7 +96,8 @@ public class BookingController : Controller
             UserId = currentUser.Id,
             User = currentUser,
             Tour = tour,
-            GuestsCount = bookingVM.Adults + bookingVM.Children
+            GuestsCount = bookingVM.Adults + bookingVM.Children,
+            TourId = tour.Id,
         };
 
         _context.Bookings.Add(booking);
@@ -118,62 +124,19 @@ public class BookingController : Controller
         return RedirectToAction("BookingConfirmation", new { id = booking.Id });
     }
 
+
     [HttpGet]
     public async Task<IActionResult> BookingConfirmation(int id)
     {
-        var booking = await _context.Bookings
-            .Include(b => b.Tour)
+        var booking = await _context.Bookings.Include(b => b.Travellers)
+            .Include(b => b.Tour).ThenInclude(t => t.TourImages)
+            .Include(b => b.Tour).ThenInclude(t => t.Destination)
             .FirstOrDefaultAsync(b => b.Id == id);
 
         if (booking == null) return NotFound();
 
-        return View(booking);
+        return View(booking); // View @model Booking olacaq
     }
-
-    [HttpGet]
-    public async Task<IActionResult> BookNow(int tourId)
-    {
-        var tour = await _context.Tours
-            .Include(t => t.TourImages)
-            .Include(t => t.Destination)
-            .FirstOrDefaultAsync(t => t.Id == tourId);
-
-        if (tour == null) return NotFound();
-
-        var vm = new BookingVM
-        {
-            TourId = tourId,
-            TotalPrice = tour.Price ?? 0
-        };
-
-        return View(vm);
-    }
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public async Task<IActionResult> BookNow(BookingVM vm)
-    //{
-    //    if (!ModelState.IsValid) return View(vm);
-
-    //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // İstifadəçi ID-si
-
-    //    var tour = await _context.Tours.FirstOrDefaultAsync(t => t.Id == vm.TourId);
-    //    if (tour == null) return NotFound();
-
-    //    var booking = new Booking
-    //    {
-    //        UserId = userId,
-    //        TourId = vm.TourId,
-    //        BookingDate = DateTime.Now,
-    //        GuestsCount = vm.TravellerCount,
-    //        TotalPrice = vm.TotalPrice,
-    //        Status = BookingStatus.Pending
-    //    };
-
-    //    _context.Bookings.Add(booking);
-    //    await _context.SaveChangesAsync();
-
-    //    return RedirectToAction("Success");
-    //}
 
 
 

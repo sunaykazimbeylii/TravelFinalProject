@@ -26,6 +26,10 @@ namespace TravelFinalProject
               opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
                 );
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<INotificationService, NotificationService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddHostedService<NotificationBackgroundService>();
+
 
             var app = builder.Build();
             app.UseAuthentication();

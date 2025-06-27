@@ -388,8 +388,8 @@
                                             <label class="white">No. Of People</label>
                                             <div class="input-box">
                                                 <i class="flaticon-add-user"></i>
-                                                <select class="form-control" name="GuestCount" id="guestCount" onchange="updateTotal()">
-                                                    @for (int i = 1; i <= @Model.Tour.Available_seats; i++)
+                                                <select id="guestCount" name="adults">
+                                                    @for (int i = 1; i <= Model.Tour.Available_seats; i++)
                                                     {
                                                         <option value="@i">@i</option>
                                                     }

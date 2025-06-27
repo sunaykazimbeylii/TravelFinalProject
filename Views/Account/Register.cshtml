@@ -244,7 +244,9 @@
                 <div class="col-lg-8 col-md-12 col-xs-12 ">
                     <div class="login-content border p-4">
                         <h4 class="">Create a Yatriiworld Account</h4>
+                        <div asp-validation-summary="ModelOnly" ></div>
                         <form method="post" asp-action="register">
+
                             <div class="form-group">
                                 <input asp-for="Name" class="form-control" placeholder="Enter Full Name" />
                                 <span asp-validation-for="Name" class="text-danger"></span>

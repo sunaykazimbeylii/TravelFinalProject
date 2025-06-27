@@ -153,6 +153,26 @@ namespace TravelFinalProject.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> ForgotPassword(ForgotPasswordVM model)
+        //{ 
+        //    if (!ModelState.IsValid)
+        //        return View(model);
+
+        //    var user = await _userManager.FindByEmailAsync(model.Email);
+        //    if (user != null)
+        //    {
+        //        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+        //        var resetLink = Url.Action("ResetPassword", "Account", new { token = Uri.EscapeDataString(token), email = model.Email }, Request.Scheme);
+
+        //        string emailBody = $"Please reset your password by clicking here: <a href='{resetLink}'>link</a>";
+        //        await _emailService.SendMailAsync(model.Email, "Reset your password", emailBody, true);
+        //    }
+        //    ViewBag.Message = "If your email is registered, you will receive a password reset link.";
+
+        //    return View();
+        //}
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordVM model)
@@ -210,18 +230,41 @@ namespace TravelFinalProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(ResetPasswordVM resetPassword, string userId, string token)
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
         {
-            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(token)) return BadRequest();
-            if (!ModelState.IsValid) return View(resetPassword);
 
-            var user = await _userManager.FindByEmailAsync(resetPassword.Email);
-            if (user == null) return NotFound();
+            if (string.IsNullOrWhiteSpace(model.Token)) return BadRequest();
 
-            var result = await _userManager.ResetPasswordAsync(user, token, resetPassword.ConfirmPassword);
-            return RedirectToAction(nameof(Login));
+            if (!ModelState.IsValid)
+                return View(model);
 
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return NotFound();
+
+            var decodedToken = Uri.UnescapeDataString(model.Token);
+            var result = await _userManager.ResetPasswordAsync(user, decodedToken, model.NewPassword);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
+
+            string emailBody = $"Please confirm your email by clicking this link: <a href='{confirmationLink}'>Confirm Email</a>";
+
+            await _emailService.SendMailAsync(user.Email, "Email Confirmation", emailBody, true);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(model);
         }
+
+
 
     }
 }

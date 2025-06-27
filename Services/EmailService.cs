@@ -36,9 +36,9 @@ namespace TravelFinalProject.Services
             }
             catch (Exception ex)
             {
-                // Əlavə edin loglama və ya konsola çıxış üçün:
+
                 Console.WriteLine("EMAIL ERROR: " + ex.Message);
-                throw; // Əlavə loglama servisi varsa oraya da göndərin
+                throw;
             }
         }
 

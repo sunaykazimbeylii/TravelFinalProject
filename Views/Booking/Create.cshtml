@@ -71,7 +71,7 @@
                                             <span asp-validation-for="@Model.DateOfBirth" class="text-danger"></span>
                                         </div>
 
-                                        <div class="col-md-4 col-sm-12">
+                                        <div class="col-md-4 col-sm-6">
                                             <label asp-for="@Model.Nationality"></label>
                                             <select asp-for="@Model.Nationality" class="niceSelect">
                                                 <option value="">Select Your Nationality</option>
@@ -102,41 +102,15 @@
                                         </div>
 
                                     </div>
-                                @* }*@
+                        
 
                                 <input asp-for="Booking.TourId" type="hidden" />
                                 <input asp-for="Booking.GuestsCount" type="hidden" />
                                 <input type="hidden" asp-for="Booking.TotalPrice" value="@Model.Booking.TotalPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)" />
                                 <button type="submit" class="btn btn-primary mt-3">Submit Booking</button>
                             </form>
-                            @section Scripts {
-                                <script>
-                                    function generatePassportInputs() {
-                                        const adultCount = parseInt(document.getElementById("Adults").value) || 0;
-                                        const childCount = parseInt(document.getElementById("Children").value) || 0;
-                                        const total = adultCount + childCount;
-
-                                        const container = document.getElementById("passportInputs");
-                                        container.innerHTML = "";
-
-                                        for (let i = 1; i <= total; i++) {
-                                            const div = document.createElement("div");
-                                            div.className = "input-box mb-2";
-
-                                            const input = document.createElement("input");
-                                            input.name = `PassportNumbers[${i - 1}]`;
-                                            input.placeholder = `Passport Number ${i}`;
-                                            input.className = "form-control";
-                                            input.required = true;
-
-                                            div.appendChild(input);
-                                            container.appendChild(div);
-                                        }
-                                    }
-                                    document.getElementById("Adults").addEventListener("change", generatePassportInputs);
-                                    document.getElementById("Children").addEventListener("change", generatePassportInputs);
-                                </script>
-                            }
+                           
+                            
 
                         </div>
                         <div class="customer-information card-information">
@@ -208,7 +182,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
 
             <div class="col-lg-4 col-xs-12 mb-4">
                 <div class="sidebar-sticky sticky1">
