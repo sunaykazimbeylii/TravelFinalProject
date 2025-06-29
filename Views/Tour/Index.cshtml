@@ -48,7 +48,8 @@
                         </div>
                     </div>
                     @foreach (var tour in Model.PaginatedTours.Items)
-                    {
+                    { 
+                    
                         <div class="blog-full d-flex justify-content-around mb-4">
                             <div class="row w-100">
                                 <div class="col-lg-5 col-md-4 col-xs-12 blog-height">
@@ -72,7 +73,7 @@
                                             <a href="#"><i class="fa fa-heart"></i></a>
                                         </div>
                                         <p class="mb-2 pink">
-                                            <i class="fa fa-map-marker mr-1"></i> @tour.Location, @tour.Destination.Name
+                                            <i class="fa fa-map-marker mr-1"></i> @tour.Location, @tour.Destination.DestinationTranslations.FirstOrDefault().Name
                                         </p>
                                         <p class="mb-2 border-t pt-2">
                                             @((tour.Description != null && tour.Description.Length > 150)
@@ -134,8 +135,8 @@
                                             <select name="Destination" class="form-control">
                                                 <option value="">Select Tour</option>
                                                 @foreach (var destination in Model.Destinations)
-                                                {
-                                                    <option value="@destination.Name">@destination.Name</option>
+                                                { foreach(var t in destination.DestinationTranslations){
+                                                    <option value="@t.Name">@t.Name</option>}
                                                 }
                                             </select>
                                         </div>
@@ -346,12 +347,13 @@
                                     <a asp-action="Index">All</a>
                                 </div>
                                 @foreach (var destination in Model.Destinations)
-                                {
+                                { foreach(var t in destination.DestinationTranslations){
                                     <div class="pretty p-default p-thick p-pulse">
                                         <input type="checkbox" name="destinationId" value="@destination.Id" id="dest_@destination.Id"
                                                onchange="document.getElementById('filterForm').submit();" />
-                                        <label for="dest_@destination.Id">@destination.Name</label>
+                                        <label for="dest_@destination.Id">@t.Name</label>
                                     </div>
+                                    }
                                 }
                             </form>
 

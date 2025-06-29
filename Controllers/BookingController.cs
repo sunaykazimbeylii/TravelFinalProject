@@ -8,6 +8,7 @@ using TravelFinalProject.Interfaces;
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities;
 using TravelFinalProject.ViewModels;
+using TravelFinalProject.ViewModels.Currency;
 [Authorize]
 [Route("booking")]
 public class BookingController : Controller
@@ -24,17 +25,22 @@ public class BookingController : Controller
     }
 
     [HttpGet("create/{tourId?}")]
-    public IActionResult Create(int tourId, int adults = 1, int children = 0)
+    public IActionResult Create(int tourId, int adults = 1, int children = 0, string langCode = "en", string currency = "USD")
     {
-        var tour = _context.Tours.Include(t => t.TourImages).Include(t => t.Destination).FirstOrDefault(t => t.Id == tourId);
+        var tour = _context.Tours.Include(m => m.TourTranslations.Where(t => t.LangCode == langCode)).Include(t => t.TourImages).Include(t => t.Destination).FirstOrDefault(t => t.Id == tourId);
         if (tour == null)
             return NotFound();
 
         int travellerCount = adults + children;
 
         decimal basePrice = tour.Price.Value * travellerCount;
-        decimal totalPrice = basePrice + 10 - 15; // misal booking fee + endirim
-
+        decimal totalPrice = basePrice + 10 - 15;
+        var currencies = new List<CurrencyVM>
+{
+    new CurrencyVM { Code = "USD", Symbol = "$", Name = "US Dollar" },
+    new CurrencyVM { Code = "AZN", Symbol = "₼", Name = "Azerbaijani Manat" },
+    new CurrencyVM { Code = "TRY", Symbol = "₺", Name = "Turkish Lira" }
+};
         var model = new BookingVM
         {
             TourId = tourId,
@@ -42,7 +48,10 @@ public class BookingController : Controller
             Children = children,
             TotalPrice = totalPrice,
             PassportNumbers = new List<string>(new string[travellerCount]),
+            Currencies = currencies,
+            SelectedCurrencyCode = "USD",
             Booking = new Booking
+
             {
                 TourId = tourId,
                 GuestsCount = 1,
@@ -60,7 +69,6 @@ public class BookingController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(BookingVM bookingVM)
     {
-        // ModelState-dən UserId yoxlamasını çıxarırıq, çünki formda yoxdur
         ModelState.Remove("Booking.UserId");
 
         if (bookingVM.Booking == null || bookingVM.Booking.TourId < 1)
@@ -68,7 +76,6 @@ public class BookingController : Controller
 
         if (!ModelState.IsValid)
         {
-            // Tour məlumatını yenidən doldur
             bookingVM.Booking.Tour = await _context.Tours.Include(t => t.TourImages)
                 .Include(t => t.Destination)
                 .FirstOrDefaultAsync(t => t.Id == bookingVM.Booking.TourId);
@@ -103,16 +110,17 @@ public class BookingController : Controller
         _context.Bookings.Add(booking);
         await _context.SaveChangesAsync();
 
-        if (bookingVM.PassportNumbers != null && bookingVM.PassportNumbers.Any())
+        if (bookingVM.Travellers != null && bookingVM.Travellers.Any())
         {
-            foreach (var passport in bookingVM.PassportNumbers)
+            foreach (var travellerVM in bookingVM.Travellers)
             {
-                if (!string.IsNullOrWhiteSpace(passport))
+                if (!string.IsNullOrWhiteSpace(travellerVM.PassportNumber))
                 {
                     var traveller = new BookingTraveller
                     {
                         BookingId = booking.Id,
-                        PassportNumber = passport.Trim()
+                        PassportNumber = travellerVM.PassportNumber.Trim(),
+                        // lazım olsa digər sahələr buraya əlavə oluna bilər
                     };
 
                     _context.BookingTravellers.Add(traveller);
@@ -121,22 +129,30 @@ public class BookingController : Controller
             await _context.SaveChangesAsync();
         }
 
-        return RedirectToAction("BookingConfirmation", new { id = booking.Id });
+        return RedirectToAction(nameof(BookingConfirmation), new { id = booking.Id });
     }
 
 
-    [HttpGet]
+    [HttpGet("confirmation/{id}")]
     public async Task<IActionResult> BookingConfirmation(int id)
     {
-        var booking = await _context.Bookings.Include(b => b.Travellers)
-            .Include(b => b.Tour).ThenInclude(t => t.TourImages)
-            .Include(b => b.Tour).ThenInclude(t => t.Destination)
+        var booking = await _context.Bookings
+            .Include(b => b.Tour)
+            .Include(b => b.Travellers)
+            .Include(b => b.User)
             .FirstOrDefaultAsync(b => b.Id == id);
 
         if (booking == null) return NotFound();
 
-        return View(booking); // View @model Booking olacaq
+        var model = new BookingDetailVM
+        {
+            Booking = booking,
+            Travellers = booking.Travellers.ToList()
+        };
+
+        return View(model);
     }
+
 
 
 

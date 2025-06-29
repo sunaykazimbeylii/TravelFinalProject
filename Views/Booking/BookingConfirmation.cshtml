@@ -1,5 +1,5 @@
-﻿@using TravelFinalProject.Models
-@model BookingTraveller
+﻿@using TravelFinalProject.ViewModels
+@model BookingDetailVM
 <section class="breadcrumb-main pb-0" style="background-image: url(images/bg/bg8.jpg);">
     <div class="breadcrumb-outer pt-10">
         <div class="container">
@@ -36,35 +36,32 @@
                             <table>
                                 <tr>
                                     <td>Booking Number</td>
-                                    <td>@Model.BookingId</td>
+                                    <td>@Model.Booking.Id</td>
                                 </tr>
                                 <tr>
                                     <td>First Name</td>
-                                    <td>@Model.FirstName</td>
+                                    <td>@Model.Booking.User.Name</td>
                                 </tr>
                                 <tr>
                                     <td>Last Name</td>
-                                    <td>@Model.LastName</td>
+                                    <td>@Model.Booking.User.Surname</td>
                                 </tr>
                                 <tr>
                                     <td>Email Address</td>
-                                    <td>@Model.Email</td>
+                                    <td>@Model.Booking.User.Email</td>
                                 </tr>
                                 <tr>
                                     <td>Street Address and number</td>
-                                    <td>@Model.Nationality</td>
+                                    <td>@Model.Booking.User.City</td>
                                 </tr>
                                 <tr>
                                     <td>Town/City</td>
-                                    <td></td>
+                                    <td>@Model.Booking.User.City</td>
                                 </tr>
-                                <tr>
-                                    <td>ZIP Code</td>
-                                    <td>75800-875</td>
-                                </tr>
+                                
                                 <tr>
                                     <td>Country</td>
-                                    <td>France</td>
+                                    <td>@Model.Booking.User.Country</td>
                                 </tr>
                             </table>
                         </div>

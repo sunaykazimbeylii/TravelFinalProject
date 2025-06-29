@@ -661,6 +661,10 @@
       "PackagePath": "staticwebassets\\assets\\images\\slider\\4.jpg"
     },
     {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\467c5af4-88e3-4995-8d22-53f4cfa92217.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\slider\\467c5af4-88e3-4995-8d22-53f4cfa92217.jpg"
+    },
+    {
       "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\slider\\5.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\slider\\5.jpg"
     },
@@ -761,8 +765,32 @@
       "PackagePath": "staticwebassets\\assets\\images\\trains\\7.jpg"
     },
     {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\01dfcb21-9363-47a1-af12-357f2165a036.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\01dfcb21-9363-47a1-af12-357f2165a036.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\25933c5e-835c-4706-8d95-27e6b11139ef.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\25933c5e-835c-4706-8d95-27e6b11139ef.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\2b0ee497-e0a4-453d-a47c-70c37b1e62ba.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\2b0ee497-e0a4-453d-a47c-70c37b1e62ba.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\2c39c3af-f191-4126-ae25-096e72ead61d.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\2c39c3af-f191-4126-ae25-096e72ead61d.jpg"
+    },
+    {
       "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\3d550f2a-ea7f-4218-9dc8-28734c28853d.png",
       "PackagePath": "staticwebassets\\assets\\images\\trending\\3d550f2a-ea7f-4218-9dc8-28734c28853d.png"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\411e8903-4c1d-4138-aeb1-966b17151cf1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\411e8903-4c1d-4138-aeb1-966b17151cf1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\4a7f7d78-044b-4592-a2bc-489a54aef697.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\4a7f7d78-044b-4592-a2bc-489a54aef697.jpg"
     },
     {
       "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\4d2bf006-2f38-449c-b0bf-5622676c41ae.png",
@@ -809,6 +837,14 @@
       "PackagePath": "staticwebassets\\assets\\images\\trending\\8e41433a-384e-4381-9f5a-e28b8ec16339.jpg"
     },
     {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\9eb8c1fb-8981-4f25-a5fe-fa34269e3424.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\9eb8c1fb-8981-4f25-a5fe-fa34269e3424.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\ImagePP.webp",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\ImagePP.webp"
+    },
+    {
       "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\Istanbul.png",
       "PackagePath": "staticwebassets\\assets\\images\\trending\\Istanbul.png"
     },
@@ -837,12 +873,36 @@
       "PackagePath": "staticwebassets\\assets\\images\\trending\\bafea1cb-f1dd-45b6-a4d7-edd7db17e88f.png"
     },
     {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\bfc0c179-4cc5-482b-b2e1-dc6b48dea0ae.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\bfc0c179-4cc5-482b-b2e1-dc6b48dea0ae.jpg"
+    },
+    {
       "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\c137cec7-fc2f-4727-bf8c-16e462fae675.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\trending\\c137cec7-fc2f-4727-bf8c-16e462fae675.jpg"
     },
     {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\cba9f9f7-b01b-404c-b468-827a5baac322.jpeg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\cba9f9f7-b01b-404c-b468-827a5baac322.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\d226a8d9-aa81-4961-a36e-60534624c076.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\d226a8d9-aa81-4961-a36e-60534624c076.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\d5e0c232-7db4-4c57-b7bc-f365423675f1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\d5e0c232-7db4-4c57-b7bc-f365423675f1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\f5def82a-0929-411c-bdb0-1010b9350358.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\f5def82a-0929-411c-bdb0-1010b9350358.jpg"
+    },
+    {
       "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\fe44ac67-81a4-4a80-9825-be7b714f11ad.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\trending\\fe44ac67-81a4-4a80-9825-be7b714f11ad.jpg"
+    },
+    {
+      "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\imagesPp.jpeg",
+      "PackagePath": "staticwebassets\\assets\\images\\trending\\imagesPp.jpeg"
     },
     {
       "Id": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\trending1.jpg",

@@ -43,9 +43,10 @@
                                             <label asp-for="DestinationId" class="form-label">Destination</label>
                                             <select asp-for="DestinationId" class="form-control niceSelect">
                                                 <option selected disabled>Choose Destination</option>
-                                                @foreach (Destination destination in Model.Destinations)
+                                                @foreach (var dt in Model.DestinationTranslations)
                                                 {
-                                                    <option value="@destination.Id">@destination.Name</option>
+                                                    <option value="@dt.DestinationId">@dt.Name</option>
+
                                                 }
                                             </select>
                                             <span asp-validation-for="DestinationId" class="text-danger"></span>
@@ -120,7 +121,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                           
+                                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                                <div class="input-box">
+                                                    <label asp-for="LangCode" class="form-label">LangCode</label>
+                                                    <input asp-for="LangCode" class="form-control" placeholder="LangCode" />
+                                                    <span asp-validation-for="LangCode" class="text-danger"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

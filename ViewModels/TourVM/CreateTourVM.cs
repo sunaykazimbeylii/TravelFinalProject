@@ -5,6 +5,7 @@ namespace TravelFinalProject.ViewModels.TourVM
 {
     public class CreateTourVM
     {
+        public string LangCode { get; set; }
         [Required, StringLength(200)]
         public string Title { get; set; }
         [StringLength(2000)]
@@ -25,5 +26,7 @@ namespace TravelFinalProject.ViewModels.TourVM
         [Required]
         public int? DestinationId { get; set; }
         public List<Destination>? Destinations { get; set; }
+        public List<DestinationTranslation>? DestinationTranslations { get; set; }
+
     }
 }

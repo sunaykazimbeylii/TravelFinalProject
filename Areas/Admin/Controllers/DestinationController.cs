@@ -18,17 +18,17 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             _context = context;
             _env = env;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string langCode = "en")
         {
-            List<GetDestinationVM> destinationVMs = await _context.Destinations.Include(d => d.Category).Select(d => new GetDestinationVM
+            List<GetDestinationVM> destinationVMs = await _context.Destinations.Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode)).Include(d => d.Category).Select(d => new GetDestinationVM
             {
-                Name = d.Name,
+                Name = d.DestinationTranslations.FirstOrDefault().Name,
                 Id = d.Id,
-                Description = d.Description,
-                Address = d.Address,
-                City = d.City,
-                Country = d.Country,
-                CategoryName = d.Category.Name,
+                Description = d.DestinationTranslations.FirstOrDefault().Description,
+                Address = d.DestinationTranslations.FirstOrDefault().Address,
+                City = d.DestinationTranslations.FirstOrDefault().City,
+                Country = d.DestinationTranslations.FirstOrDefault().Country,
+                CategoryName = d.Category.DestinationCategoryTranslations.FirstOrDefault().Name,
                 Price = d.Price,
                 MainImage = d.DestinationImages.FirstOrDefault(di => di.IsPrimary == true).Image,
 
@@ -40,17 +40,21 @@ namespace TravelFinalProject.Areas.Admin.Controllers
 
         public async Task<IActionResult> Create()
         {
+
             CreateDestinationVM destinationVM = new CreateDestinationVM
             {
-                Categories = await _context.DestinationCategories.ToListAsync()
+                DestinationCategories = await _context.DestinationCategoryTranslations.ToListAsync()
             };
             return View(destinationVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateDestinationVM destinationVM)
+        public async Task<IActionResult> Create(CreateDestinationVM destinationVM, string langCode = "en")
         {
-            destinationVM.Categories = await _context.DestinationCategories.ToListAsync();
+            destinationVM.DestinationCategories = await _context.DestinationCategoryTranslations
+        .Where(t => t.LangCode == langCode) /////////sorussss////////////
+        .ToListAsync();
+            destinationVM.Categories = await _context.DestinationCategories.Include(m => m.DestinationCategoryTranslations.Where(t => t.LangCode == langCode)).ToListAsync();
             if (!ModelState.IsValid) return View(destinationVM);
 
 
@@ -64,7 +68,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 ModelState.AddModelError(nameof(CreateDestinationVM.MainPhoto), "File size cannot exceed 2 MB.");
                 return View(destinationVM);
             }
-            bool exists = await _context.Destinations.AnyAsync(d => d.Name == destinationVM.Name);
+            bool exists = await _context.Destinations.AnyAsync(d => d.DestinationTranslations.FirstOrDefault().Name == destinationVM.Name);
             if (exists)
             {
                 ModelState.AddModelError(nameof(CreateDestinationVM.Name), "Destination with this name already exists.");
@@ -79,13 +83,8 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             };
             Destination destination = new Destination
             {
-                Name = destinationVM.Name,
-                Description = destinationVM.Description,
-                Country = destinationVM.Country,
-                City = destinationVM.City,
                 Price = destinationVM.Price,
-                Address = destinationVM.Address,
-
+                IsFeatured = destinationVM.IsFeatured,
                 CategoryId = destinationVM.CategoryId,
                 DestinationImages = new List<DestinationImage>()
 
@@ -93,32 +92,46 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             destination.DestinationImages.Add(main);
             await _context.Destinations.AddAsync(destination);
             await _context.SaveChangesAsync();
-
+            DestinationTranslation translation = new DestinationTranslation
+            {
+                LangCode = destinationVM.LangCode,
+                Name = destinationVM.Name,
+                Description = destinationVM.Description,
+                Country = destinationVM.Country,
+                City = destinationVM.City,
+                Address = destinationVM.Address,
+                DestinationId = destination.Id
+            };
+            await _context.DestinationTranslations.AddAsync(translation);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Update(int? id)
+        public async Task<IActionResult> Update(int? id, string langCode = "en")
         {
+
             if (id is null || id < 1)
             {
                 return BadRequest();
             }
-            Destination? destination = await _context.Destinations.Include(d => d.DestinationImages).FirstOrDefaultAsync(d => d.Id == id);
+            Destination? destination = await _context.Destinations.Include(m => m.Category).Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode)).Include(d => d.DestinationImages).FirstOrDefaultAsync(d => d.Id == id);
             if (destination == null) return NotFound();
 
             UpdateDestinationVM destinationVM = new UpdateDestinationVM
             {
 
-                Name = destination.Name,
-                Description = destination.Description,
-                Country = destination.Country,
+                Name = destination.DestinationTranslations.FirstOrDefault().Name,
+                Description = destination.DestinationTranslations.FirstOrDefault().Description,
+                Country = destination.DestinationTranslations.FirstOrDefault().Country,
                 CategoryId = destination.CategoryId,
-                Address = destination.Address,
-                City = destination.City,
+                Address = destination.DestinationTranslations.FirstOrDefault().Address,
+                City = destination.DestinationTranslations.FirstOrDefault().City,
                 Price = destination.Price,
                 IsFeatured = destination.IsFeatured,
                 PrimaryImage = destination.DestinationImages.FirstOrDefault(pi => pi.IsPrimary == true).Image,
-                Categories = await _context.DestinationCategories.ToListAsync()
+                Categories = await _context.DestinationCategories.ToListAsync(),
+                DestinationCategories = await _context.DestinationCategoryTranslations.ToListAsync()
+
             };
             return View(destinationVM);
 
@@ -127,13 +140,12 @@ namespace TravelFinalProject.Areas.Admin.Controllers
 
 
         [HttpPost]
-
         public async Task<IActionResult> Update(UpdateDestinationVM destinationVM, int id)
         {
-            destinationVM.Categories = await _context.DestinationCategories.ToListAsync();
+            destinationVM.Categories = await _context.DestinationCategories.Include(d => d.DestinationCategoryTranslations).ToListAsync();
             if (!ModelState.IsValid) return View(destinationVM);
 
-            Destination? existed = await _context.Destinations.Include(d => d.DestinationImages).FirstOrDefaultAsync(d => d.Id == id);
+            Destination? existed = await _context.Destinations.Include(d => d.DestinationImages).Include(m => m.DestinationTranslations).FirstOrDefaultAsync(d => d.Id == id);
             if (existed is null) return NotFound();
             if (destinationVM.MainPhoto is not null)
             {
@@ -155,7 +167,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 ModelState.AddModelError(nameof(UpdateDestinationVM.CategoryId), "Category doesn't exist");
                 return View(destinationVM);
             }
-            bool nameExists = await _context.Destinations.AnyAsync(d => d.Id != id && d.Name == destinationVM.Name);
+            bool nameExists = await _context.Destinations.AnyAsync(d => d.Id != id && d.DestinationTranslations.FirstOrDefault().Name == destinationVM.Name);
 
             if (nameExists)
             {
@@ -175,13 +187,12 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 existed.DestinationImages.Remove(exitedMain);
                 existed.DestinationImages.Add(main);
             }
-            existed.Name = destinationVM.Name;
-            existed.Description = destinationVM.Description;
-            existed.Country = destinationVM.Country;
+            existed.DestinationTranslations.FirstOrDefault().Name = destinationVM.Name;
+            existed.DestinationTranslations.FirstOrDefault().Description = destinationVM.Description;
+            existed.DestinationTranslations.FirstOrDefault().Country = destinationVM.Country;
             existed.Price = destinationVM.Price;
-            existed.Address = destinationVM.Address;
-            existed.City = destinationVM.City;
-
+            existed.DestinationTranslations.FirstOrDefault().Address = destinationVM.Address;
+            existed.DestinationTranslations.FirstOrDefault().City = destinationVM.City;
             existed.CategoryId = destinationVM.CategoryId;
             existed.IsFeatured = destinationVM.IsFeatured;
 
@@ -195,7 +206,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             {
                 return BadRequest();
             }
-            Destination? destination = await _context.Destinations.Include(d => d.DestinationImages).FirstOrDefaultAsync(d => d.Id == id);
+            Destination? destination = await _context.Destinations.Include(d => d.DestinationTranslations).Include(d => d.DestinationImages).FirstOrDefaultAsync(d => d.Id == id);
             if (destination is null) return NotFound();
             foreach (DestinationImage desImage in destination.DestinationImages)
             {
@@ -208,5 +219,3 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         }
     }
 }
-
-//slide,destinition.login register

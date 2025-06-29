@@ -15,10 +15,10 @@ namespace TravelFinalProject.Controllers
             _context = context;
 
         }
-        public async Task<IActionResult> Index(int? categoryId, TourSearchVM search)
+        public async Task<IActionResult> Index(int? categoryId, TourSearchVM search, string langCode = "en")
         {
 
-            var destinationsQuery = _context.Destinations
+            var destinationsQuery = _context.Destinations.Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode))
                 .Include(d => d.Category)
                 .Where(d => d.IsFeatured == true)
                 .AsQueryable();
@@ -34,11 +34,11 @@ namespace TravelFinalProject.Controllers
             var toursQuery = _context.Tours.AsQueryable();
 
 
-            if (!string.IsNullOrWhiteSpace(search?.Destination))
-            {
-                var dest = search.Destination.Trim().ToLower();
-                toursQuery = toursQuery.Where(t => t.Destination.Name.ToLower().Contains(dest));
-            }
+            //if (!string.IsNullOrWhiteSpace(search?.Destination))
+            //{
+            //    var dest = search.Destination.Trim().ToLower();
+            //    toursQuery = toursQuery.Where(t => t.Destination.DestinationTranslations..ToLower().Contains(dest));
+            //}
 
             if (search.CheckIn.HasValue)
             {
@@ -58,8 +58,8 @@ namespace TravelFinalProject.Controllers
             HomeVM homeVM = new HomeVM
             {
                 Tours = tours,
-                Slides = await _context.Slides.ToListAsync(),
-                DestinationCategories = await _context.DestinationCategories.ToListAsync(),
+                Slides = await _context.Slides.Include(m => m.SlideTranslations.Where(t => t.LangCode == langCode)).ToListAsync(),
+                DestinationCategories = await _context.DestinationCategories.Include(m => m.DestinationCategoryTranslations.Where(t => t.LangCode == langCode)).ToListAsync(),
                 DestinationImages = await _context.DestinationImages.ToListAsync(),
                 TourImages = await _context.TourImages.ToListAsync(),
                 Destinations = destinations,
@@ -124,43 +124,6 @@ namespace TravelFinalProject.Controllers
             };
             return View(detailVM);
         }
-        //public ActionResult SearchTours(TourSearchVM searchModel)
-        //{
-        //    Başlanğıc query -bütün turlar
-        //   var query = _context.Tours.AsQueryable();
-
-        //    Destination - a görə filter
-        //    if (!string.IsNullOrWhiteSpace(searchModel.Destination))
-        //    {
-        //        string destination = searchModel.Destination.Trim().ToLower();
-        //        query = query.Where(t => t.Destination.Name.ToLower().Contains(destination));
-        //    }
-
-        //    Check -in tarixinə görə filter(tur başlanğıc tarixi)
-        //    if (searchModel.CheckIn.HasValue)
-        //    {
-        //        query = query.Where(t => t.StartDate >= searchModel.CheckIn.Value);
-        //    }
-
-        //    Check -out tarixinə görə filter(tur bitiş tarixi)
-        //    if (searchModel.CheckOut.HasValue)
-        //    {
-        //        query = query.Where(t => t.EndDate <= searchModel.CheckOut.Value);
-        //    }
-
-
-        //    Sorğunu icra et və nəticələri al
-        //    var toursResult = query.ToList();
-
-        //    ViewModel - i hazırla
-        //   var vm = new HomeVM
-        //   {
-        //       Tours = toursResult,
-        //       Search = searchModel
-        //   };
-
-        //    return View("Index", vm);
-        //}
 
     }
 }

@@ -107,7 +107,16 @@
                                 <input asp-for="Booking.TourId" type="hidden" />
                                 <input asp-for="Booking.GuestsCount" type="hidden" />
                                 <input type="hidden" asp-for="Booking.TotalPrice" value="@Model.Booking.TotalPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)" />
+                           @*  <input type="hidden" id="currencyInput" name="Currency" /> *@
                                 <button type="submit" class="btn btn-primary mt-3">Submit Booking</button>
+                       @*      <script>
+                                const currencyInput = document.getElementById('currencyInput');
+                                const select = document.getElementById('currencySelect');
+                                document.querySelector('form').addEventListener('submit', () => {
+                                    const savedCurrency = localStorage.getItem('selectedCurrency') || 'USD';
+                                    currencyInput.value = savedCurrency;
+                                });
+                            </script> *@
                             </form>
                            
                             
@@ -202,11 +211,11 @@
                                     </div>
                                     <span class="ml-2">38 Reviews</span>
                                 </div>
-                                <h4><a href="#">@Model.Booking.Tour.Title</a></h4>
-                                <p class="mb-0 pink"><i class="fa fa-eye mr-1"></i> 852 Visiting Places <i class="fa fa-map-marker mr-1 ml-3"></i> @Model.Booking.Tour.Destination.Name.</p>
+                                <h4><a href="#">@Model.Booking.Tour.TourTranslations.FirstOrDefault().Title</a></h4>
+                                <p class="mb-0 pink"><i class="fa fa-eye mr-1"></i> 852 Visiting Places <i class="fa fa-map-marker mr-1 ml-3"></i> @Model.Booking.Tour.Destination.DestinationTranslations.FirstOrDefault().Name.</p>
                             </div>
                             <div class="trend-last-main">
-                                <p class="mb-0 trend-para">@Model.Booking.Tour.Description</p>
+                                <p class="mb-0 trend-para">@Model.Booking.Tour.TourTranslations.FirstOrDefault().Description</p>
                                 <div class="trend-last d-flex align-items-center justify-content-between bg-navy">
                                     <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i>@Model.Booking.Tour.Duration</p>
                                     <div class="trend-price">

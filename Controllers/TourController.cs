@@ -15,9 +15,18 @@ namespace TravelFinalProject.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index(TourSearchVM search, int? destinationId, int? min_price, int? max_price, int page = 1, int key = 1)
+        public async Task<IActionResult> Index(TourSearchVM search, int? destinationId, int? min_price, int? max_price, int page = 1, int key = 1, string langCode = "en", string currency = "USD")
         {
-            IQueryable<Tour> query = _context.Tours
+            decimal rate = 1m;
+            switch (currency.ToUpper())
+            {
+                case "AZN": rate = 1.7m; break;
+                case "TRY": rate = 18m; break;
+                case "EUR": rate = 0.95m; break;
+                case "GBP": rate = 0.83m; break;
+                default: rate = 1m; break;  // USD
+            }
+            IQueryable<Tour> query = _context.Tours.Include(m => m.TourTranslations.Where(t => t.LangCode == langCode))
                 .Include(t => t.TourImages.Where(ti => ti.IsPrimary == true))
                 .Include(t => t.Destination);
 
@@ -33,7 +42,7 @@ namespace TravelFinalProject.Controllers
 
             if (!string.IsNullOrEmpty(search.Destination))
             {
-                query = query.Where(t => t.Destination.Name == search.Destination);
+                query = query.Where(t => t.Destination.DestinationTranslations.FirstOrDefault().Name == search.Destination);
             }
 
 
@@ -93,26 +102,29 @@ namespace TravelFinalProject.Controllers
                 Items = tours.Select(t => new GetTourVM
                 {
                     Id = t.Id,
-                    Title = t.Title,
+                    Title = t.TourTranslations.FirstOrDefault().Title,
                     DestinationId = t.DestinationId,
                     Start_Date = t.Start_Date,
                     End_Date = t.End_Date,
-                    Location = t.Location,
+                    Location = t.TourTranslations.FirstOrDefault().Location,
                     Available_seats = t.Available_seats,
-                    Price = t.Price ?? 0,
+
+                    Price = t.Price.Value * rate,
                     Image = t.TourImages.FirstOrDefault()?.Image ?? "default.jpg",
-                    Description = t.Description,
+                    Description = t.TourTranslations.FirstOrDefault().Description,
                     Destination = t.Destination
                 }).ToList()
             };
 
-            var destinations = await _context.Destinations.ToListAsync();
+            var destinations = await _context.Destinations.Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode)).ToListAsync();
 
             var vm = new TourListPageVM
             {
                 PaginatedTours = paginatedVM,
                 Destinations = destinations,
                 SearchForm = new TourSearchVM(),
+                SelectedCurrency = currency.ToUpper(),
+                ExchangeRate = rate
 
             };
 

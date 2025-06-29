@@ -5,6 +5,7 @@ namespace TravelFinalProject.ViewModels
 {
     public class CreateDestinationVM
     {
+        public string LangCode { get; set; }
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
@@ -23,5 +24,8 @@ namespace TravelFinalProject.ViewModels
         public int? CategoryId { get; set; }
         public bool IsFeatured { get; set; }
         public List<DestinationCategory>? Categories { get; set; }
+        public List<DestinationCategoryTranslation>? DestinationCategories { get; set; }
+
+
     }
 }

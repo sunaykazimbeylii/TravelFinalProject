@@ -26,6 +26,18 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="~/assets/fonts/line-icons.css" type="text/css">
 </head>
+<script>
+    document.getElementById("languageSelect").addEventListener("change", function () {
+        const selectedLang = this.value;
+        const url = new URL(window.location.href);
+
+        // langCode varsa dəyiş, yoxdursa əlavə et
+        url.searchParams.set("langCode", selectedLang);
+
+        // Yeni URL-ə yönləndir
+        window.location.href = url.toString();
+    });
+</script>
 <body>
 
     <!-- Preloader -->
@@ -54,49 +66,6 @@
                                     <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home <i class="icon-arrow-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="index.html">Homepage Default</a></li>
-                                        <li><a href="index-1.html">Homepage 1</a></li>
-                                        <li><a href="index-2.html">Homepage 2</a></li>
-                                        <li><a href="index-3.html">Homepage 3</a></li>
-                                        <li class="submenu dropdown">
-                                            <a href="index-flight.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Flight<i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="index-flight.html">Homepage Flight</a></li>
-                                                <li><a href="flight-list.html">Flight List</a></li>
-                                                <li><a href="flight-grid.html">Flight Grid</a></li>
-                                                <li><a href="flight-detail.html">Flight Detail</a></li>
-                                                <li><a href="flight-booking.html">Flight Booking</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="submenu dropdown">
-                                            <a href="index-car.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Car<i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="index-car.html">Homepage Car</a></li>
-                                                <li><a href="car-list.html">Car List</a></li>
-                                                <li><a href="car-grid.html">Car Grid</a></li>
-                                                <li><a href="car-detail.html">Car Detail</a></li>
-                                                <li><a href="car-booking.html">Car Booking</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="submenu dropdown">
-                                            <a href="index-train.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Train<i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="index-train.html">Homepage Train</a></li>
-                                                <li><a href="train-list.html">Train List</a></li>
-                                                <li><a href="train-grid.html">Train Grid</a></li>
-                                                <li><a href="train-detail.html">Train Detail</a></li>
-                                                <li><a href="train-booking.html">Train Booking</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="submenu dropdown">
-                                            <a href="index-hotel.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hotels<i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="index-hotel.html">Homepage Hotel</a></li>
-                                                <li><a href="hotel-list.html">Hotel List</a></li>
-                                                <li><a href="hotel-grid.html">Hotel Grid</a></li>
-                                                <li><a href="hotel-detail.html">Hotel Detail</a></li>
-                                                <li><a href="hotel-booking.html">Hotel Booking</a></li>
-                                            </ul>
-                                        </li>
                                         <li><a href="index-search.html">Homepage Search</a></li>
                                     </ul>
                                 </li>
@@ -105,15 +74,7 @@
                                 <li class="submenu dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages <i class="icon-arrow-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="booking.html">Booking</a></li>
-                                        <li><a href="confirmation.html">Confirmation</a></li>
-                                        <li class="submenu dropdown">
-                                            <a href="gallery.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gallery<i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="gallery.html">Gallery</a></li>
-                                                <li><a href="gallery1.html">Gallery Masonry</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a asp-action="Create" asp-controller="Booking">Booking</a></li>
                                         <li class="submenu dropdown">
                                             <a href="404.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Error<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                             <ul class="dropdown-menu">
@@ -129,29 +90,24 @@
                                             </ul>
                                         </li>
                                         <li class="submenu dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My account <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="shop-grid1.html">Right Grid</a></li>
-                                                <li><a href="shop-list1.html">Right List</a></li>
-                                                <li><a href="shop-detail.html">Shop Single One</a></li>
-                                                <li><a href="cart.html">Cart</a></li>
+                                                <li><a asp-action="myprofile" asp-controller="profile">My Profile</a></li>
                                                 <li><a href="checkout.html">Checkout</a></li>
                                                 <li><a href="login.html">Account</a></li>
                                                 <li><a href="wishlist.html">Wishlist</a></li>
-                                                <li><a href="forgot-password.html">Forgot Password</a></li>
+
                                             </ul>
                                         </li>
-                                        <li><a href="faq.html">Faq</a></li>
-                                        <li><a href="testimonial.html">Testimonials</a></li>
-                                        <li><a href="pricing.html">Pricing</a></li>
+
                                     </ul>
                                 </li>
 
                                 <li class="submenu dropdown">
                                     <a href="destination.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Destination <i class="icon-arrow-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a asp-action="Index" asp-controller="Tour" >Tour</a></li>
-                                        <li><a href="destination-grid.html">Destination Grid</a></li>
+                                        <li><a asp-action="Index" asp-controller="Tour">Tour</a></li>
+                                        <li><a href="destination-grid.html">Destination</a></li>
                                         <li><a href="destination-full.html">Destination Fullwidth</a></li>
                                         <li><a href="destination-left.html">Destination Left</a></li>
                                         <li><a href="destination-list.html">Destination Right</a></li>
@@ -206,27 +162,27 @@
 
                         <div class="register-login">
                             <ul>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li>
-                                    <a href="my-account.html">@User.Identity.Name</a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Account" asp-action="Logout"> Log out</a>
-                                </li>
-                            }
-                            else
-                            {
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li>
+                                        <a href="my-account.html">@User.Identity.Name</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Account" asp-action="Logout"> Log out</a>
+                                    </li>
+                                }
+                                else
+                                {
 
-                                <li>
-                                        <a class="mr-2"  asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path.Value"><i class="icon-login mr-1"></i>Log in</a>
-                                </li>
-                                <li>
-                                    <a class="mr-2" asp-controller="Account" asp-action="Register"><i class="icon-user mr-1"></i>Register</a>
-                                </li>
+                                    <li>
+                                        <a class="mr-2" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path.Value"><i class="icon-login mr-1"></i>Log in</a>
+                                    </li>
+                                    <li>
+                                        <a class="mr-2" asp-controller="Account" asp-action="Register"><i class="icon-user mr-1"></i>Register</a>
+                                    </li>
                                 }
                             </ul>
-                        
+
                         </div>
 
                         <div id="slicknav-mobile"></div>
@@ -237,7 +193,7 @@
         <!-- Navigation Bar Ends -->
     </header>
     <!-- header ends -->
-        @RenderBody()
+    @RenderBody()
     <!-- footer starts -->
     <footer class="pt-10 bubbles footermain">
         <div class="footer-upper pb-5">
@@ -314,22 +270,78 @@
                     <div class="footer-payment-nav mb-0">
                         <ul>
                             <li>
-                                <select>
-                                    <option>English (United States)</option>
-                                    <option>English (United States)</option>
-                                    <option>English (United States)</option>
-                                    <option>English (United States)</option>
-                                    <option>English (United States)</option>
+                                <select id="languageSelect" class="form-control" style="width: auto;">
+                                    <option value="en" selected>English</option>
+                                    <option value="az">Azerbaijani</option>
+                                    <option value="ru">Russian</option>
                                 </select>
+                                <script>
+                                    // URL-dən langCode oxu və seçimi aktiv et
+                                    const currentUrl = new URL(window.location.href);
+                                    const currentLang = currentUrl.searchParams.get("langCode") || "en"; // default 'en'
+
+                                    document.getElementById("languageSelect").value = currentLang;
+
+                                    // Dəyişəndə URL-i yenilə
+                                    document.getElementById("languageSelect").addEventListener("change", function () {
+                                        const selectedLang = this.value;
+                                        currentUrl.searchParams.set("langCode", selectedLang);
+                                        window.location.href = currentUrl.toString();
+                                    });
+                                </script>
+
                             </li>
                             <li>
-                                <select>
-                                    <option>$ USD</option>
-                                    <option>$ USD</option>
-                                    <option>$ USD</option>
-                                    <option>$ USD</option>
-                                    <option>$ USD</option>
-                                </select>
+                              @*   <select id="currencySelect" class="form-control">
+                                    <option value="USD" @(Model.SelectedCurrency == "USD" ? "selected" : "")>$ USD</option>
+                                    <option value="AZN" @(Model.SelectedCurrency == "AZN" ? "selected" : "")>₼ AZN</option>
+                                    <option value="TRY" @(Model.SelectedCurrency == "TRY" ? "selected" : "")>₺ TRY</option>
+                                    <option value="EUR" @(Model.SelectedCurrency == "EUR" ? "selected" : "")>€ EUR</option>
+                                    <option value="GBP" @(Model.SelectedCurrency == "GBP" ? "selected" : "")>£ GBP</option>
+                                </select> *@
+
+                                <script>
+                                    document.getElementById("currencySelect").addEventListener("change", function () {
+                                        const selectedCurrency = this.value;
+                                        localStorage.setItem("currency", selectedCurrency);
+                                        const url = new URL(window.location.href);
+                                        url.searchParams.set("currency", selectedCurrency);
+                                        window.location.href = url.toString();
+                                    });
+
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        const savedCurrency = localStorage.getItem("currency") || "USD";
+                                        document.getElementById("currencySelect").value = savedCurrency;
+                                    });
+                                </script>
+
+                                @foreach (var tour in Model.Tours)
+                                {
+                                    <div>
+                                        <h3>@tour.Title</h3>
+                                        <p>Price: @tour.Price.ToString("0.00") @Model.SelectedCurrency</p>
+                                        <img src="~/assets/images/@tour.Image" alt="@tour.Title" />
+                                    </div>
+                                }
+
+                                <script>
+                                    document.getElementById("currencySelect").addEventListener("change", function () {
+                                        const selectedCurrency = this.value;
+                                        localStorage.setItem("currency", selectedCurrency);
+
+                                        const url = new URL(window.location.href);
+                                        url.searchParams.set("currency", selectedCurrency);
+
+                                        window.location.href = url.toString();
+                                    });
+
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        const savedCurrency = localStorage.getItem("currency") || "USD";
+                                        document.getElementById("currencySelect").value = savedCurrency;
+                                    });
+
+                                </script>
+
                             </li>
                         </ul>
                     </div>
@@ -361,131 +373,131 @@
     </div>
     <!-- Back to top ends -->
     <!-- Register Modal -->
-@*     <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bordernone p-0">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body p-0">
-                    <div class="login-content p-4 text-center">
-                        <div class="login-title section-border">
-                            <h3 class="pink mb-1">Register</h3>
-                            <p>Access thousands of online classes in design, business, and more!</p>
-                        </div>
-                        <div class="login-form text-center">
+    @*     <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header bordernone p-0">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body p-0">
+    <div class="login-content p-4 text-center">
+    <div class="login-title section-border">
+    <h3 class="pink mb-1">Register</h3>
+    <p>Access thousands of online classes in design, business, and more!</p>
+    </div>
+    <div class="login-form text-center">
 
-                            <form id="registerForm" asp-controller="Account" asp-action="Register" method="post">
-                                <div class="form-group">
-                                    <input asp-for="@Model.Register.Name" class="form-control" placeholder="Enter Full Name" />
-                                    <span asp-validation-for="@Model.Register.Name" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input asp-for="@Model.Register.Surname" class="form-control" placeholder="Enter Surname" />
-                                    <span asp-validation-for="@Model.Register.Surname" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input asp-for="@Model.Register.UserName" class="form-control" placeholder="Enter Username" />
-                                    <span asp-validation-for="@Model.Register.UserName" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input asp-for="@Model.Register.Email" class="form-control" placeholder="Enter Email" />
-                                    <span asp-validation-for="@Model.Register.Email" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input asp-for="@Model.Register.Password" class="form-control" placeholder="Enter Password" type="password" />
-                                    <span asp-validation-for="@Model.Register.Password" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input asp-for="@Model.Register.ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password" />
-                                    <span asp-validation-for="@Model.Register.ConfirmPassword" class="text-danger"></span>
-                                </div>
-                                <div class="form-btn">
-                                    <button type="submit" class="nir-btn">Register</button>
-                                </div>
-                                <div id="registerError" class="text-danger mt-2"></div>
-                            </form>
+    <form id="registerForm" asp-controller="Account" asp-action="Register" method="post">
+    <div class="form-group">
+    <input asp-for="@Model.Register.Name" class="form-control" placeholder="Enter Full Name" />
+    <span asp-validation-for="@Model.Register.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <input asp-for="@Model.Register.Surname" class="form-control" placeholder="Enter Surname" />
+    <span asp-validation-for="@Model.Register.Surname" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <input asp-for="@Model.Register.UserName" class="form-control" placeholder="Enter Username" />
+    <span asp-validation-for="@Model.Register.UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <input asp-for="@Model.Register.Email" class="form-control" placeholder="Enter Email" />
+    <span asp-validation-for="@Model.Register.Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <input asp-for="@Model.Register.Password" class="form-control" placeholder="Enter Password" type="password" />
+    <span asp-validation-for="@Model.Register.Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <input asp-for="@Model.Register.ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password" />
+    <span asp-validation-for="@Model.Register.ConfirmPassword" class="text-danger"></span>
+    </div>
+    <div class="form-btn">
+    <button type="submit" class="nir-btn">Register</button>
+    </div>
+    <div id="registerError" class="text-danger mt-2"></div>
+    </form>
 
 
-                            <div class="form-btn">
-                                <a href="#" class="nir-btn">Register</a>
-                            </div>
-                            <div class="form-group mb-0 form-checkbox mt-3">
-                                <input type="checkbox"> By clicking this, you are agree to to<a href="#" class=""> our terms of use</a> and <a href="#" class="">privacy policy</a> including the use of cookies
-                            </div>
-                        </div>
-                        <div class="login-social border-t mt-3 pt-2 mb-3">
-                            <p class="mb-2">OR continue with</p>
-                            <a href="#" class="btn-facebook"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a>
-                            <a href="#" class="btn-twitter"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a>
-                            <a href="#" class="btn-google"><i class="fab fa-google" aria-hidden="true"></i> Google</a>
-                        </div>
-                        <div class="sign-up">
-                            <p class="m-0">Already have an account? <a href="login.html" class="pink">Login</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="form-btn">
+    <a href="#" class="nir-btn">Register</a>
+    </div>
+    <div class="form-group mb-0 form-checkbox mt-3">
+    <input type="checkbox"> By clicking this, you are agree to to<a href="#" class=""> our terms of use</a> and <a href="#" class="">privacy policy</a> including the use of cookies
+    </div>
+    </div>
+    <div class="login-social border-t mt-3 pt-2 mb-3">
+    <p class="mb-2">OR continue with</p>
+    <a href="#" class="btn-facebook"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a>
+    <a href="#" class="btn-twitter"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a>
+    <a href="#" class="btn-google"><i class="fab fa-google" aria-hidden="true"></i> Google</a>
+    </div>
+    <div class="sign-up">
+    <p class="m-0">Already have an account? <a href="login.html" class="pink">Login</a></p>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </div> *@
 
     <!-- login Modal -->
-@*    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bordernone p-0">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body p-0">
-                    <div class="login-content p-4 text-center">
-                        <div class="login-title section-border">
-                            <h3 class="pink">Login</h3>
-                        </div>
-                        <div class="login-form">
+    @*    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header bordernone p-0">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body p-0">
+    <div class="login-content p-4 text-center">
+    <div class="login-title section-border">
+    <h3 class="pink">Login</h3>
+    </div>
+    <div class="login-form">
 
-                            <form id="loginForm" asp-controller="Account" asp-action="Login" method="post">
-                                <div class="form-group">
-                                    <input asp-for="@Model.Login.UserNameOrEmail" class="form-control" placeholder="Enter Username or Email" />
-                                    <span asp-validation-for="@Model.Login.UserNameOrEmail" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input asp-for="@Model.Login.Password" class="form-control" placeholder="Enter Password" type="password" />
-                                    <span asp-validation-for="@Model.Login.Password" class="text-danger"></span>
-                                </div>
-                                <div class="form-group form-check">
-                                    <input asp-for="@Model.Login.IsPersistent" class="form-check-input" />
-                                    <label asp-for="@Model.Login.IsPersistent" class="form-check-label">Remember Me</label>
-                                </div>
-                                <div class="form-btn">
-                                    <button type="submit" class="nir-btn">Login</button>
-                                </div>
-                                <div id="loginError" class="text-danger mt-2"></div>
-                            </form>
+    <form id="loginForm" asp-controller="Account" asp-action="Login" method="post">
+    <div class="form-group">
+    <input asp-for="@Model.Login.UserNameOrEmail" class="form-control" placeholder="Enter Username or Email" />
+    <span asp-validation-for="@Model.Login.UserNameOrEmail" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <input asp-for="@Model.Login.Password" class="form-control" placeholder="Enter Password" type="password" />
+    <span asp-validation-for="@Model.Login.Password" class="text-danger"></span>
+    </div>
+    <div class="form-group form-check">
+    <input asp-for="@Model.Login.IsPersistent" class="form-check-input" />
+    <label asp-for="@Model.Login.IsPersistent" class="form-check-label">Remember Me</label>
+    </div>
+    <div class="form-btn">
+    <button type="submit" class="nir-btn">Login</button>
+    </div>
+    <div id="loginError" class="text-danger mt-2"></div>
+    </form>
 
 
-                            <div class="form-btn">
-                                <a href="#" class="nir-btn">LOGIN</a>
-                            </div>
-                            <div class="form-group mb-0 form-checkbox mt-3">
-                                <input type="checkbox"> Remember Me | <a href="#" class="">Forgot password?</a>
-                            </div>
-                        </div>
-                        <div class="login-social border-t mt-3 pt-2 mb-3">
-                            <p class="mb-2">OR continue with</p>
-                            <a href="#" class="btn-facebook"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a>
-                            <a href="#" class="btn-twitter"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a>
-                        </div>
-                        <div class="sign-up">
-                            <p class="m-0">Do not have an account? <a href="login.html" class="pink">Sign Up</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="form-btn">
+    <a href="#" class="nir-btn">LOGIN</a>
+    </div>
+    <div class="form-group mb-0 form-checkbox mt-3">
+    <input type="checkbox"> Remember Me | <a href="#" class="">Forgot password?</a>
+    </div>
+    </div>
+    <div class="login-social border-t mt-3 pt-2 mb-3">
+    <p class="mb-2">OR continue with</p>
+    <a href="#" class="btn-facebook"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a>
+    <a href="#" class="btn-twitter"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a>
+    </div>
+    <div class="sign-up">
+    <p class="m-0">Do not have an account? <a href="login.html" class="pink">Sign Up</a></p>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </div> *@
 
     <!-- header side menu -->
@@ -580,8 +592,8 @@
     <script src="~/assets/js/custom-swiper.js"></script>
     <script src="~/assets/js/custom-nav.js"></script>
     <script src="~/assets/js/custom-date.js"></script>
-   
-   @*  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    @*  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script> *@
     @RenderSection("Scripts", required: false)
     @section Scripts {

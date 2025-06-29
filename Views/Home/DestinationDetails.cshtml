@@ -29,9 +29,9 @@
                     <div class="single-content">
                         <div class="single-full-title border-b mb-2 pb-2">
                             <div class="single-title">
-                                <h3 class="mb-1">@Model.Destination.Name</h3>
+                                <h3 class="mb-1">@Model.Destination.DestinationTranslations.FirstOrDefault().Name</h3>
                                 <div class="rating-main d-sm-flex align-items-center">
-                                <p class="mb-0 mr-2"><i class="flaticon-location-pin"></i>  @Model.Destination.City, @Model.Destination.Country</p>
+                                <p class="mb-0 mr-2"><i class="flaticon-location-pin"></i>  @Model.Destination.DestinationTranslations.FirstOrDefault().City, @Model.Destination.DestinationTranslations.FirstOrDefault().Country</p>
                                     <div class="rating mr-2">
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
@@ -72,7 +72,7 @@
                     @foreach (Tour tour in Model.Destination.Tours)
                     {
                     <div class="tour-includes mb-4">
-                        <h5>@tour.Title</h5>
+                        <h5>@tour.TourTranslations.FirstOrDefault().Title</h5>
                         <table class="table">
                             <tbody>
                                 <tr>
@@ -94,7 +94,7 @@
                     }
                         <div class="description mb-2">
                             <h4>Description</h4>
-                            <p>@Model.Destination.Description</p>
+                            <p>@Model.Destination.DestinationTranslations.FirstOrDefault().Description</p>
                         </div>
 
                         <div class="description mb-2">
@@ -490,7 +490,7 @@
                                     </div>
                                 </div>
                                 <div class="trend-last-main">
-                                    <p class="mb-0 trend-para">@destination.Description</p>
+                                    <p class="mb-0 trend-para">@destination.DestinationTranslations.FirstOrDefault().Description</p>
                                     <div class="trend-last d-flex align-items-center justify-content-between">
                                         <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
                                         <div class="trend-price">

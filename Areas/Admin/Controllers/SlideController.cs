@@ -20,16 +20,16 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             _context = context;
             _env = env;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string langCode = "en")
         {
-            List<GetSlideVM> slideVMs = await _context.Slides.Where(s => s.IsActive == true).Select(s =>
+            List<GetSlideVM> slideVMs = await _context.Slides.Include(s => s.SlideTranslations.Where(t => t.LangCode == langCode)).Where(s => s.IsActive == true).Select(s =>
 
                 new GetSlideVM
                 {
                     Id = s.Id,
-                    Title = s.Title,
-                    Subtitle = s.Subtitle,
-                    ButtonText = s.ButtonText,
+                    Title = s.SlideTranslations.FirstOrDefault().Title,
+                    Subtitle = s.SlideTranslations.FirstOrDefault().Subtitle,
+                    ButtonText = s.SlideTranslations.FirstOrDefault().ButtonText,
                     ButtonUrl = s.ButtonUrl,
                     IsActive = s.IsActive,
                     ImageUrl = s.ImageUrl,
@@ -68,9 +68,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             string fileName = await slideVM.Photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "slider");
             Slide slide = new Slide
             {
-                Title = slideVM.Title,
-                Subtitle = slideVM.Subtitle,
-                ButtonText = slideVM.ButtonText,
+
                 ButtonUrl = slideVM.ButtonUrl,
                 IsActive = slideVM.IsActive,
                 Order = slideVM.Order,
@@ -79,6 +77,16 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             };
 
             await _context.Slides.AddAsync(slide);
+            await _context.SaveChangesAsync();
+            SlideTranslation translation = new SlideTranslation
+            {
+                LangCode = slideVM.LangCode,
+                Title = slideVM.Title,
+                Subtitle = slideVM.Subtitle,
+                ButtonText = slideVM.ButtonText,
+                SlideId = slide.Id
+            };
+            await _context.SlideTranslations.AddAsync(translation);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -92,18 +100,20 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> Update(int? id)
+        public async Task<IActionResult> Update(int? id, string langCode = "en")
         {
             if (id is null || id < 1) return BadRequest();
-            Slide? slide = await _context.Slides.FirstOrDefaultAsync(s => s.Id == id);
+            Slide? slide = await _context.Slides.Include(s => s.SlideTranslations.Where(t => t.LangCode == langCode)).FirstOrDefaultAsync(s => s.Id == id);
             if (slide is null) return NotFound();
             UpdateSlideVM slideVM = new UpdateSlideVM
             {
 
-                Title = slide.Title,
+                Title = slide.SlideTranslations.FirstOrDefault().Title,
                 Order = slide.Order,
-                Subtitle = slide.Subtitle,
+                Subtitle = slide.SlideTranslations.FirstOrDefault().Subtitle,
                 Image = slide.ImageUrl,
+                ButtonText = slide.SlideTranslations.FirstOrDefault().ButtonText,
+                ButtonUrl = slide.ButtonUrl
             };
             return View(slideVM);
         }
@@ -111,7 +121,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Update(int? id, UpdateSlideVM slideVM)
         {
             if (!ModelState.IsValid) return View(slideVM);
-            Slide? existed = await _context.Slides.FirstOrDefaultAsync(s => s.Id == id);
+            Slide? existed = await _context.Slides.Include(s => s.SlideTranslations).FirstOrDefaultAsync(s => s.Id == id);
             if (existed is null) return NotFound();
             if (slideVM.Photo is not null)
             {
@@ -130,10 +140,10 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 existed.ImageUrl.DeleteFile(_env.WebRootPath, "assets", "images", "slider");
                 existed.ImageUrl = fileName;
             }
-            existed.Title = slideVM.Title;
-            existed.Subtitle = slideVM.Subtitle;
+            existed.SlideTranslations.FirstOrDefault().Title = slideVM.Title;
+            existed.SlideTranslations.FirstOrDefault().Subtitle = slideVM.Subtitle;
             existed.ButtonUrl = slideVM.ButtonUrl;
-            existed.ButtonText = slideVM.ButtonText;
+            existed.SlideTranslations.FirstOrDefault().ButtonText = slideVM.ButtonText;
             existed.IsActive = slideVM.IsActive;
             existed.Order = slideVM.Order;
             await _context.SaveChangesAsync();

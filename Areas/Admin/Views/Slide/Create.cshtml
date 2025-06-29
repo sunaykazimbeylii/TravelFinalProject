@@ -55,10 +55,18 @@
                                             <span asp-validation-for="Order" class="text-danger"></span>
                                         </div>
                                        
+                                    </div>
                                         <div class="form-group">
                                             <label>Show in Home Page?</label>
                                             <input asp-for="IsActive" type="checkbox" />
                                         </div>
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <label asp-for="LangCode" class="form-label">LangCode</label>
+                                            <input asp-for="LangCode" class="form-control" placeholder="LangCode" />
+                                            <span asp-validation-for="LangCode" class="text-danger"></span>
+                                        </div>
+
                                     </div>
                                 </div>
 

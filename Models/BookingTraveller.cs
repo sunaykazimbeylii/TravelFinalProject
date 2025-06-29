@@ -9,6 +9,29 @@ namespace TravelFinalProject.Models
         public int BookingId { get; set; }
         public Booking? Booking { get; set; }
 
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateOnly DateOfBirth { get; set; }
+        public string PassportNumber { get; set; }
+
+        public ICollection<BookingTravellerTranslation> BookingTravellerTranslations { get; set; }
+
+        public BookingTraveller()
+        {
+            BookingTravellerTranslations = new HashSet<BookingTravellerTranslation>();
+        }
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+
+
+
+    }
+    public class BookingTravellerTranslation : BaseEntity
+    {
+        public string LangCode { get; set; }
         [Required]
         public Gender Gender { get; set; }
 
@@ -17,26 +40,12 @@ namespace TravelFinalProject.Models
 
         [Required, MaxLength(50)]
         public string LastName { get; set; }
-
-        [Required]
-        [DataType(DataType.Date)]
-        public DateOnly DateOfBirth { get; set; }
-        public string PassportNumber { get; set; }
-        [Required]
-        public string Nationality { get; set; }
-
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-
         [Required]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
-
-
+        [Required]
+        public string Nationality { get; set; }
+        public int BookingTravellerId { get; set; }
     }
 }
-//booking
-//forgot
-//myprofile
-//rew
+

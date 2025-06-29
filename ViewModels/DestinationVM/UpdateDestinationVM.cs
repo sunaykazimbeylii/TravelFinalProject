@@ -27,5 +27,6 @@ namespace TravelFinalProject.ViewModels
         public int? CategoryId { get; set; }
         public bool IsFeatured { get; set; }
         public List<DestinationCategory>? Categories { get; set; }
+        public List<DestinationCategoryTranslation>? DestinationCategories { get; set; }
     }
 }

@@ -25,6 +25,9 @@ namespace TravelFinalProject.ViewModels.TourVM
         [Required]
         public int? DestinationId { get; set; }
         public List<Destination>? Destinations { get; set; }
+        public List<DestinationTranslation>? DestinationTranslations { get; set; }
+
+
         public DateTime UpdateAt { get; set; }
     }
 }

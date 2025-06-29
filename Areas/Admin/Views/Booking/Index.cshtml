@@ -72,7 +72,7 @@
         {
             <tr>
                 <td>@vm.Id</td>
-                <td>@vm.Tour?.Title</td>
+                <td>@vm.Tour?.TourTranslations.FirstOrDefault().Title</td>
                 <td>@vm.BookingDate.ToString("MMM d yyyy")</td>
                 <td>@(vm.Tour != null ? $"{vm.Tour.Start_Date:MMM d yyyy} - {vm.Tour.End_Date:MMM d yyyy}" : "")</td>
                 <td>@vm.TotalPrice.ToString("C")</td>
@@ -80,7 +80,7 @@
                 <td>
                     @foreach(BookingTraveller traveller in Model.BookingTravellers)
                     {
-                        <div>@traveller.FirstName</div>
+                        <div>@traveller.BookingTravellerTranslations.FirstOrDefault().FirstName</div>
                     }
                 </td>
                 <td>

@@ -45,7 +45,7 @@
                                                 <option selected disabled>Choose Destination</option>
                                                 @foreach (Destination destination in Model.Destinations)
                                                 {
-                                                    <option value="@destination.Id">@destination.Name</option>
+                                                    <option value="@destination.Id">@destination.DestinationTranslations.FirstOrDefault().Name</option>
                                                 }
                                             </select>
                                             <span asp-validation-for="DestinationId" class="text-danger"></span>

@@ -16,16 +16,16 @@ namespace TravelFinalProject.Controllers
             _context = context;
         }
         [HttpGet]
-        public async Task<IActionResult> ReviewAdd(int tourId)
+        public async Task<IActionResult> ReviewAdd(int tourId, string langCode = "en")
         {
 
-            var tour = await _context.Tours.FirstOrDefaultAsync(t => t.Id == tourId);
+            var tour = await _context.Tours.Include(t => t.TourTranslations.Where(m => m.LangCode == langCode)).FirstOrDefaultAsync(t => t.Id == tourId);
             if (tour == null) return NotFound();
 
             var vm = new ReviewVM
             {
                 TourId = tour.Id,
-                TourTitle = tour.Title
+                TourTitle = tour.TourTranslations.FirstOrDefault().Title
             };
 
             return View(vm);
@@ -33,15 +33,29 @@ namespace TravelFinalProject.Controllers
         [HttpPost]
         public async Task<IActionResult> ReviewAdd(ReviewVM vm)
         {
-            if (!ModelState.IsValid)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
             {
+                return RedirectToAction("Login", "Account");
+            }
+            bool alreadyReviewed = await _context.Reviews
+        .AnyAsync(r => r.UserId == userId && r.TourId == vm.TourId);
+
+            if (alreadyReviewed)
+            {
+                ModelState.AddModelError("", "Siz bu tur üçün artıq rəy yazmısınız.");
                 var tour = await _context.Tours.FindAsync(vm.TourId);
-                vm.TourTitle = tour?.Title ?? "";
+                vm.TourTitle = tour?.TourTranslations.FirstOrDefault().Title ?? "";
                 return View(vm);
             }
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            if (!ModelState.IsValid)
+            {
+                var tour = await _context.Tours.FindAsync(vm.TourId);
+                vm.TourTitle = tour?.TourTranslations.FirstOrDefault().Title ?? "";
+                return View(vm);
+            }
             var review = new Review
             {
                 UserId = userId,
@@ -54,10 +68,13 @@ namespace TravelFinalProject.Controllers
             _context.Reviews.Add(review);
             await _context.SaveChangesAsync();
 
-            return Content("ThankYou");
+            return RedirectToAction(nameof(ThankYou));
         }
 
-
+        public async Task<IActionResult> ThankYou()
+        {
+            return View();
+        }
     }
 }
 

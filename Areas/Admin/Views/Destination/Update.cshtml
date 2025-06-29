@@ -40,10 +40,10 @@
                                             <label asp-for="CategoryId" class="form-label">Destination</label>
                                             <select asp-for="CategoryId" class="form-control niceSelect">
                                                 <option selected disabled>Choose Destination</option>
-                                                @foreach (DestinationCategory dc in Model.Categories)
+                                                @foreach (var dc in Model.DestinationCategories)
                                                 {
+                                                    <option value="@dc.DestinationCategoryId">@dc.Name</option>
 
-                                                    <option value="@dc.Id">@dc.Name</option>
                                                 }
                                             </select>
                                             <span asp-validation-for="CategoryId" class="text-danger"></span>

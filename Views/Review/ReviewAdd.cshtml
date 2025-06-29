@@ -1,22 +1,37 @@
 ﻿@using TravelFinalProject.ViewModels.ReviewVM
 @model ReviewVM
-<div class="single-add-review">
-    <h4>Write a Review</h4>
-    <form method="post">
-        <input type="hidden" asp-for="TourId" />
-        <p>Tour: @Model.TourTitle</p>
 
-        <textarea asp-for="Comment" placeholder="Şərhinizi yazın"></textarea>
+<div class="review-wrapper">
+    <div class="review-card">
+        <h4>Write a Review</h4>
+        <form asp-action="ReviewAdd" method="post">        
+            <input type="hidden" asp-for="TourId" />
 
-        <div class="star-rating">
-            <input type="radio" value="5" asp-for="Rating" id="star5" /><label for="star5">★</label>
-            <input type="radio" value="4" asp-for="Rating" id="star4" /><label for="star4">★</label>
-            <input type="radio" value="3" asp-for="Rating" id="star3" /><label for="star3">★</label>
-            <input type="radio" value="2" asp-for="Rating" id="star2" /><label for="star2">★</label>
-            <input type="radio" value="1" asp-for="Rating" id="star1" /><label for="star1">★</label>
-        </div>
+            <div class="form-group">
+                <label>Tour:</label>
+                <p>@Model.TourTitle</p>
+            </div>
 
-        <button class="submit-btn" type="submit">Göndər</button>
-    </form>
+            <div class="form-group">
+                <label asp-for="Comment">Şərhiniz</label>
+                <textarea asp-for="Comment" placeholder="Şərhinizi yazın"></textarea>
+            </div>
 
+            <div class="form-group">
+                <label>Reytinq:</label>
+                <div class="star-rating">
+                    <input type="radio" value="5" asp-for="Rating" id="star5" /><label for="star5">★</label>
+                    <input type="radio" value="4" asp-for="Rating" id="star4" /><label for="star4">★</label>
+                    <input type="radio" value="3" asp-for="Rating" id="star3" /><label for="star3">★</label>
+                    <input type="radio" value="2" asp-for="Rating" id="star2" /><label for="star2">★</label>
+                    <input type="radio" value="1" asp-for="Rating" id="star1" /><label for="star1">★</label>
+                </div>
+            </div>
+
+            <button class="submit-btn" type="submit">Göndər</button>
+        </form>
+        @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+    </div>
 </div>

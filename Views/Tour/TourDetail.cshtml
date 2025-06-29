@@ -27,9 +27,9 @@
                 <div class="single-content">
                     <div class="single-full-title border-b mb-2 pb-2">
                         <div class="single-title">
-                            <h3 class="mb-1">@Model.Tour.Title</h3>
+                            <h3 class="mb-1">@Model.Tour.TourTranslations.FirstOrDefault().Title</h3>
                             <div class="rating-main d-sm-flex align-items-center">
-                                <p class="mb-0 mr-2"><i class="flaticon-location-pin"></i>  @Model.Tour.Destination.City, @Model.Tour.Destination.Country</p>
+                                <p class="mb-0 mr-2"><i class="flaticon-location-pin"></i>  @Model.Tour.Destination.DestinationTranslations.FirstOrDefault().City, @Model.Tour.Destination.DestinationTranslations.FirstOrDefault().Country</p>
                                 <div class="rating mr-2">
                                     <span class="fa fa-star checked"></span>
                                     <span class="fa fa-star checked"></span>
@@ -68,9 +68,9 @@
                     </div>
 
                     @foreach (Tour tour in Model.Tour.Destination.Tours)
-                    {
+                    { foreach(var t in tour.TourTranslations){
                         <div class="tour-includes mb-4">
-                            <h5>@tour.Title</h5>
+                            <h5>@t.Title</h5>
                             <table class="table">
                                 <tbody>
                                     <tr>
@@ -89,10 +89,11 @@
                                 </tbody>
                             </table>
                         </div>
+                        }
                     }
                     <div class="description mb-2">
                         <h4>Description</h4>
-                        <p>@Model.Tour.Description</p>
+                        <p>@Model.Tour.TourTranslations.FirstOrDefault().Description</p>
                     </div>
 
                     <div class="description mb-2">
@@ -478,7 +479,7 @@
         <div class="trend-box">
             <div class="row team-slider">
                 @foreach (Tour tour in Model.RelatedTour)
-                {
+                {  foreach(var t in tour.TourTranslations){
                     <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
                         <div class="trend-item">
                             <div class="trend-image">
@@ -489,8 +490,8 @@
                             </div>
                             <div class="trend-content-main">
                                 <div class="trend-content">
-                                    <h6 class="font-weight-normal"><i class="fa fa-map-marker-alt"></i>@tour.Destination.Country</h6>
-                                    <h4><a href="#">@tour.Location</a></h4>
+                                    <h6 class="font-weight-normal"><i class="fa fa-map-marker-alt"></i>@tour.Destination.DestinationTranslations.FirstOrDefault().Country</h6>
+                                    <h4><a href="#">@t.Location</a></h4>
                                     <div class="rating-main d-flex align-items-center">
                                         <div class="rating">
                                             <span class="fa fa-star checked"></span>
@@ -503,7 +504,7 @@
                                     </div>
                                 </div>
                                 <div class="trend-last-main">
-                                    <p class="mb-0 trend-para">@tour.Description</p>
+                                    <p class="mb-0 trend-para">@t.Description</p>
                                     <div class="trend-last d-flex align-items-center justify-content-between">
                                         <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i>@tour.Duration</p>
                                         <div class="trend-price">
@@ -514,6 +515,7 @@
                             </div>
                         </div>
                     </div>
+                    }
                 }
 
 

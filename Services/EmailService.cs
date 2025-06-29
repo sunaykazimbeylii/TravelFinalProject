@@ -14,7 +14,7 @@ namespace TravelFinalProject.Services
         }
 
 
-        public async Task SendMailAsync(string emailTo, string subject, string body, bool isHtml = false)
+        public async Task SendMailAsync(string emailTo, string subject, string body, bool isHtml = true)
         {
             try
             {

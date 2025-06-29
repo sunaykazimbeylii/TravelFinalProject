@@ -20,7 +20,7 @@ namespace TravelFinalProject.Models
         public BookingStatus Status { get; set; }
         public Tour? Tour { get; set; }
         public AppUser? User { get; set; }
-        public List<BookingTraveller> Travellers { get; set; }
+        public List<BookingTraveller>? Travellers { get; set; }
 
     }
 }

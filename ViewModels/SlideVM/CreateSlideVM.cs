@@ -4,6 +4,7 @@ namespace TravelFinalProject.ViewModels
 {
     public class CreateSlideVM
     {
+        public string LangCode { get; set; }
         [Required, StringLength(100)]
         public string Title { get; set; }
 

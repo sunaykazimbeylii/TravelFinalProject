@@ -32,23 +32,24 @@ namespace TravelFinalProject.Services
                 throw new Exception("User not found");
 
             var tour = await _context.Tours.FindAsync(tourId);
+            var baseUrl = "https://localhost:44364";  // Lokalda test üçündür, prodda dəyişəcək
+            var reviewUrl = $"{baseUrl}/Review/ReviewAdd?tourId={tour.Id}";
             if (tour == null)
                 throw new Exception("Tour not found");
-
             string emailBody = $@"
-    <div style='font-family:Arial,sans-serif;padding:20px;background:#f9f9f9;border:1px solid #ddd;border-radius:10px;'>
-        <h2 style='color:#2c3e50;'>Salam, {user.Name}!</h2>
-        <p style='font-size:16px;color:#333;'>Sizin <strong>{tour.Title}</strong> turunuz uğurla başa çatdı.</p>
-        <p style='font-size:16px;color:#333;'>Təcrübəniz bizim üçün önəmlidir. Zəhmət olmasa, 1 dəqiqə vaxt ayırıb rəy bildirin:</p>
-        <a href='https://yourdomain.com/review/{tour.Id}' 
-           style='display:inline-block;margin-top:15px;padding:12px 20px;background:#3498db;color:#fff;text-decoration:none;border-radius:5px;'>
-           Rəy Bildir
-        </a>
-        <p style='font-size:14px;color:#999;margin-top:20px;'>Təşəkkür edirik və sizi yenidən görməkdən məmnun olarıq!</p>
-    </div>";
+<div style='font-family:Arial,sans-serif;padding:20px;background:#f9f9f9;border:1px solid #ddd;border-radius:10px;'>
+    <h2 style='color:#2c3e50;'>Salam, {user.Name}!</h2>
+    <p style='font-size:16px;color:#333;'>Sizin <strong>{tour.TourTranslations.FirstOrDefault().Title}</strong> turunuz uğurla başa çatdı.</p>
+    <p style='font-size:16px;color:#333;'>Təcrübəniz bizim üçün önəmlidir. Zəhmət olmasa, 1 dəqiqə vaxt ayırıb rəy bildirin:</p>
+    <a href='{reviewUrl}' 
+       style='display:inline-block;margin-top:15px;padding:12px 20px;background:#3498db;color:#fff;text-decoration:none;border-radius:5px;'>
+       Rəy Bildir
+    </a>
+    <p style='font-size:14px;color:#999;margin-top:20px;'>Təşəkkür edirik və sizi yenidən görməkdən məmnun olarıq!</p>
+</div>";
 
+            await _emailService.SendMailAsync(user.Email, "Turunuz haqqında rəy bildirin", emailBody, true);
 
-            await _emailService.SendMailAsync(user.Email, "Turunuz haqqında rəy bildirin", emailBody);
 
             var notification = new NotificationSent
             {

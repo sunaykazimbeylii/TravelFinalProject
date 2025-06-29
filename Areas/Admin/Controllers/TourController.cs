@@ -19,27 +19,29 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             _context = context;
             _env = env;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string langCode = "en")
         {
+            List<GetTourVM> tourVMs = await _context.Tours
+                .Include(m => m.TourTranslations.Where(t => t.LangCode == langCode)).Include(t => t.TourImages).Include(t => t.Destination)
+        .ThenInclude(d => d.DestinationTranslations.Where(dt => dt.LangCode == langCode)).Select(t => new GetTourVM
+        {
+            Id = t.Id,
+            Title = t.TourTranslations.FirstOrDefault().Title,
+            Description = t.TourTranslations.FirstOrDefault().Description,
+            Price = t.Price.Value,
+            Destination = t.Destination,
+            DestinationId = t.DestinationId,
+            Duration = t.Duration,
+            Start_Date = t.Start_Date,
+            End_Date = t.End_Date,
+            Available_seats = t.Available_seats,
+            Location = t.TourTranslations.FirstOrDefault().Location,
+            Image = t.TourImages.FirstOrDefault(ti => ti.IsPrimary == true).Image,
 
-            List<GetTourVM> tourVMs = await _context.Tours.Include(t => t.TourImages).Select(t => new GetTourVM
-            {
-                Id = t.Id,
-                Title = t.Title,
-                Description = t.Description,
-                Price = t.Price.Value,
-                Destination = t.Destination,
-                DestinationId = t.DestinationId,
-                Duration = t.Duration,
-                Start_Date = t.Start_Date,
-                End_Date = t.End_Date,
-                Available_seats = t.Available_seats,
-                Location = t.Location,
-                Image = t.TourImages.FirstOrDefault(ti => ti.IsPrimary == true).Image
 
 
 
-            }).ToListAsync();
+        }).ToListAsync();
 
             return View(tourVMs);
         }
@@ -47,7 +49,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         {
             CreateTourVM tourVM = new CreateTourVM
             {
-                Destinations = await _context.Destinations.ToListAsync(),
+                DestinationTranslations = await _context.DestinationTranslations.ToListAsync(),
 
             };
             return View(tourVM);
@@ -56,7 +58,9 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Create(CreateTourVM tourVM)
 
         {
-            tourVM.Destinations = await _context.Destinations.ToListAsync();
+            tourVM.DestinationTranslations = await _context.DestinationTranslations.ToListAsync();
+
+            tourVM.Destinations = await _context.Destinations.Include(d => d.DestinationTranslations).ToListAsync();
 
             if (!ModelState.IsValid) return View(tourVM);
             if (!tourVM.Photo.ValidateType("image/"))
@@ -69,7 +73,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 ModelState.AddModelError(nameof(CreateTourVM.Photo), "File size cannot exceed 2 MB.");
                 return View(tourVM);
             }
-            bool Exist = await _context.Tours.AnyAsync(t => t.Title == tourVM.Title);
+            bool Exist = await _context.Tours.AnyAsync(t => t.TourTranslations.FirstOrDefault().Title == tourVM.Title);
             if (Exist)
             {
                 ModelState.AddModelError(nameof(CreateTourVM.Title), "This tour title already exists.");
@@ -107,7 +111,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             }
             bool duplicateTour = await _context.Tours.AnyAsync(t =>
             t.Start_Date == tourVM.Start_Date &&
-            t.Location.ToLower() == tourVM.Location.ToLower()
+            t.TourTranslations.FirstOrDefault().Location.ToLower() == tourVM.Location.ToLower()
         );
             if (duplicateTour)
             {
@@ -123,42 +127,52 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             };
             Tour tour = new Tour
             {
-                Title = tourVM.Title,
-                Description = tourVM.Description,
+
                 Price = tourVM.Price,
                 Duration = tourVM.Duration,
                 Start_Date = tourVM.Start_Date,
                 End_Date = tourVM.End_Date,
                 Available_seats = tourVM.Available_seats.Value,
-                Location = tourVM.Location,
                 TourImages = new List<TourImage>(),
                 DestinationId = tourVM.DestinationId,
                 CreatedAt = DateTime.Now
-
             };
+
             tour.TourImages.Add(main);
             await _context.Tours.AddAsync(tour);
             await _context.SaveChangesAsync();
+
+            TourTranslation translation = new TourTranslation
+            {
+                LangCode = tourVM.LangCode,
+                TourId = tour.Id,
+                Title = tourVM.Title,
+                Description = tourVM.Description,
+                Location = tourVM.Location
+            };
+            await _context.TourTranslations.AddAsync(translation);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int id, string langCode = "en")
         {
-            Tour? tour = await _context.Tours.Include(t => t.TourImages).FirstOrDefaultAsync(t => t.Id == id);
+            Tour? tour = await _context.Tours.Include(m => m.TourTranslations.Where(t => t.LangCode == langCode)).Include(t => t.TourImages).FirstOrDefaultAsync(t => t.Id == id);
             if (tour is null) return NotFound();
 
             var tourVM = new UpdateTourVM
             {
-                Title = tour.Title,
-                Description = tour.Description,
+                Title = tour.TourTranslations.FirstOrDefault().Title,
+                Description = tour.TourTranslations.FirstOrDefault().Description,
                 Price = tour.Price,
                 Duration = tour.Duration,
                 Start_Date = tour.Start_Date,
                 End_Date = tour.End_Date,
                 Available_seats = tour.Available_seats,
-                Location = tour.Location,
+                Location = tour.TourTranslations.FirstOrDefault().Location,
                 DestinationId = tour.DestinationId,
                 Destinations = await _context.Destinations.ToListAsync(),
                 Image = tour.TourImages.FirstOrDefault(pi => pi.IsPrimary == true).Image,
+                DestinationTranslations = await _context.DestinationTranslations.ToListAsync(),
             };
 
             return View(tourVM);
@@ -167,11 +181,11 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateTourVM tourVM, int id)
         {
-            tourVM.Destinations = await _context.Destinations.ToListAsync();
+            tourVM.Destinations = await _context.Destinations.Include(d => d.DestinationTranslations).ToListAsync();
 
             if (!ModelState.IsValid) return View(tourVM);
 
-            Tour? existTour = await _context.Tours.Include(t => t.TourImages).FirstOrDefaultAsync(t => t.Id == id);
+            Tour? existTour = await _context.Tours.Include(t => t.TourTranslations).Include(t => t.TourImages).FirstOrDefaultAsync(t => t.Id == id);
             if (existTour is null) return NotFound();
 
             if (!await _context.Destinations.AnyAsync(d => d.Id == tourVM.DestinationId))
@@ -222,14 +236,14 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 existTour.TourImages.Remove(exitedMain);
                 existTour.TourImages.Add(main);
             }
-            existTour.Title = tourVM.Title;
-            existTour.Description = tourVM.Description;
+            existTour.TourTranslations.FirstOrDefault().Title = tourVM.Title;
+            existTour.TourTranslations.FirstOrDefault().Description = tourVM.Description;
             existTour.Price = tourVM.Price;
             existTour.Duration = tourVM.Duration;
             existTour.Start_Date = tourVM.Start_Date;
             existTour.End_Date = tourVM.End_Date;
             existTour.Available_seats = tourVM.Available_seats ?? 0;
-            existTour.Location = tourVM.Location;
+            existTour.TourTranslations.FirstOrDefault().Location = tourVM.Location;
             existTour.DestinationId = tourVM.DestinationId;
             existTour.UpdateAt = DateTime.Now;
 

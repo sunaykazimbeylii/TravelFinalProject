@@ -4,28 +4,21 @@
     margin: 0;
     padding: 0;
 }
-.single-add-review {
-    width: 50%;
-    background-color: rgba(0.5,22 34 65);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    text-align: center;
-    height: 500px;
-    margin: 100px auto;
-}
+
 .review-wrapper {
     min-height: 100vh;
-    padding: 80px 0; /* yuxarı-aşağı boşluq */
     display: flex;
-    align-items: center;
+    align-items:flex-start;
     justify-content: center;
+    padding: 80px 20px;
 }
 
 .review-card {
     background: white;
     padding: 40px;
-    border-radius: 16px;
-    max-width: 600px;
+    border-radius: 12px;
     width: 100%;
+    max-width: 600px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -41,28 +34,27 @@
 }
 
     .form-group label {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
         display: block;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
 
-    .form-group textarea,
-    .form-group input[type="text"],
-    .form-group input[type="email"] {
+    .form-group textarea {
         width: 100%;
         padding: 12px;
         font-size: 16px;
         border: 1px solid #ccc;
         border-radius: 6px;
+        resize: vertical;
+        min-height: 100px;
     }
 
 .star-rating {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: flex-start; 
+    justify-content: flex-end;
     gap: 8px;
-    margin-top: 5px;
 }
 
     .star-rating input[type="radio"] {
@@ -70,7 +62,7 @@
     }
 
     .star-rating label {
-        font-size: 30px;
+        font-size: 28px;
         color: lightgray;
         cursor: pointer;
         transition: color 0.3s;
@@ -83,20 +75,21 @@
         }
 
 .submit-btn {
-    display: inline-block;
-    width: 50%;
-    margin:auto;
+    display: block;
+    width: 100%;
     padding: 12px;
-    background: rgb(245 105 97);
-    color:white;
+    background: #f56961;
+    color: white;
     border: none;
     font-size: 18px;
     font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease;
-    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+    box-shadow: 0 4px 10px rgba(245, 105, 97, 0.4);
+    margin-top: 10px;
 }
 
     .submit-btn:hover {
-        background: linear-gradient(90deg, #218838, #1e7e34);
+        background: linear-gradient(90deg, #e74c3c, #c0392b);
+    }

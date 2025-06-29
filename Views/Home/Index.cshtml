@@ -8,14 +8,14 @@
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 @foreach (Slide slide in Model.Slides)
-                {
+                { foreach(var st in slide.SlideTranslations){
                     <div class="swiper-slide">
                         <div class="slide-inner">
                             <div class="slide-image" style='background-image:url("@Url.Content("~/assets/images/slider/" + slide.ImageUrl)")'></div>
 
                             <div class="swiper-content container">
-                                <h4 class="blue">@slide.Subtitle</h4>
-                                <h1 class="white mb-4">@slide.Title</h1>
+                                <h4 class="blue">@st.Subtitle</h4>
+                                <h1 class="white mb-4">@st.Title</h1>
                                 <a href="#" class="per-btn">
                                     <span class="white">Discover</span>
                                     <i class="fa fa-arrow-right white"></i>
@@ -24,7 +24,7 @@
                             <div class="overlay"></div>
                         </div>
                     </div>
-
+                    }
                 }
 
             </div>
@@ -47,12 +47,15 @@
                         <select class="niceSelect">
                             <option disabled selected>Choose Destination</option>
 
-                            @foreach(Destination d in Model.Destinations)
+                            @foreach (Destination d in Model.Destinations)
                             {
-                            <option >@d.Name</option>
-                                
+                                foreach (var dt in d.DestinationTranslations)
+                                {
+                                    
+                                <option>@dt.Name</option>
+                                }
                             }
-                           
+
                         </select>
                     </div>
                 </div>
@@ -189,7 +192,10 @@
         <div class="trend-box">
             <div class="row">
                 @foreach (Tour tour in Model.Tours)
-                {
+                { 
+                    foreach (var tt in tour.TourTranslations)
+                    {
+                        
                     <div class="col-lg-4 col-md-6 col-xs-12 mb-4">
                         <div class="trend-item">
                             <img src="~/assets/images/trending/@tour?.TourImages?.FirstOrDefault(ti=>ti.IsPrimary==true)?.Image" alt="">
@@ -199,8 +205,8 @@
                         </div>
                         <div class="trend-content-main">
                             <div class="trend-content">
-                                <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i>@tour.Location</h6>
-                                <h4><a asp-action="TourDetail" asp-controller="Tour" asp-route-id="@tour.Id">@tour.Title</a></h4>
+                                <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i>@tt.Location</h6>
+                                <h4><a asp-action="TourDetail" asp-controller="Tour" asp-route-id="@tour.Id">@tt.Title</a></h4>
                                 <div class="rating-main d-flex align-items-center">
                                     <div class="rating">
                                         <span class="fa fa-star checked"></span>
@@ -213,7 +219,7 @@
                                 </div>
                             </div>
                             <div class="trend-last-main">
-                                <p class="mb-0 trend-para">@tour.Description</p>
+                                <p class="mb-0 trend-para">@tt.Description</p>
                                 <div class="trend-last d-flex align-items-center justify-content-between">
                                     <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
                                     <div class="trend-price">
@@ -224,6 +230,7 @@
                         </div>
                     </div>
 
+                    }
                 }
 
 
@@ -449,13 +456,16 @@
                         <a asp-action="Index" asp-route-categoryId="">All</a>
                     </li>
                     @foreach (DestinationCategory category in Model.DestinationCategories)
-                    {
+                    { foreach (var dct in category.DestinationCategoryTranslations)
+                        {
+                            
                         <li class="@(Model.CurrentCategoryId == category.Id ? "active" : "")">
                             <a asp-action="Index" asp-route-categoryId="@category.Id">
-                                @category.Name
+                                @dct.Name
                             </a>
                         </li>
                         @*   <li class="active"><a data-toggle="tab" href="#historical">@category.Name</a></li> *@
+                        }
                     }
 
                 </ul>
@@ -465,8 +475,12 @@
                     <div class="row">
                         @foreach (Destination destination in Model.Destinations)
                         {
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="trend-item">
+                            foreach (var dt in destination.DestinationTranslations)
+                            {
+
+
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="trend-item">
                                     <div class="trend-image">
                                         <img src="~/assets/images/trending/@destination.DestinationImages.FirstOrDefault(di=>di.IsPrimary==true).Image" alt="image">
                                     </div>
@@ -482,11 +496,11 @@
                                                 </div>
                                                 <span class="ml-2">38 Reviews</span>
                                             </div>
-                                            <h4><a asp-action="DestinationDetails" asp-route-id="@destination.Id">@destination.Name</a></h4>
-                                            <p class="mb-0"><i class="fa fa-eye mr-1"></i><i class="fa fa-map-marker mr-1 ml-3"></i>@destination.Country</p>
+                                            <h4><a asp-action="DestinationDetails" asp-route-id="@destination.Id">@dt.Name</a></h4>
+                                            <p class="mb-0"><i class="fa fa-eye mr-1"></i><i class="fa fa-map-marker mr-1 ml-3"></i>@dt.Country</p>
                                         </div>
                                         <div class="trend-last-main">
-                                            <p class="mb-0 trend-para">@destination.Description</p>
+                                            <p class="mb-0 trend-para">@dt.Description</p>
                                             <div class="trend-last d-flex align-items-center justify-content-between">
                                                 <p class="mb-0 white d-flex align-items-center"><img src="~/assets/images/revjpg" class="d-author mr-2" alt=""> Thu Astudillo</p>
                                                 <div class="trend-price">
@@ -497,7 +511,7 @@
                                     </div>
                                 </div>
                             </div>
-
+}
                         }
 
                     </div>
