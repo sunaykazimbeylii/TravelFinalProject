@@ -898,6 +898,8 @@
             <p class="mb-0 white">Travel has helped us to understand the meaning of life and it has helped us become better people. Each time we travel, we see the world with new eyes.</p>
         </div>
         <div class="row review-slider1">
+            @foreach(Review  rt in Model.Reviews)
+            {          
             <div class="col-sm-4">
                 <div class="testimonial-item">
                     <div class="testimonial-content mb-5">
@@ -905,74 +907,33 @@
                             <i class="fa fa-quote-left"></i>
                         </div>
                         <p class="description mb-0">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        @* @rt.ReviewTranslations.FirstOrDefault().Comment *@
                         </p>
                     </div>
                     <div class="author-title d-flex align-items-center">
-                        <a href="#"><img src="~/assets/images/testimonial/img1.jpg" alt=""></a>
+                            <a href="#">
+                                <img src="~/assets/images/trending/@(string.IsNullOrEmpty(rt.User?.Image) ? "ImagePP.webp" : rt.User.Image)" alt="">
+                                
+                            </a>
                         <div class="author-in ml-3">
-                            <h5 class="m-0 white"> Elison Marks</h5>
-                            <div class="rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </div>
+                            <h5 class="m-0 white">@rt.User.Name @rt.User.Surname</h5>
+                                @{
+                                    int rating = rt.Rating;
+                                    int maxStars = 5;
+                                }
+
+                                <div class="rating">
+                                    @for (int i = 1; i <= maxStars; i++)
+                                    {
+                                        <span class="fa fa-star @(i <= rating ? "checked" : "")"></span>
+                                    }
+                                </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="testimonial-item">
-                    <div class="testimonial-content mb-5">
-                        <div class="testimonial-icon">
-                            <i class="fa fa-quote-left"></i>
-                        </div>
-                        <p class="description mb-0">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                        </p>
-                    </div>
-                    <div class="author-title d-flex align-items-center">
-                        <a href="#"><img src="~/assets/images/testimonial/img2.jpg" alt=""></a>
-                        <div class="author-in ml-3">
-                            <h5 class="m-0 white">Jared Erondu</h5>
-                            <div class="rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="testimonial-item">
-                    <div class="testimonial-content mb-5">
-                        <div class="testimonial-icon">
-                            <i class="fa fa-quote-left"></i>
-                        </div>
-                        <p class="description mb-0">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                        </p>
-                    </div>
-                    <div class="author-title d-flex align-items-center">
-                        <a href="#"><img src="~/assets/images/testimonial/img3.jpg" alt=""></a>
-                        <div class="author-in ml-3">
-                            <h5 class="m-0 white">Kelson Kelly</h5>
-                            <div class="rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
+         
         </div>
     </div>
     <div class="overlay"></div>

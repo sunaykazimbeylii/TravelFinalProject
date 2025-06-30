@@ -8,7 +8,6 @@ using TravelFinalProject.Interfaces;
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities;
 using TravelFinalProject.ViewModels;
-using TravelFinalProject.ViewModels.Currency;
 [Authorize]
 [Route("booking")]
 public class BookingController : Controller
@@ -25,9 +24,9 @@ public class BookingController : Controller
     }
 
     [HttpGet("create/{tourId?}")]
-    public IActionResult Create(int tourId, int adults = 1, int children = 0, string langCode = "en", string currency = "USD")
+    public IActionResult Create(int tourId, int adults = 1, int children = 0, string langCode = "en")
     {
-        var tour = _context.Tours.Include(m => m.TourTranslations.Where(t => t.LangCode == langCode)).Include(t => t.TourImages).Include(t => t.Destination).FirstOrDefault(t => t.Id == tourId);
+        var tour = _context.Tours.Include(m => m.TourTranslations.Where(t => t.LangCode == langCode)).Include(t => t.TourImages).Include(t => t.Destination).ThenInclude(t => t.DestinationTranslations).FirstOrDefault(t => t.Id == tourId);
         if (tour == null)
             return NotFound();
 
@@ -35,12 +34,10 @@ public class BookingController : Controller
 
         decimal basePrice = tour.Price.Value * travellerCount;
         decimal totalPrice = basePrice + 10 - 15;
-        var currencies = new List<CurrencyVM>
-{
-    new CurrencyVM { Code = "USD", Symbol = "$", Name = "US Dollar" },
-    new CurrencyVM { Code = "AZN", Symbol = "₼", Name = "Azerbaijani Manat" },
-    new CurrencyVM { Code = "TRY", Symbol = "₺", Name = "Turkish Lira" }
-};
+
+        {
+
+        };
         var model = new BookingVM
         {
             TourId = tourId,
@@ -48,8 +45,7 @@ public class BookingController : Controller
             Children = children,
             TotalPrice = totalPrice,
             PassportNumbers = new List<string>(new string[travellerCount]),
-            Currencies = currencies,
-            SelectedCurrencyCode = "USD",
+
             Booking = new Booking
 
             {
@@ -57,6 +53,7 @@ public class BookingController : Controller
                 GuestsCount = 1,
                 TotalPrice = tour.Price ?? 0,
                 Tour = tour,
+
 
             },
         };
@@ -76,8 +73,8 @@ public class BookingController : Controller
 
         if (!ModelState.IsValid)
         {
-            bookingVM.Booking.Tour = await _context.Tours.Include(t => t.TourImages)
-                .Include(t => t.Destination)
+            bookingVM.Booking.Tour = await _context.Tours.Include(t => t.TourTranslations).Include(t => t.TourImages)
+                .Include(t => t.Destination).ThenInclude(d => d.DestinationTranslations)
                 .FirstOrDefaultAsync(t => t.Id == bookingVM.Booking.TourId);
             return View(bookingVM);
         }
@@ -120,7 +117,7 @@ public class BookingController : Controller
                     {
                         BookingId = booking.Id,
                         PassportNumber = travellerVM.PassportNumber.Trim(),
-                        // lazım olsa digər sahələr buraya əlavə oluna bilər
+
                     };
 
                     _context.BookingTravellers.Add(traveller);
@@ -137,7 +134,7 @@ public class BookingController : Controller
     public async Task<IActionResult> BookingConfirmation(int id)
     {
         var booking = await _context.Bookings
-            .Include(b => b.Tour)
+            .Include(b => b.Tour).ThenInclude(b => b.TourTranslations)
             .Include(b => b.Travellers)
             .Include(b => b.User)
             .FirstOrDefaultAsync(b => b.Id == id);

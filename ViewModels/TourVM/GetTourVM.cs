@@ -21,10 +21,11 @@ namespace TravelFinalProject.ViewModels
         public int Available_seats { get; set; }
         public string Location { get; set; }
         public string Image { get; set; }
+        public string CurrencyCode { get; set; }
         [Required]
         public int? DestinationId { get; set; }
         public Destination? Destination { get; set; }
-        public List<Booking>? Bookings { get; set; }
-        public List<TourImage>? TourImages { get; set; }
+        //public List<Booking>? Bookings { get; set; }
+        //public List<TourImage>? TourImages { get; set; }
     }
 }

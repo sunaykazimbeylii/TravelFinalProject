@@ -7,7 +7,7 @@ namespace TravelFinalProject.ViewModels
         public PaginatedVM<GetTourVM> PaginatedTours { get; set; }
         public List<Destination> Destinations { get; set; }
         public TourSearchVM SearchForm { get; set; }
-        public string SelectedCurrency { get; set; }
-        public decimal ExchangeRate { get; set; }
+        public string CurrencyCode { get; set; }
+        public string CurrencySymbol { get; set; }
     }
 }

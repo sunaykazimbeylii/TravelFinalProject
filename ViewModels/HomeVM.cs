@@ -10,6 +10,7 @@ namespace TravelFinalProject.ViewModels
         public List<DestinationCategory> DestinationCategories { get; set; }
         public List<DestinationImage> DestinationImages { get; set; }
         public List<TourImage> TourImages { get; set; }
+        public List<Review> Reviews { get; set; }
         public int? CurrentCategoryId { get; set; }
         public TourSearchVM Search { get; set; }
     }

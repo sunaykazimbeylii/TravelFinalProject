@@ -30,14 +30,12 @@
     document.getElementById("languageSelect").addEventListener("change", function () {
         const selectedLang = this.value;
         const url = new URL(window.location.href);
-
-        // langCode varsa dəyiş, yoxdursa əlavə et
         url.searchParams.set("langCode", selectedLang);
-
-        // Yeni URL-ə yönləndir
         window.location.href = url.toString();
     });
 </script>
+
+
 <body>
 
     <!-- Preloader -->
@@ -272,17 +270,16 @@
                             <li>
                                 <select id="languageSelect" class="form-control" style="width: auto;">
                                     <option value="en" selected>English</option>
-                                    <option value="az">Azerbaijani</option>
+                                    <option value="az">Azerbaycan</option>
                                     <option value="ru">Russian</option>
                                 </select>
                                 <script>
-                                    // URL-dən langCode oxu və seçimi aktiv et
+
                                     const currentUrl = new URL(window.location.href);
-                                    const currentLang = currentUrl.searchParams.get("langCode") || "en"; // default 'en'
+                                    const currentLang = currentUrl.searchParams.get("langCode") || "en";
 
                                     document.getElementById("languageSelect").value = currentLang;
 
-                                    // Dəyişəndə URL-i yenilə
                                     document.getElementById("languageSelect").addEventListener("change", function () {
                                         const selectedLang = this.value;
                                         currentUrl.searchParams.set("langCode", selectedLang);
@@ -292,55 +289,69 @@
 
                             </li>
                             <li>
-                              @*   <select id="currencySelect" class="form-control">
-                                    <option value="USD" @(Model.SelectedCurrency == "USD" ? "selected" : "")>$ USD</option>
-                                    <option value="AZN" @(Model.SelectedCurrency == "AZN" ? "selected" : "")>₼ AZN</option>
-                                    <option value="TRY" @(Model.SelectedCurrency == "TRY" ? "selected" : "")>₺ TRY</option>
-                                    <option value="EUR" @(Model.SelectedCurrency == "EUR" ? "selected" : "")>€ EUR</option>
-                                    <option value="GBP" @(Model.SelectedCurrency == "GBP" ? "selected" : "")>£ GBP</option>
-                                </select> *@
-
-                                <script>
-                                    document.getElementById("currencySelect").addEventListener("change", function () {
-                                        const selectedCurrency = this.value;
-                                        localStorage.setItem("currency", selectedCurrency);
-                                        const url = new URL(window.location.href);
-                                        url.searchParams.set("currency", selectedCurrency);
-                                        window.location.href = url.toString();
-                                    });
-
-                                    document.addEventListener("DOMContentLoaded", function () {
-                                        const savedCurrency = localStorage.getItem("currency") || "USD";
-                                        document.getElementById("currencySelect").value = savedCurrency;
-                                    });
-                                </script>
-
-                                @foreach (var tour in Model.Tours)
-                                {
-                                    <div>
-                                        <h3>@tour.Title</h3>
-                                        <p>Price: @tour.Price.ToString("0.00") @Model.SelectedCurrency</p>
-                                        <img src="~/assets/images/@tour.Image" alt="@tour.Title" />
-                                    </div>
+                                @using Microsoft.AspNetCore.Http
+                                @{
+                                    var selectedCurrency = Context.Request.Cookies["SelectedCurrency"] ?? "USD";
                                 }
+                            <li>
+                                <form id="currencyForm" method="post" asp-controller="Currency" asp-action="ChangeCurrency">
+                                    <select id="currencySelect" name="currencyCode" class="form-control" style="width: auto;">
+                                            @if (selectedCurrency == "USD")
+                                            {
+                                            <option value="USD" selected>USD $</option>
+                                            }
+                                            else
+                                            {
+                                            <option value="USD">USD $</option>
+                                            }
+
+                                            @if (selectedCurrency == "AZN")
+                                            {
+                                            <option value="AZN" selected>AZN ₼</option>
+                                            }
+                                            else
+                                            {
+                                            <option value="AZN">AZN ₼</option>
+                                            }
+
+                                            @if (selectedCurrency == "EUR")
+                                            {
+                                            <option value="EUR" selected>EUR €</option>
+                                            }
+                                            else
+                                            {
+                                            <option value="EUR">EUR €</option>
+                                            }
+
+                                            @if (selectedCurrency == "TRY")
+                                            {
+                                            <option value="TRY" selected>TRY ₺</option>
+                                            }
+                                            else
+                                            {
+                                            <option value="TRY">TRY ₺</option>
+                                            }
+
+                                            @if (selectedCurrency == "GBP")
+                                            {
+                                            <option value="GBP" selected>GBP £</option>
+                                            }
+                                            else
+                                            {
+                                            <option value="GBP">GBP £</option>
+                                            }
+                                    </select>
+                                </form>
 
                                 <script>
                                     document.getElementById("currencySelect").addEventListener("change", function () {
-                                        const selectedCurrency = this.value;
-                                        localStorage.setItem("currency", selectedCurrency);
-
-                                        const url = new URL(window.location.href);
-                                        url.searchParams.set("currency", selectedCurrency);
-
-                                        window.location.href = url.toString();
+                                        document.getElementById("currencyForm").submit();
                                     });
-
-                                    document.addEventListener("DOMContentLoaded", function () {
-                                        const savedCurrency = localStorage.getItem("currency") || "USD";
-                                        document.getElementById("currencySelect").value = savedCurrency;
-                                    });
-
                                 </script>
+                            </li>
+
+
+
 
                             </li>
                         </ul>
@@ -371,136 +382,7 @@
     <div id="back-to-top">
         <a href="#"></a>
     </div>
-    <!-- Back to top ends -->
-    <!-- Register Modal -->
-    @*     <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class="modal-header bordernone p-0">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    <div class="modal-body p-0">
-    <div class="login-content p-4 text-center">
-    <div class="login-title section-border">
-    <h3 class="pink mb-1">Register</h3>
-    <p>Access thousands of online classes in design, business, and more!</p>
-    </div>
-    <div class="login-form text-center">
 
-    <form id="registerForm" asp-controller="Account" asp-action="Register" method="post">
-    <div class="form-group">
-    <input asp-for="@Model.Register.Name" class="form-control" placeholder="Enter Full Name" />
-    <span asp-validation-for="@Model.Register.Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <input asp-for="@Model.Register.Surname" class="form-control" placeholder="Enter Surname" />
-    <span asp-validation-for="@Model.Register.Surname" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <input asp-for="@Model.Register.UserName" class="form-control" placeholder="Enter Username" />
-    <span asp-validation-for="@Model.Register.UserName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <input asp-for="@Model.Register.Email" class="form-control" placeholder="Enter Email" />
-    <span asp-validation-for="@Model.Register.Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <input asp-for="@Model.Register.Password" class="form-control" placeholder="Enter Password" type="password" />
-    <span asp-validation-for="@Model.Register.Password" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <input asp-for="@Model.Register.ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password" />
-    <span asp-validation-for="@Model.Register.ConfirmPassword" class="text-danger"></span>
-    </div>
-    <div class="form-btn">
-    <button type="submit" class="nir-btn">Register</button>
-    </div>
-    <div id="registerError" class="text-danger mt-2"></div>
-    </form>
-
-
-    <div class="form-btn">
-    <a href="#" class="nir-btn">Register</a>
-    </div>
-    <div class="form-group mb-0 form-checkbox mt-3">
-    <input type="checkbox"> By clicking this, you are agree to to<a href="#" class=""> our terms of use</a> and <a href="#" class="">privacy policy</a> including the use of cookies
-    </div>
-    </div>
-    <div class="login-social border-t mt-3 pt-2 mb-3">
-    <p class="mb-2">OR continue with</p>
-    <a href="#" class="btn-facebook"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a>
-    <a href="#" class="btn-twitter"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a>
-    <a href="#" class="btn-google"><i class="fab fa-google" aria-hidden="true"></i> Google</a>
-    </div>
-    <div class="sign-up">
-    <p class="m-0">Already have an account? <a href="login.html" class="pink">Login</a></p>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div> *@
-
-    <!-- login Modal -->
-    @*    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class="modal-header bordernone p-0">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    <div class="modal-body p-0">
-    <div class="login-content p-4 text-center">
-    <div class="login-title section-border">
-    <h3 class="pink">Login</h3>
-    </div>
-    <div class="login-form">
-
-    <form id="loginForm" asp-controller="Account" asp-action="Login" method="post">
-    <div class="form-group">
-    <input asp-for="@Model.Login.UserNameOrEmail" class="form-control" placeholder="Enter Username or Email" />
-    <span asp-validation-for="@Model.Login.UserNameOrEmail" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <input asp-for="@Model.Login.Password" class="form-control" placeholder="Enter Password" type="password" />
-    <span asp-validation-for="@Model.Login.Password" class="text-danger"></span>
-    </div>
-    <div class="form-group form-check">
-    <input asp-for="@Model.Login.IsPersistent" class="form-check-input" />
-    <label asp-for="@Model.Login.IsPersistent" class="form-check-label">Remember Me</label>
-    </div>
-    <div class="form-btn">
-    <button type="submit" class="nir-btn">Login</button>
-    </div>
-    <div id="loginError" class="text-danger mt-2"></div>
-    </form>
-
-
-    <div class="form-btn">
-    <a href="#" class="nir-btn">LOGIN</a>
-    </div>
-    <div class="form-group mb-0 form-checkbox mt-3">
-    <input type="checkbox"> Remember Me | <a href="#" class="">Forgot password?</a>
-    </div>
-    </div>
-    <div class="login-social border-t mt-3 pt-2 mb-3">
-    <p class="mb-2">OR continue with</p>
-    <a href="#" class="btn-facebook"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a>
-    <a href="#" class="btn-twitter"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a>
-    </div>
-    <div class="sign-up">
-    <p class="m-0">Do not have an account? <a href="login.html" class="pink">Sign Up</a></p>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div> *@
-
-    <!-- header side menu -->
     <div class="header_sidemenu">
         <div class="header_sidemenu_in">
             <div class="menu">

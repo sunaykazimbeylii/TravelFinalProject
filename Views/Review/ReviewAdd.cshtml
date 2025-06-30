@@ -4,9 +4,16 @@
 <div class="review-wrapper">
     <div class="review-card">
         <h4>Write a Review</h4>
-        <form asp-action="ReviewAdd" method="post">        
+        <form asp-action="ReviewAdd" method="post">
+            @foreach (var kvp in ViewData.ModelState)
+            {
+                foreach (var error in kvp.Value.Errors)
+                {
+                    <li><strong>@kvp.Key:</strong> @error.ErrorMessage</li>
+                }
+            }
             <input type="hidden" asp-for="TourId" />
-
+            <input type="hidden" name="LengCode" value="@Model.LengCode ?? " en"" />
             <div class="form-group">
                 <label>Tour:</label>
                 <p>@Model.TourTitle</p>

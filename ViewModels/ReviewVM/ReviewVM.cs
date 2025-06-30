@@ -8,8 +8,10 @@ namespace TravelFinalProject.ViewModels.ReviewVM
         public int TourId { get; set; }
         [ValidateNever]
         public string TourTitle { get; set; }
+
         public string Comment { get; set; }
         [Range(1, 5)]
         public int Rating { get; set; }
+        public string LengCode { get; set; }
     }
 }

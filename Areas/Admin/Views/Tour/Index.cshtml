@@ -52,7 +52,11 @@
                                                 @tourVM.Available_seats
                                             </td>
                                             <td>@tourVM.Location</td>
-                                            <td>@tourVM.Destination.DestinationTranslations.FirstOrDefault().Name</td>
+                            <td>
+                                @(tourVM.Destination != null && tourVM.Destination.DestinationTranslations?.FirstOrDefault() != null
+                                    ? tourVM.Destination.DestinationTranslations.FirstOrDefault().Name
+                                    : "No destination name")
+                            </td>
                                             <td style="display: flex; gap: 10px;">
 
                                                 <a asp-action="delete" asp-route-id="@tourVM.Id" class="btn"><i class="fa fa-trash-alt text-danger" aria-hidden="true"></i></a>

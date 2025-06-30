@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "K3zPOTiR2EKir+sa4Y0kf6cDyFoh9Wg/nGJbXDrVuv4=",
+  "Hash": "pwKmCIaW0bSi3DQ0gDeGtJRN5dTYDONupGE36Jguxc0=",
   "Source": "TravelFinalProject",
   "BasePath": "_content/TravelFinalProject",
   "Mode": "Default",
@@ -3931,6 +3931,25 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\69625735-1618-43e9-bb42-baba66b1e77a.jpg"
     },
     {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\7f3cda3d-4cf3-4a85-9ae5-b691d624b0f8.jpg",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/trending/7f3cda3d-4cf3-4a85-9ae5-b691d624b0f8.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\7f3cda3d-4cf3-4a85-9ae5-b691d624b0f8.jpg"
+    },
+    {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\85e79427-7554-456c-8630-2b1d029a8469.jpg",
       "SourceId": "TravelFinalProject",
       "SourceType": "Discovered",
@@ -3967,6 +3986,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\8b117f01-89ad-44be-80b3-c3a4ff07c72a.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\8beca22e-f8c5-46f3-bb1c-bb7caea8c28a.jpg",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/trending/8beca22e-f8c5-46f3-bb1c-bb7caea8c28a.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\8beca22e-f8c5-46f3-bb1c-bb7caea8c28a.jpg"
     },
     {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\8e41433a-384e-4381-9f5a-e28b8ec16339.jpg",
@@ -4214,6 +4252,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\f5def82a-0929-411c-bdb0-1010b9350358.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\fd78d0e3-5251-4783-a44c-444cf9b11ea4.jpg",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/trending/fd78d0e3-5251-4783-a44c-444cf9b11ea4.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\trending\\fd78d0e3-5251-4783-a44c-444cf9b11ea4.jpg"
     },
     {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\trending\\fe44ac67-81a4-4a80-9825-be7b714f11ad.jpg",

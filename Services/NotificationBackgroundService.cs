@@ -12,10 +12,12 @@ namespace TravelFinalProject.Services
         public NotificationBackgroundService(IServiceScopeFactory scopeFactory)
         {
             _scopeFactory = scopeFactory;
+
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 using (var scope = _scopeFactory.CreateScope())
@@ -25,8 +27,8 @@ namespace TravelFinalProject.Services
 
                     var nowDateOnly = DateOnly.FromDateTime(DateTime.UtcNow);
 
-                    var finishedTours = await context.Tours
-                        .Where(t => t.End_Date <= nowDateOnly)
+                    var finishedTours = await context.Tours.Include(t => t.TourTranslations)
+                        //.Where(t => t.End_Date <= nowDateOnly)
                         .ToListAsync();
 
                     foreach (var tour in finishedTours)
@@ -49,4 +51,5 @@ namespace TravelFinalProject.Services
 
 
 }
+
 

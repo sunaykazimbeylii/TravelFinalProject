@@ -61,6 +61,7 @@ namespace TravelFinalProject.Controllers
                 Slides = await _context.Slides.Include(m => m.SlideTranslations.Where(t => t.LangCode == langCode)).ToListAsync(),
                 DestinationCategories = await _context.DestinationCategories.Include(m => m.DestinationCategoryTranslations.Where(t => t.LangCode == langCode)).ToListAsync(),
                 DestinationImages = await _context.DestinationImages.ToListAsync(),
+                Reviews = await _context.Reviews.Include(r => r.User).Include(r => r.ReviewTranslations.Where(t => t.LangCode == langCode)).ToListAsync(),
                 TourImages = await _context.TourImages.ToListAsync(),
                 Destinations = destinations,
                 CurrentCategoryId = categoryId,

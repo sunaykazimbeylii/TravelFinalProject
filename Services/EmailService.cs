@@ -24,7 +24,7 @@ namespace TravelFinalProject.Services
                 smpt.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smpt.UseDefaultCredentials = false;
 
-                MailAddress from = new MailAddress(_configuration["Email:LoginEmail"]);
+                MailAddress from = new MailAddress(_configuration["Email:LoginEmail"], "TraveLux");
                 MailAddress to = new MailAddress(emailTo);
 
                 MailMessage message = new MailMessage(from, to);

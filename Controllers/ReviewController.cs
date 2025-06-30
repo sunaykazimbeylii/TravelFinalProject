@@ -18,14 +18,17 @@ namespace TravelFinalProject.Controllers
         [HttpGet]
         public async Task<IActionResult> ReviewAdd(int tourId, string langCode = "en")
         {
-
+            var reviews = await _context.Reviews
+    .Include(r => r.User)
+    .ToListAsync();
             var tour = await _context.Tours.Include(t => t.TourTranslations.Where(m => m.LangCode == langCode)).FirstOrDefaultAsync(t => t.Id == tourId);
             if (tour == null) return NotFound();
 
             var vm = new ReviewVM
             {
                 TourId = tour.Id,
-                TourTitle = tour.TourTranslations.FirstOrDefault().Title
+                TourTitle = tour.TourTranslations.FirstOrDefault().Title,
+
             };
 
             return View(vm);
@@ -39,27 +42,27 @@ namespace TravelFinalProject.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            bool alreadyReviewed = await _context.Reviews
+            bool alreadyReviewed = await _context.Reviews.Include(r => r.ReviewTranslations)
         .AnyAsync(r => r.UserId == userId && r.TourId == vm.TourId);
 
             if (alreadyReviewed)
             {
                 ModelState.AddModelError("", "Siz bu tur üçün artıq rəy yazmısınız.");
-                var tour = await _context.Tours.FindAsync(vm.TourId);
+                var tour = await _context.Tours.Include(t => t.TourTranslations).FirstOrDefaultAsync(tt => tt.Id == vm.TourId);
                 vm.TourTitle = tour?.TourTranslations.FirstOrDefault().Title ?? "";
                 return View(vm);
             }
 
             if (!ModelState.IsValid)
             {
-                var tour = await _context.Tours.FindAsync(vm.TourId);
+                var tour = await _context.Tours.Include(t => t.TourTranslations).FirstOrDefaultAsync(tt => tt.Id == vm.TourId);
                 vm.TourTitle = tour?.TourTranslations.FirstOrDefault().Title ?? "";
                 return View(vm);
             }
             var review = new Review
             {
                 UserId = userId,
-                Comment = vm.Comment,
+                //Comment = vm.Comment,
                 Rating = vm.Rating,
                 TourId = vm.TourId,
                 CreatedAt = DateTime.UtcNow
@@ -67,7 +70,15 @@ namespace TravelFinalProject.Controllers
 
             _context.Reviews.Add(review);
             await _context.SaveChangesAsync();
+            ReviewTranslation translation = new ReviewTranslation
+            {
+                Comment = vm.Comment,
+                LangCode = vm.LengCode,
+                ReviewId = review.Id
 
+            };
+            _context.ReviewTranslations.Add(translation);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(ThankYou));
         }
 

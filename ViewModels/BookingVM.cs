@@ -2,7 +2,6 @@
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities;
 using TravelFinalProject.Utilities.Enums;
-using TravelFinalProject.ViewModels.Currency;
 
 namespace TravelFinalProject.ViewModels
 {
@@ -42,9 +41,7 @@ namespace TravelFinalProject.ViewModels
 
         public Booking? Booking { get; set; }
         public List<BookingTraveller> Travellers { get; set; } = new();
-        public List<CurrencyVM> Currencies { get; set; } = new();
 
-        public string SelectedCurrencyCode { get; set; }
 
     }
 

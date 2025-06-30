@@ -382,6 +382,30 @@ namespace TravelFinalProject.Migrations
                     b.ToTable("BookingTravellerTranslations");
                 });
 
+            modelBuilder.Entity("TravelFinalProject.Models.Currency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("RateToUSD")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Currencies");
+                });
+
             modelBuilder.Entity("TravelFinalProject.Models.Destination", b =>
                 {
                     b.Property<int>("Id")
@@ -611,13 +635,11 @@ namespace TravelFinalProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -642,6 +664,42 @@ namespace TravelFinalProject.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.ReviewTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LangCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReviewId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("ReviewTranslations");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Slide", b =>
@@ -1049,6 +1107,15 @@ namespace TravelFinalProject.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TravelFinalProject.Models.ReviewTranslation", b =>
+                {
+                    b.HasOne("TravelFinalProject.Models.Review", null)
+                        .WithMany("ReviewTranslations")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TravelFinalProject.Models.SlideTranslation", b =>
                 {
                     b.HasOne("TravelFinalProject.Models.Slide", null)
@@ -1124,6 +1191,11 @@ namespace TravelFinalProject.Migrations
                     b.Navigation("DestinationCategoryTranslations");
 
                     b.Navigation("Destinations");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.Review", b =>
+                {
+                    b.Navigation("ReviewTranslations");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Slide", b =>

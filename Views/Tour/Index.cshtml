@@ -1,7 +1,10 @@
-﻿@using TravelFinalProject.Models
+﻿@using TravelFinalProject.Interfaces
+@using TravelFinalProject.Models
 @using TravelFinalProject.Utilities.Enums
 @using TravelFinalProject.ViewModels
 @model TourListPageVM
+@inject ICurrencyService CurrencyService
+
 <!-- BreadCrumb Starts -->
 <section class="breadcrumb-main pb-0" style="background-image: url(images/bg/bg8.jpg);">
     <div class="breadcrumb-outer pt-10">
@@ -81,8 +84,11 @@
                                                 : tour.Description)
                                         </p>
                                         <div class="deal-price">
-                                            <p class="price mb-0">From <span>$@tour.Price</span> / @tour.Duration</p>
+                                            <p class="price mb-0">
+                                                From <span>@CurrencyService.GetSymbol(tour.CurrencyCode) @tour.Price</span> / @tour.Duration
+                                            </p>
                                         </div>
+
                                         <p><strong>Start Date:</strong> @tour.Start_Date.ToString("dd MMM yyyy")</p>
                                         <p><strong>End Date:</strong> @tour.End_Date.ToString("dd MMM yyyy")</p>
                                         <p><strong>Available Seats:</strong> @tour.Available_seats</p>

@@ -9,11 +9,13 @@ namespace TravelFinalProject.Services
     {
         private readonly AppDbContext _context;
         private readonly IEmailService _emailService;
+        private readonly ILogger<NotificationService> _logger;
 
         public NotificationService(AppDbContext context, IEmailService emailService)
         {
             _context = context;
             _emailService = emailService;
+
         }
 
         public async Task<bool> HasNotificationBeenSentAsync(string userId, int tourId)
@@ -31,8 +33,10 @@ namespace TravelFinalProject.Services
             if (user == null)
                 throw new Exception("User not found");
 
-            var tour = await _context.Tours.FindAsync(tourId);
-            var baseUrl = "https://localhost:44364";  // Lokalda test üçündür, prodda dəyişəcək
+            var tour = await _context.Tours
+.Include(t => t.TourTranslations)
+.FirstOrDefaultAsync(t => t.Id == tourId);
+            var baseUrl = "https://localhost:44364";
             var reviewUrl = $"{baseUrl}/Review/ReviewAdd?tourId={tour.Id}";
             if (tour == null)
                 throw new Exception("Tour not found");
@@ -60,6 +64,8 @@ namespace TravelFinalProject.Services
             };
             _context.NotificationSents.Add(notification);
             await _context.SaveChangesAsync();
+
+
         }
 
         public async Task MarkReviewGivenAsync(string userId, int tourId)

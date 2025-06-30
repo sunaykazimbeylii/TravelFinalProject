@@ -67,10 +67,10 @@
                         </div>
                     </div>
 
-                    @foreach (Tour tour in Model.Tour.Destination.Tours)
-                    { foreach(var t in tour.TourTranslations){
+                    @foreach (var tour in Model.Tour.Destination.Tours)
+                    { 
                         <div class="tour-includes mb-4">
-                            <h5>@t.Title</h5>
+                            <h5>@tour.TourTranslations.FirstOrDefault().Title</h5>
                             <table class="table">
                                 <tbody>
                                     <tr>
@@ -403,21 +403,34 @@
                                         <div class="form-group bg-white p-3">
                                             <ul>
                                                 <li class="d-block pb-1">
-                                                    $@Model.Tour.Price x <span id="peopleCount">1</span> guests
-                                                    <span class="float-right pink" id="subtotal">$@Model.Tour.Price</span>
+                                                    @Model.CurrencySymbol@Model.ConvertedPrice x <span id="peopleCount">1</span> guests
+                                                    <span class="float-right pink" id="subtotal">@Model.CurrencySymbol@Model.ConvertedPrice</span>
                                                 </li>
-                                                <li class="d-block pb-1">Booking fee + tax<span class="float-right pink">$10.00</span></li>
-                                                <li class="d-block pb-1">Book now & Save<span class="float-right  pink">-$15</span></li>
-                                                <li class="d-block pb-1">Other fees<span class="float-right pink">Free</span></li>
+                                                <li class="d-block pb-1">
+                                                    Booking fee + tax
+                                                    <span class="float-right pink">@Model.CurrencySymbol 10.00</span>
+                                                </li>
+                                                <li class="d-block pb-1">
+                                                    Book now & Save
+                                                    <span class="float-right pink">-@Model.CurrencySymbol 15.00</span>
+                                                </li>
+                                                <li class="d-block pb-1">
+                                                    Other fees
+                                                    <span class="float-right pink">Free</span>
+                                                </li>
                                                 <li class="d-block border-t">
                                                     <div class="pt-1">
                                                         <span>Total</span>
-                                                        <span class="float-right pink" id="total">$@(@Model.Tour.Price + 10 - 15)</span>
+                                                        @{
+                                                            var total = Model.ConvertedPrice + 10 - 15;
+                                                        }
+                                                        <span class="float-right pink" id="total">@Model.CurrencySymbol@total</span>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
+
 
                                     <div class="col-lg-12">
                                         <div class="form-group mb-0">

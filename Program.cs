@@ -27,8 +27,13 @@ namespace TravelFinalProject
                 );
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
-            builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddHostedService<NotificationBackgroundService>();
+            builder.Services.AddHttpClient();
+            builder.Services.AddMemoryCache();
+            builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+            builder.Services.Configure<CurrencySettings>(builder.Configuration.GetSection("CurrencySettings"));
+
+
 
 
             var app = builder.Build();

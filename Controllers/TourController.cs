@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelFinalProject.DAL;
+using TravelFinalProject.Interfaces;
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities.Enums;
 using TravelFinalProject.ViewModels;
@@ -10,30 +11,23 @@ namespace TravelFinalProject.Controllers
     public class TourController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly ICurrencyService _currencyService;
 
-        public TourController(AppDbContext context)
+        public TourController(AppDbContext context, ICurrencyService currencyService)
         {
             _context = context;
+            _currencyService = currencyService;
         }
-        public async Task<IActionResult> Index(TourSearchVM search, int? destinationId, int? min_price, int? max_price, int page = 1, int key = 1, string langCode = "en", string currency = "USD")
+        public async Task<IActionResult> Index(TourSearchVM search, int? destinationId, int? min_price, int? max_price, int page = 1, int key = 1, string langCode = "en")
         {
-            decimal rate = 1m;
-            switch (currency.ToUpper())
-            {
-                case "AZN": rate = 1.7m; break;
-                case "TRY": rate = 18m; break;
-                case "EUR": rate = 0.95m; break;
-                case "GBP": rate = 0.83m; break;
-                default: rate = 1m; break;  // USD
-            }
-            IQueryable<Tour> query = _context.Tours.Include(m => m.TourTranslations.Where(t => t.LangCode == langCode))
+            IQueryable<Tour> query = _context.Tours
+                .Include(m => m.TourTranslations.Where(t => t.LangCode == langCode))
                 .Include(t => t.TourImages.Where(ti => ti.IsPrimary == true))
-                .Include(t => t.Destination);
+                .Include(t => t.Destination).ThenInclude(t => t.DestinationTranslations);
 
             if (destinationId != null && destinationId > 0)
-            {
                 query = query.Where(t => t.DestinationId == destinationId);
-            }
+
             if (min_price.HasValue)
                 query = query.Where(t => t.Price >= min_price.Value);
 
@@ -41,10 +35,7 @@ namespace TravelFinalProject.Controllers
                 query = query.Where(t => t.Price <= max_price.Value);
 
             if (!string.IsNullOrEmpty(search.Destination))
-            {
                 query = query.Where(t => t.Destination.DestinationTranslations.FirstOrDefault().Name == search.Destination);
-            }
-
 
             if (search.CheckOut.HasValue)
             {
@@ -52,16 +43,11 @@ namespace TravelFinalProject.Controllers
                 query = query.Where(t => t.End_Date.ToDateTime(TimeOnly.MaxValue) <= checkOut);
             }
 
-
             if (search.CheckIn.HasValue)
             {
                 DateTime checkIn = search.CheckIn.Value.ToDateTime(TimeOnly.MinValue);
                 query = query.Where(t => t.Start_Date.ToDateTime(TimeOnly.MinValue) >= checkIn);
             }
-
-
-
-
 
             if (search.Adults.HasValue)
                 query = query.Where(t => t.Available_seats >= search.Adults);
@@ -71,23 +57,18 @@ namespace TravelFinalProject.Controllers
                 case (int)SortType.Price:
                     query = query.OrderBy(t => t.Price);
                     break;
-                //case (int)SortType.Rating:
-                //    query = query.OrderBy(t => t.Rating);
-                //    break;
                 case (int)SortType.Date:
                     query = query.OrderByDescending(t => t.CreatedAt);
                     break;
                 case (int)SortType.Duration:
                     query = query.OrderByDescending(t => t.Duration);
                     break;
-
             }
 
             int count = await query.CountAsync();
             int pageSize = 3;
             int totalPages = (int)Math.Ceiling(count / (double)pageSize);
             if (totalPages == 0) totalPages = 1;
-
             if (page < 1 || page > totalPages) return BadRequest();
 
             var tours = await query
@@ -95,55 +76,72 @@ namespace TravelFinalProject.Controllers
                 .Take(pageSize)
                 .ToListAsync();
 
+            string currencyCode = Request.Cookies["SelectedCurrency"] ?? "USD";
+
+            var tourVMs = new List<GetTourVM>();
+            foreach (var t in tours)
+            {
+                decimal originalPrice = t.Price ?? 0;
+                decimal convertedPrice = await _currencyService.ConvertAsync(originalPrice, currencyCode);
+
+                tourVMs.Add(new GetTourVM
+                {
+                    Id = t.Id,
+                    Title = t.TourTranslations.FirstOrDefault()?.Title,
+                    DestinationId = t.DestinationId,
+                    Start_Date = t.Start_Date,
+                    End_Date = t.End_Date,
+                    Location = t.TourTranslations.FirstOrDefault()?.Location,
+                    Available_seats = t.Available_seats,
+                    Image = t.TourImages.FirstOrDefault()?.Image ?? "default.jpg",
+                    Description = t.TourTranslations.FirstOrDefault()?.Description,
+                    Destination = t.Destination,
+                    Price = convertedPrice,
+                    CurrencyCode = currencyCode
+                });
+            }
+
             var paginatedVM = new PaginatedVM<GetTourVM>
             {
                 TotalPage = totalPages,
                 CurrentPage = page,
-                Items = tours.Select(t => new GetTourVM
-                {
-                    Id = t.Id,
-                    Title = t.TourTranslations.FirstOrDefault().Title,
-                    DestinationId = t.DestinationId,
-                    Start_Date = t.Start_Date,
-                    End_Date = t.End_Date,
-                    Location = t.TourTranslations.FirstOrDefault().Location,
-                    Available_seats = t.Available_seats,
-
-                    Price = t.Price.Value * rate,
-                    Image = t.TourImages.FirstOrDefault()?.Image ?? "default.jpg",
-                    Description = t.TourTranslations.FirstOrDefault().Description,
-                    Destination = t.Destination
-                }).ToList()
+                Items = tourVMs
             };
 
-            var destinations = await _context.Destinations.Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode)).ToListAsync();
+            var destinations = await _context.Destinations
+                .Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode))
+                .ToListAsync();
 
             var vm = new TourListPageVM
             {
                 PaginatedTours = paginatedVM,
                 Destinations = destinations,
-                SearchForm = new TourSearchVM(),
-                SelectedCurrency = currency.ToUpper(),
-                ExchangeRate = rate
-
+                SearchForm = new TourSearchVM()
             };
 
             return View(vm);
         }
-        public async Task<IActionResult> TourDetail(int? id)
+
+        public async Task<IActionResult> TourDetail(int? id, string selectedCurrency = "USD")
         {
             if (id is null || id < 1) return BadRequest();
-            Tour tour = await _context.Tours
-                .Include(t => t.Destination)
+
+            Tour tour = await _context.Tours.Include(t => t.TourTranslations)
+                .Include(t => t.Destination).ThenInclude(d => d.DestinationTranslations)
                 .Include(t => t.TourImages)
                 .Include(t => t.Bookings)
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (tour == null) return NotFound();
+            decimal price = tour.Price.Value;
+            decimal convertedPrice = await _currencyService.ConvertAsync(price, selectedCurrency);
+            string currencySymbol = _currencyService.GetSymbol(selectedCurrency);
             TourDetailVM detailVM = new TourDetailVM
             {
                 Tour = tour,
-                RelatedTour = await _context.Tours
+                ConvertedPrice = convertedPrice,
+                CurrencySymbol = currencySymbol,
+                RelatedTour = await _context.Tours.Include(t => t.TourTranslations)
                  .Where(t => t.DestinationId == tour.DestinationId && t.Id != id)
                 .Include(t => t.TourImages)
                 .ToListAsync(),
