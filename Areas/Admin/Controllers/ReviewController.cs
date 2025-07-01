@@ -16,9 +16,12 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var reviews = await _context.Reviews.Include(r => r.ReviewTranslations)
+            int pageSize = 3;
+
+            var query = _context.Reviews
+                .Include(r => r.ReviewTranslations)
                 .Include(r => r.User)
                 .Select(r => new ReviewAdminVM
                 {
@@ -29,17 +32,34 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                     Rating = r.Rating,
                     Comment = r.ReviewTranslations.FirstOrDefault().Comment,
                     IsApproved = r.IsApproved,
-                    CreatedAt = r.CreatedAt
-                })
-                .ToListAsync();
+                    CreatedAt = r.CreatedAt,
 
-            return View(reviews);
+                });
+
+            int count = await query.CountAsync();
+            int totalPages = (int)Math.Ceiling(count / (double)pageSize);
+            if (totalPages == 0) totalPages = 1;
+            if (page < 1 || page > totalPages) return BadRequest();
+            var reviews = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            var paginatedVM = new PaginatedVM<ReviewAdminVM>
+            {
+                TotalPage = totalPages,
+                CurrentPage = page,
+                Items = reviews
+            };
+
+            return View(paginatedVM);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Approve(int id, bool isApproved)
         {
-            var review = await _context.Reviews.Include(r => r.ReviewTranslations).FirstOrDefaultAsync(r => r.TourId == id);
+
+            var review = await _context.Reviews.Include(r => r.ReviewTranslations).FirstOrDefaultAsync(r => r.Id == id);
             if (review == null)
                 return NotFound();
 

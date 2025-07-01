@@ -114,9 +114,14 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             {
                 return BadRequest();
             }
-            Destination? destination = await _context.Destinations.Include(m => m.Category).Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode)).Include(d => d.DestinationImages).FirstOrDefaultAsync(d => d.Id == id);
+            Destination? destination = await _context.Destinations
+                   .Include(m => m.Category)
+                   .Include(m => m.DestinationTranslations)
+                   .Include(d => d.DestinationImages)
+                   .FirstOrDefaultAsync(d => d.Id == id);
             if (destination == null) return NotFound();
-
+            var translation = destination.DestinationTranslations
+        .FirstOrDefault(t => t.LangCode == langCode);
             UpdateDestinationVM destinationVM = new UpdateDestinationVM
             {
 
@@ -130,7 +135,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 IsFeatured = destination.IsFeatured,
                 PrimaryImage = destination.DestinationImages.FirstOrDefault(pi => pi.IsPrimary == true).Image,
                 Categories = await _context.DestinationCategories.ToListAsync(),
-                DestinationCategories = await _context.DestinationCategoryTranslations.ToListAsync()
+                DestinationCategories = await _context.DestinationCategoryTranslations.Where(t => t.LangCode == langCode).ToListAsync()
 
             };
             return View(destinationVM);
@@ -143,6 +148,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Update(UpdateDestinationVM destinationVM, int id)
         {
             destinationVM.Categories = await _context.DestinationCategories.Include(d => d.DestinationCategoryTranslations).ToListAsync();
+            destinationVM.DestinationCategories = await _context.DestinationCategoryTranslations.ToListAsync();
             if (!ModelState.IsValid) return View(destinationVM);
 
             Destination? existed = await _context.Destinations.Include(d => d.DestinationImages).Include(m => m.DestinationTranslations).FirstOrDefaultAsync(d => d.Id == id);

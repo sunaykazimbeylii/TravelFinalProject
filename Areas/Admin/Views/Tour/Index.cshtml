@@ -53,9 +53,9 @@
                                             </td>
                                             <td>@tourVM.Location</td>
                             <td>
-                                @(tourVM.Destination != null && tourVM.Destination.DestinationTranslations?.FirstOrDefault() != null
-                                    ? tourVM.Destination.DestinationTranslations.FirstOrDefault().Name
-                                    : "No destination name")
+                              
+                                    @tourVM.Destination.DestinationTranslations.FirstOrDefault().Name
+                                    
                             </td>
                                             <td style="display: flex; gap: 10px;">
 

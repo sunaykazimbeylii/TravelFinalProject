@@ -191,11 +191,8 @@
         </div>
         <div class="trend-box">
             <div class="row">
-                @foreach (Tour tour in Model.Tours)
-                { 
-                    foreach (var tt in tour.TourTranslations)
-                    {
-                        
+                @foreach (var tour in Model.Tours)
+                {         
                     <div class="col-lg-4 col-md-6 col-xs-12 mb-4">
                         <div class="trend-item">
                             <img src="~/assets/images/trending/@tour?.TourImages?.FirstOrDefault(ti=>ti.IsPrimary==true)?.Image" alt="">
@@ -205,8 +202,11 @@
                         </div>
                         <div class="trend-content-main">
                             <div class="trend-content">
-                                <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i>@tt.Location</h6>
-                                <h4><a asp-action="TourDetail" asp-controller="Tour" asp-route-id="@tour.Id">@tt.Title</a></h4>
+                                <h6 class="font-weight-normal pink">
+                                    <i class="fa fa-map-marker-alt"></i>
+                                    @(tour.TourTranslations.FirstOrDefault()?.Location ?? "Location not available")
+                                </h6>
+                                <h4><a asp-action="TourDetail" asp-controller="Tour" asp-route-id="@tour">@tour.TourTranslations.FirstOrDefault().Title</a></h4>
                                 <div class="rating-main d-flex align-items-center">
                                     <div class="rating">
                                         <span class="fa fa-star checked"></span>
@@ -219,7 +219,7 @@
                                 </div>
                             </div>
                             <div class="trend-last-main">
-                                <p class="mb-0 trend-para">@tt.Description</p>
+                                <p class="mb-0 trend-para">@tour.TourTranslations.FirstOrDefault().Description</p>
                                 <div class="trend-last d-flex align-items-center justify-content-between">
                                     <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
                                     <div class="trend-price">
@@ -900,14 +900,14 @@
         <div class="row review-slider1">
             @foreach(Review  rt in Model.Reviews)
             {          
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="testimonial-item">
                     <div class="testimonial-content mb-5">
                         <div class="testimonial-icon">
                             <i class="fa fa-quote-left"></i>
                         </div>
                         <p class="description mb-0">
-                        @* @rt.ReviewTranslations.FirstOrDefault().Comment *@
+                         @rt.ReviewTranslations.FirstOrDefault().Comment 
                         </p>
                     </div>
                     <div class="author-title d-flex align-items-center">

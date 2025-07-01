@@ -9,5 +9,6 @@ namespace TravelFinalProject.ViewModels
         public string CurrencySymbol { get; set; }
         public Tour Tour { get; set; }
         public List<Tour> RelatedTour { get; set; }
+        public TourTranslation SelectedTranslation { get; set; }
     }
 }

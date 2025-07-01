@@ -255,17 +255,39 @@ namespace TravelFinalProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AdultsCount")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("BookingDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ChildrenCount")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("CurrencyCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GuestsCount")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<decimal>("PricePerAdult")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PricePerChild")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PromoCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PromoDiscountPercent")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -320,6 +342,10 @@ namespace TravelFinalProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
 
@@ -365,10 +391,6 @@ namespace TravelFinalProject.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Nationality")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

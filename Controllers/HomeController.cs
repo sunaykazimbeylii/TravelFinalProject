@@ -15,12 +15,12 @@ namespace TravelFinalProject.Controllers
             _context = context;
 
         }
-        public async Task<IActionResult> Index(int? categoryId, TourSearchVM search, string langCode = "en")
+        public async Task<IActionResult> Index(int? categoryId, string langCode = "en")
         {
-
-            var destinationsQuery = _context.Destinations.Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode))
+            var destinationsQuery = _context.Destinations
+                .Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode))
                 .Include(d => d.Category)
-                .Where(d => d.IsFeatured == true)
+                .Where(d => d.IsFeatured)
                 .AsQueryable();
 
             if (categoryId.HasValue && categoryId.Value > 0)
@@ -28,48 +28,43 @@ namespace TravelFinalProject.Controllers
                 destinationsQuery = destinationsQuery.Where(d => d.CategoryId == categoryId);
             }
 
-            var destinations = await destinationsQuery.ToListAsync();
+            var destinations = await destinationsQuery.Where(t => t.DestinationTranslations.Any(tt => tt.LangCode == langCode))
+                    .Include(t => t.DestinationTranslations.Where(tt => tt.LangCode == langCode)).Take(3)
 
+    .ToListAsync();
 
-            var toursQuery = _context.Tours.AsQueryable();
-
-
-            //if (!string.IsNullOrWhiteSpace(search?.Destination))
-            //{
-            //    var dest = search.Destination.Trim().ToLower();
-            //    toursQuery = toursQuery.Where(t => t.Destination.DestinationTranslations..ToLower().Contains(dest));
-            //}
-
-            if (search.CheckIn.HasValue)
-            {
-                DateOnly checkInDate = search.CheckIn.Value;
-                toursQuery = toursQuery.Where(t => t.Start_Date == checkInDate);
-            }
-
-            if (search.CheckOut.HasValue)
-            {
-                DateOnly checkOutDate = search.CheckOut.Value;
-                toursQuery = toursQuery.Where(t => t.End_Date <= checkOutDate);
-            }
-
-
-
-            var tours = await toursQuery.ToListAsync();
             HomeVM homeVM = new HomeVM
             {
-                Tours = tours,
-                Slides = await _context.Slides.Include(m => m.SlideTranslations.Where(t => t.LangCode == langCode)).ToListAsync(),
-                DestinationCategories = await _context.DestinationCategories.Include(m => m.DestinationCategoryTranslations.Where(t => t.LangCode == langCode)).ToListAsync(),
+                Tours = await _context.Tours
+                    .Where(t => t.TourTranslations.Any(tt => tt.LangCode == langCode))
+                    .Include(t => t.TourTranslations.Where(tt => tt.LangCode == langCode)).Take(3)
+                    .ToListAsync(),
+
+                Slides = await _context.Slides
+                    .Include(m => m.SlideTranslations.Where(t => t.LangCode == langCode))
+                    .ToListAsync(),
+
+                DestinationCategories = await _context.DestinationCategories
+                    .Include(m => m.DestinationCategoryTranslations.Where(t => t.LangCode == langCode))
+                    .ToListAsync(),
+
                 DestinationImages = await _context.DestinationImages.ToListAsync(),
-                Reviews = await _context.Reviews.Include(r => r.User).Include(r => r.ReviewTranslations.Where(t => t.LangCode == langCode)).ToListAsync(),
+
+                Reviews = await _context.Reviews
+                    .Include(r => r.User)
+                    .Include(r => r.ReviewTranslations)
+                    .Where(r => r.IsApproved && r.ReviewTranslations.Any(rt => rt.LangCode == langCode)).Take(3)
+                    .ToListAsync(),
+
                 TourImages = await _context.TourImages.ToListAsync(),
+
                 Destinations = destinations,
                 CurrentCategoryId = categoryId,
-                Search = search
             };
 
             return View(homeVM);
         }
+
 
         //public async Task<IActionResult> Index(int? categoryId)
         //{
@@ -102,10 +97,10 @@ namespace TravelFinalProject.Controllers
 
 
 
-        public async Task<IActionResult> DestinationDetails(int? id)
+        public async Task<IActionResult> DestinationDetails(int? id, string langCode = "en")
         {
             if (id is null || id < 1) return BadRequest();
-            var destination = await _context.Destinations
+            var destination = await _context.Destinations.Include(d => d.DestinationTranslations.Where(d => d.LangCode == langCode))
                 .Include(d => d.Category)
                 .Include(d => d.DestinationImages)
                 .Include(d => d.Tours)

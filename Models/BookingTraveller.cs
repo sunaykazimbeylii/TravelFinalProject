@@ -24,7 +24,9 @@ namespace TravelFinalProject.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber { get; set; }
 
 
 
@@ -40,9 +42,7 @@ namespace TravelFinalProject.Models
 
         [Required, MaxLength(50)]
         public string LastName { get; set; }
-        [Required]
-        [DataType(DataType.PhoneNumber)]
-        public string PhoneNumber { get; set; }
+
         [Required]
         public string Nationality { get; set; }
         public int BookingTravellerId { get; set; }

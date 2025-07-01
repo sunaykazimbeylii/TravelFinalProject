@@ -122,64 +122,40 @@ namespace TravelFinalProject.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> TourDetail(int? id, string selectedCurrency = "USD")
+
+        public async Task<IActionResult> TourDetail(int? id, string langCode = "en")
         {
             if (id is null || id < 1) return BadRequest();
 
-            Tour tour = await _context.Tours.Include(t => t.TourTranslations)
+            Tour tour = await _context.Tours.Include(t => t.TourTranslations.Where(tt => tt.LangCode == langCode))
                 .Include(t => t.Destination).ThenInclude(d => d.DestinationTranslations)
                 .Include(t => t.TourImages)
                 .Include(t => t.Bookings)
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (tour == null) return NotFound();
-            decimal price = tour.Price.Value;
-            decimal convertedPrice = await _currencyService.ConvertAsync(price, selectedCurrency);
-            string currencySymbol = _currencyService.GetSymbol(selectedCurrency);
+
+            decimal originalPrice = tour.Price ?? 0m;
+            string currencyCode = Request.Cookies["SelectedCurrency"] ?? "USD";
+            decimal convertedPrice = await _currencyService.ConvertAsync(originalPrice, currencyCode);
+            string currencySymbol = _currencyService.GetSymbol(currencyCode);
+
             TourDetailVM detailVM = new TourDetailVM
             {
                 Tour = tour,
                 ConvertedPrice = convertedPrice,
                 CurrencySymbol = currencySymbol,
-                RelatedTour = await _context.Tours.Include(t => t.TourTranslations)
+                RelatedTour = await _context.Tours.Include(t => t.TourTranslations.Where(tt => tt.LangCode == langCode))
                  .Where(t => t.DestinationId == tour.DestinationId && t.Id != id)
                 .Include(t => t.TourImages)
                 .ToListAsync(),
-
             };
+
             return View(detailVM);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> SearchTour(TourSearchVM vm)
-        //{
-        //    var query = _context.Tours.Include(t => t.Destination).AsQueryable();
-
-        //    if (!string.IsNullOrWhiteSpace(vm.Tour))
-        //        query = query.Where(t => t.Tour != null && t.Destination.Name.ToLower().Contains(vm.D.ToLower()));
-
-        //    if (vm.CheckIn.HasValue)
-        //        query = query.Where(t => t.Start_Date >= vm.CheckIn.Value);
-
-        //    if (vm.CheckOut.HasValue)
-        //        query = query.Where(t => t.End_Date <= vm.CheckOut.Value);
-
-        //    if (vm.Adults.HasValue)
-        //        query = query.Where(t => t.Available_seats >= vm.Adults.Value);
-
-        //    var firstTour = await query.FirstOrDefaultAsync();
-
-        //    if (firstTour == null)
-        //    {
-        //        ModelState.AddModelError("", "No tours found matching your criteria.");
-        //        vm.Results = new List<Tour>();
-        //        return View(vm);
-        //    }
-
-        //    return RedirectToAction("Create", "Booking", new { adults = vm.Adults, children = vm.Children });
 
 
-        //}
 
 
     }

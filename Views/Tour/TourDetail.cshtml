@@ -68,7 +68,7 @@
                     </div>
 
                     @foreach (var tour in Model.Tour.Destination.Tours)
-                    { 
+                    {
                         <div class="tour-includes mb-4">
                             <h5>@tour.TourTranslations.FirstOrDefault().Title</h5>
                             <table class="table">
@@ -89,7 +89,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        }
+                    }
                     }
                     <div class="description mb-2">
                         <h4>Description</h4>
@@ -384,44 +384,65 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label class="white">No. Of People</label>
-                                            <div class="input-box">
-                                                <i class="flaticon-add-user"></i>
-                                                <select id="guestCount" name="adults">
-                                                    @for (int i = 1; i <= Model.Tour.Available_seats; i++)
-                                                    {
-                                                        <option value="@i">@i</option>
-                                                    }
-                                                </select>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="white">Adult</label>
+                                                <div class="input-box">
+                                                    <i class="flaticon-add-user"></i>
+                                                    <select name="Adults" class="form-control">
+                                                        <option value="">Adults</option>
+                                                        @for (int i = 1; i <= 3; i++)
+                                                        {
+                                                            <option value="@i">@i</option>
+                                                        }
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-lg-12">
-                                        <div class="form-group bg-white p-3">
-                                            <ul>
-                                                <li class="d-block pb-1">
-                                                    @Model.CurrencySymbol@Model.ConvertedPrice x <span id="peopleCount">1</span> guests
-                                                    <span class="float-right pink" id="subtotal">@Model.CurrencySymbol@Model.ConvertedPrice</span>
-                                                </li>
-                                                <li class="d-block pb-1">
-                                                    Booking fee + tax
-                                                    <span class="float-right pink">@Model.CurrencySymbol 10.00</span>
-                                                </li>
-                                                <li class="d-block pb-1">
-                                                    Book now & Save
-                                                    <span class="float-right pink">-@Model.CurrencySymbol 15.00</span>
-                                                </li>
-                                                <li class="d-block pb-1">
-                                                    Other fees
-                                                    <span class="float-right pink">Free</span>
-                                                </li>
-                                                <li class="d-block border-t">
-                                                    <div class="pt-1">
-                                                        <span>Total</span>
-                                                        @{
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="white">Children</label>
+                                                <div class="input-box">
+                                                    <i class="flaticon-add-user"></i>
+                                                    <select name="Children" class="form-control">
+                                                        <option value="">Children</option>
+                                                        @for (int i = 0; i <= 3; i++)
+                                                       
+
+                                                            {
+                                                            <option value="@i">@i</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group bg-white p-3">
+                                                <ul>
+                                                    <li class="d-block pb-1">
+                                                        @Model.CurrencySymbol@Model.ConvertedPrice x <span id="peopleCount">1</span> guests
+                                                        <span class="float-right pink" id="subtotal">@Model.CurrencySymbol@Model.ConvertedPrice</span>
+                                                    </li>
+                                                    <li class="d-block pb-1">
+                                                        Booking fee + tax
+                                                        <span class="float-right pink">@Model.CurrencySymbol 10.00</span>
+                                                    </li>
+                                                    <li class="d-block pb-1">
+                                                        Book now & Save
+                                                        <span class="float-right pink">-@Model.CurrencySymbol 15.00</span>
+                                                    </li>
+                                                    <li class="d-block pb-1">
+                                                        Other fees
+                                                        <span class="float-right pink">Free</span>
+                                                    </li>
+                                                    <li class="d-block border-t">
+                                                        <div class="pt-1">
+                                                            <span>Total</span>
+                                                            @{
                                                             var total = Model.ConvertedPrice + 10 - 15;
                                                         }
                                                         <span class="float-right pink" id="total">@Model.CurrencySymbol@total</span>
@@ -492,42 +513,44 @@
         <div class="trend-box">
             <div class="row team-slider">
                 @foreach (Tour tour in Model.RelatedTour)
-                {  foreach(var t in tour.TourTranslations){
-                    <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
-                        <div class="trend-item">
-                            <div class="trend-image">
-                                <img src="~/assets/images/trending/@tour.TourImages.FirstOrDefault(di=>di.IsPrimary==true).Image" alt="image">
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                            </div>
-                            <div class="trend-content-main">
-                                <div class="trend-content">
-                                    <h6 class="font-weight-normal"><i class="fa fa-map-marker-alt"></i>@tour.Destination.DestinationTranslations.FirstOrDefault().Country</h6>
-                                    <h4><a href="#">@t.Location</a></h4>
-                                    <div class="rating-main d-flex align-items-center">
-                                        <div class="rating">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <span class="ml-2">38 Reviews</span>
+                {
+                    foreach (var t in tour.TourTranslations)
+                    {
+                        <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
+                            <div class="trend-item">
+                                <div class="trend-image">
+                                    <img src="~/assets/images/trending/@tour.TourImages.FirstOrDefault(di=>di.IsPrimary==true).Image" alt="image">
+                                    <div class="trend-tags">
+                                        <a href="#"><i class="flaticon-like"></i></a>
                                     </div>
                                 </div>
-                                <div class="trend-last-main">
-                                    <p class="mb-0 trend-para">@t.Description</p>
-                                    <div class="trend-last d-flex align-items-center justify-content-between">
-                                        <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i>@tour.Duration</p>
-                                        <div class="trend-price">
-                                            <p class="price white mb-0">From <span>$@tour.Price</span></p>
+                                <div class="trend-content-main">
+                                    <div class="trend-content">
+                                        <h6 class="font-weight-normal"><i class="fa fa-map-marker-alt"></i>@tour.Destination.DestinationTranslations.FirstOrDefault().Country</h6>
+                                        <h4><a href="#">@t.Location</a></h4>
+                                        <div class="rating-main d-flex align-items-center">
+                                            <div class="rating">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                            </div>
+                                            <span class="ml-2">38 Reviews</span>
+                                        </div>
+                                    </div>
+                                    <div class="trend-last-main">
+                                        <p class="mb-0 trend-para">@t.Description</p>
+                                        <div class="trend-last d-flex align-items-center justify-content-between">
+                                            <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i>@tour.Duration</p>
+                                            <div class="trend-price">
+                                                <p class="price white mb-0">From <span>$@tour.Price</span></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     }
                 }
 
