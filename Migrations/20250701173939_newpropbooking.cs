@@ -18,7 +18,7 @@ namespace TravelFinalProject.Migrations
                 name: "PhoneNumber",
                 table: "BookingTravellers",
                 type: "nvarchar(max)",
-                nullable: false,
+                nullable: true,
                 defaultValue: "");
         }
 
@@ -33,7 +33,7 @@ namespace TravelFinalProject.Migrations
                 name: "PhoneNumber",
                 table: "BookingTravellerTranslations",
                 type: "nvarchar(max)",
-                nullable: false,
+                nullable: true,
                 defaultValue: "");
         }
     }

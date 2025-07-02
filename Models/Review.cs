@@ -12,7 +12,8 @@ namespace TravelFinalProject.Models
         public AppUser? User { get; set; }
         [Range(1, 5)]
         public int Rating { get; set; }
-        public bool IsApproved { get; set; } = false;
+        public bool IsApproved { get; set; } =
+            false;
         public ICollection<ReviewTranslation> ReviewTranslations { get; set; }
 
         public Review()

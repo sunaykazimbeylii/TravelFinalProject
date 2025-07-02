@@ -15,8 +15,35 @@ namespace TravelFinalProject.Controllers
             _context = context;
 
         }
+
+        //[Route("Home/ErrorPage")]
+        //public IActionResult ErrorPage()
+        //{
+        //    var exceptionHandlerPathFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+        //    if (exceptionHandlerPathFeature != null)
+        //    {
+        //        ViewBag.ErrorMessage = exceptionHandlerPathFeature.Error.Message;
+        //        ViewBag.ErrorPath = exceptionHandlerPathFeature.Path;
+        //    }
+        //    return View();
+        //}
         public async Task<IActionResult> Index(int? categoryId, string langCode = "en")
         {
+            if (!string.IsNullOrEmpty(langCode))
+            {
+                Response.Cookies.Append("langCode", langCode, new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddDays(1)
+                });
+            }
+            else
+            {
+                langCode = Request.Cookies["langCode"];
+                if (string.IsNullOrEmpty(langCode))
+                {
+                    langCode = "en";
+                }
+            }
             var destinationsQuery = _context.Destinations
                 .Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode))
                 .Include(d => d.Category)
@@ -64,38 +91,6 @@ namespace TravelFinalProject.Controllers
 
             return View(homeVM);
         }
-
-
-        //public async Task<IActionResult> Index(int? categoryId)
-        //{
-
-        //    var destinationsQuery = _context.Destinations
-        //.Include(d => d.Category)
-        //.Where(d => d.IsFeatured == true)
-        //.AsQueryable();
-
-        //    if (categoryId.HasValue && categoryId.Value > 0)
-        //    {
-        //        destinationsQuery = destinationsQuery.Where(d => d.CategoryId == categoryId);
-        //    }
-        //    var destinations = await destinationsQuery.ToListAsync();
-        //    HomeVM homeVM = new HomeVM
-        //    {
-        //        Tours = await _context.Tours.ToListAsync(),
-        //        Slides = await _context.Slides.ToListAsync(),
-        //        DestinationCategories = await _context.DestinationCategories.ToListAsync(),
-        //        DestinationImages = await _context.DestinationImages.ToListAsync(),
-        //        TourImages = await _context.TourImages.ToListAsync(),
-
-        //        //Destinations = await _context.Destinations.Where(d => d.IsFeatured == true).ToListAsync(),
-        //        Destinations = destinations,
-        //        CurrentCategoryId = categoryId
-
-        //    };
-        //    return View(homeVM);
-        //}
-
-
 
         public async Task<IActionResult> DestinationDetails(int? id, string langCode = "en")
         {

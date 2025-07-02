@@ -66,8 +66,10 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             review.IsApproved = isApproved;
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return RedirectToAction(nameof(Index));
         }
+
+
     }
 }
 

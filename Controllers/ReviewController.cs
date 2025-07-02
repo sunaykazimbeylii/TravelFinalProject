@@ -62,7 +62,7 @@ namespace TravelFinalProject.Controllers
             var review = new Review
             {
                 UserId = userId,
-                //Comment = vm.Comment,
+
                 Rating = vm.Rating,
                 TourId = vm.TourId,
                 CreatedAt = DateTime.UtcNow

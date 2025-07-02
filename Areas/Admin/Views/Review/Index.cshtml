@@ -19,16 +19,15 @@
                             <p class="comment-date mb-2">@review.CreatedAt.ToString("MMMM dd, yyyy HH:mm")</p>
                             <span class="num-rating white">@review.Rating/5</span>
                             <p class="comment mt-2">@review.Comment</p>
-                            @foreach (var r in Model.Items)
-                            {
+                          
                                 <form asp-action="Approve" method="post">
-                                    <input type="hidden" name="id" value="@r.Id" />
+                                    <input type="hidden" name="id" value="@review.Id" />
                                     <label>
                                         Show in Home Page?
-                                        <input type="checkbox" name="isApproved" value="true" @(r.IsApproved ? "checked" : "") onchange="this.form.submit()" />
+                                        <input type="checkbox" name="isApproved" value="true" @(review.IsApproved ? "checked" : "") onchange="this.form.submit()" />
                                     </label>
                                 </form>
-                            }
+                            
 
                         </div>
                     </div>

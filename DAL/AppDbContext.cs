@@ -27,6 +27,8 @@ namespace TravelFinalProject.DAL
         public DbSet<ReviewTranslation> ReviewTranslations { get; set; }
         public DbSet<NotificationSent> NotificationSents { get; set; }
         public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogTranslation> BlogTranslations { get; set; }
 
     }
 }

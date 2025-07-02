@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using System.Text.Json;
 using TravelFinalProject.Interfaces;
 using TravelFinalProject.Models;
+
 public class CurrencyService : ICurrencyService
 {
     private readonly IHttpClientFactory _httpClientFactory;

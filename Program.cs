@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 using TravelFinalProject.DAL;
 using TravelFinalProject.Interfaces;
 using TravelFinalProject.Models;
@@ -25,6 +26,7 @@ namespace TravelFinalProject
             builder.Services.AddDbContext<AppDbContext>(opt =>
               opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
                 );
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
             builder.Services.AddHostedService<NotificationBackgroundService>();
@@ -35,11 +37,21 @@ namespace TravelFinalProject
 
 
 
-
             var app = builder.Build();
+            //if (!app.Environment.IsDevelopment())
+            //{
+            //    app.UseExceptionHandler("/Home/ErrorPage");
+            //    app.UseHsts();
+            //}
+            //else
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseStaticFiles();
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:Secretkey"];
+
             app.MapControllerRoute(
                "Admin",
                "{Area:exists}/{controller=home}/{action=Index}/{Id?}"

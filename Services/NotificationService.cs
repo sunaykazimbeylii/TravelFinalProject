@@ -25,6 +25,8 @@ namespace TravelFinalProject.Services
 
         public async Task SendNotificationAsync(string userId, int tourId)
         {
+
+
             var alreadySent = await HasNotificationBeenSentAsync(userId, tourId);
             if (alreadySent)
                 return;

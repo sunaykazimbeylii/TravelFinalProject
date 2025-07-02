@@ -37,6 +37,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
             Available_seats = t.Available_seats,
             Location = t.TourTranslations.FirstOrDefault().Location,
             Image = t.TourImages.FirstOrDefault(ti => ti.IsPrimary == true).Image,
+            DestinationName = t.Destination.DestinationTranslations.FirstOrDefault().Name,
 
 
 

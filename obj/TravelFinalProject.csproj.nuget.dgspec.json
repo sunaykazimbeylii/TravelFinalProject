@@ -78,6 +78,10 @@
             "MimeKit": {
               "target": "Package",
               "version": "[4.12.0, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[48.3.0, )"
             }
           },
           "imports": [

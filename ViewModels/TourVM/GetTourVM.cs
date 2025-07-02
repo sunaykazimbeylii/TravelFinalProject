@@ -12,6 +12,7 @@ namespace TravelFinalProject.ViewModels
         public string Description { get; set; }
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
+        public string DestinationName { get; set; }
         public string Duration { get; set; }
         [Required]
         public DateOnly Start_Date { get; set; }

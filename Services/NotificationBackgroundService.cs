@@ -28,7 +28,7 @@ namespace TravelFinalProject.Services
                     var nowDateOnly = DateOnly.FromDateTime(DateTime.UtcNow);
 
                     var finishedTours = await context.Tours.Include(t => t.TourTranslations)
-                        //.Where(t => t.End_Date <= nowDateOnly)
+                        .Where(t => t.End_Date <= nowDateOnly)
                         .ToListAsync();
 
                     foreach (var tour in finishedTours)
@@ -44,7 +44,7 @@ namespace TravelFinalProject.Services
                     }
                 }
 
-                await Task.Delay(TimeSpan.FromHours(1), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
             }
         }
     }
