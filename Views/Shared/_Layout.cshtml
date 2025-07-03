@@ -1,4 +1,7 @@
 ﻿@inject LayoutService service
+@{
+    Dictionary<string, string> settings = await service.GetSettings();
+}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
 
@@ -53,8 +56,8 @@
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
                             <a class="navbar-brand" href="index.html">
-                                <img src="~/assets/images/logo-white.png" alt="image">
-                                <img src="~/assets/images/logo.png" alt="image">
+                                <img src="~/assets/images/@settings["logo2"]" alt="image">
+                                <img src="~/assets/images/@settings["logo1"]" alt="image">
                             </a>
                         </div>
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -197,10 +200,10 @@
                                 In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna
                             </p>
                             <ul>
-                                <li><strong>PO Box:</strong> +47-252-254-2542</li>
-                                <li><strong>Location:</strong> Collins Street, sydney, Australia</li>
-                                <li><strong>Email:</strong> info@Yatriiworld.com</li>
-                                <li><strong>Website:</strong> www.Yatriiworld.com</li>
+                                <li><strong>PO Box:</strong>@settings["Phone"] </li>
+                                <li><strong>Location:</strong> @settings["Location"]</li>
+                                <li><strong>Email:</strong> @settings["Email"]</li>
+                                <li><strong>Website:</strong> @settings["Website"]</li>
                             </ul>
                         </div>
                     </div>
@@ -390,7 +393,7 @@
                                 <h5 class="p-3 mb-0 bg-pink white text-caps">My Carts(3 Items)</h5>
                                 <div class="cart-entry d-flex align-items-center p-3">
                                     <a href="#" class="image">
-                                        <img src="~/assets/images/shop/shop1.jpg" alt="">
+                                        <img src="~/assets/images/shop/@settings["logo1"]" alt="">
                                     </a>
                                     <div class="content">
                                         <a href="#" class="title font-weight-bold">Pullover Batwing</a>

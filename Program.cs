@@ -5,6 +5,7 @@ using TravelFinalProject.DAL;
 using TravelFinalProject.Interfaces;
 using TravelFinalProject.Models;
 using TravelFinalProject.Services;
+using TravelFinalProject.Services.Implementations;
 
 namespace TravelFinalProject
 {
@@ -34,7 +35,7 @@ namespace TravelFinalProject
             builder.Services.AddMemoryCache();
             builder.Services.AddScoped<ICurrencyService, CurrencyService>();
             builder.Services.Configure<CurrencySettings>(builder.Configuration.GetSection("CurrencySettings"));
-
+            builder.Services.AddScoped<LayoutService>();
 
 
             var app = builder.Build();
