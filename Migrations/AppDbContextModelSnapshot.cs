@@ -279,6 +279,85 @@ namespace TravelFinalProject.Migrations
                     b.ToTable("Blogs");
                 });
 
+            modelBuilder.Entity("TravelFinalProject.Models.BlogReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BlogReviews");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.BlogReviewReply", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlogReviewId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogReviewId");
+
+                    b.ToTable("BlogReviewReplys");
+                });
+
             modelBuilder.Entity("TravelFinalProject.Models.BlogTranslation", b =>
                 {
                     b.Property<int>("Id")
@@ -795,6 +874,27 @@ namespace TravelFinalProject.Migrations
                     b.ToTable("ReviewTranslations");
                 });
 
+            modelBuilder.Entity("TravelFinalProject.Models.Setting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Settings");
+                });
+
             modelBuilder.Entity("TravelFinalProject.Models.Slide", b =>
                 {
                     b.Property<int>("Id")
@@ -1083,6 +1183,36 @@ namespace TravelFinalProject.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TravelFinalProject.Models.BlogReview", b =>
+                {
+                    b.HasOne("TravelFinalProject.Models.Blog", "Blog")
+                        .WithMany("Reviews")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelFinalProject.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blog");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.BlogReviewReply", b =>
+                {
+                    b.HasOne("TravelFinalProject.Models.BlogReview", "BlogReview")
+                        .WithMany("Replies")
+                        .HasForeignKey("BlogReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BlogReview");
+                });
+
             modelBuilder.Entity("TravelFinalProject.Models.BlogTranslation", b =>
                 {
                     b.HasOne("TravelFinalProject.Models.Blog", null)
@@ -1272,6 +1402,13 @@ namespace TravelFinalProject.Migrations
             modelBuilder.Entity("TravelFinalProject.Models.Blog", b =>
                 {
                     b.Navigation("BlogTranslations");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("TravelFinalProject.Models.BlogReview", b =>
+                {
+                    b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("TravelFinalProject.Models.Booking", b =>

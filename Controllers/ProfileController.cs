@@ -123,34 +123,6 @@ namespace TravelFinalProject.Controllers
         }
 
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ChangePassword(ProfileVM model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        TempData["Error"] = "Please fill in all fields correctly.";
-        //        return RedirectToAction("MyProfile");
-        //    }
-
-        //    var user = await _userManager.GetUserAsync(User);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.ChangePassword.CurrentPassword, model.ChangePassword.NewPassword);
-
-        //    if (!changePasswordResult.Succeeded)
-        //    {
-        //        TempData["Error"] = string.Join(", ", changePasswordResult.Errors.Select(e => e.Description));
-        //        return RedirectToAction("MyProfile");
-        //    }
-
-        //    TempData["Success"] = "Password changed successfully.";
-        //    return RedirectToAction("MyProfile");
-        //}
-
 
 
 

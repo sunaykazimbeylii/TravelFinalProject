@@ -1,4 +1,5 @@
-﻿using TravelFinalProject.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using TravelFinalProject.DAL;
 
 namespace TravelFinalProject.Services.Implementations
 {
@@ -10,9 +11,10 @@ namespace TravelFinalProject.Services.Implementations
         {
             _context = context;
         }
-        public void GetSettings()
+        public async Task<Dictionary<string, string>> GetSettings()
         {
-
+            var settings = await _context.Settings.ToDictionaryAsync(s => s.Key, s => s.Value);
+            return settings;
         }
     }
 }

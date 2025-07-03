@@ -28,7 +28,11 @@ namespace TravelFinalProject.DAL
         public DbSet<NotificationSent> NotificationSents { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogReview> BlogReviews { get; set; }
+        public DbSet<BlogReviewReply> BlogReviewReplys { get; set; }
+
         public DbSet<BlogTranslation> BlogTranslations { get; set; }
+        public DbSet<Setting> Settings { get; set; }
 
     }
 }

@@ -75,7 +75,8 @@
 
                                                 <!-- Avatar -->
                                                 <div class="edit-profile-photo">
-                                                    <img src="~/assets/images/trending/@(string.IsNullOrEmpty(Model.Image) ? "ImagePP.webp" : Model.Image)" />
+                                                    <img src="~/assets/images/trending/@(string.IsNullOrEmpty(Model.Image) ? "ImagePP.webp" : Model.Image)"
+                                                         style="max-height:200px; width:200px; display:block;" />
                                                     <div class="change-photo-btn">
                                                         <div class="photoUpload">
                                                             <span><i class="fa fa-upload"></i> Upload Photo</span>
@@ -84,6 +85,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
 
                                                 <!-- Details -->
                                                 <div class="my-profile">

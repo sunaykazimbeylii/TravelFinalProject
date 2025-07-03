@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "d5b2Q6cfPgg5HaKmguvqILrqe1bPDmkIkQjP+9eSIME=",
+  "Hash": "fw0XpP8Q+ov3s/cE5stiu6uZQnDR48cL/E+V6mfLqlo=",
   "Source": "TravelFinalProject",
   "BasePath": "_content/TravelFinalProject",
   "Mode": "Default",
@@ -794,6 +794,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\bg\\bg8.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\a27b5f81-5a06-4302-bedb-02b6545c0c6f.jpg",
+      "SourceId": "TravelFinalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\",
+      "BasePath": "_content/TravelFinalProject",
+      "RelativePath": "assets/images/blog/a27b5f81-5a06-4302-bedb-02b6545c0c6f.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\blog\\a27b5f81-5a06-4302-bedb-02b6545c0c6f.jpg"
     },
     {
       "Identity": "C:\\Users\\user\\source\\repos\\TravelFinalProject\\wwwroot\\assets\\images\\blog\\blog1.jpg",

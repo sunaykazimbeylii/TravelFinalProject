@@ -9,6 +9,7 @@ namespace TravelFinalProject.Models
         public DateTime PublishedDate { get; set; }
         public bool IsPopular { get; set; } = false;
         public ICollection<BlogTranslation> BlogTranslations { get; set; }
+        public List<BlogReview>? Reviews { get; set; } = new List<BlogReview>();
 
         public Blog()
         {
