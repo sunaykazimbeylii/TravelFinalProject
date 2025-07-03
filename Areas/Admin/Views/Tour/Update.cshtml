@@ -127,7 +127,35 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                           
+
+                                            <div class="form-group">
+                                                @foreach(TourImage tourImage in Model.TourImages)
+                                                {
+                                                    <div class="input-box d-flex position-relative">
+                                                        <img style="width:200px; height:150px; margin:20px 50px;" src="~/assets/images/trending/@Model.Image" />
+                                                        <button style="top:5px; right:5px;" class"custom-delete btn btn-danger position-absolute" type="button">X</button>
+                                                        <input type="hidden" value="@tourImage.Id" asp-for="PhotoIds" class="form-control" />
+
+
+                                                    </div>
+                                                }
+                                              
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                                <div class="form-group mb-0">
+                                                    <label>Additional Photos</label>
+                                                    <div class="input-box">
+                                                        <label class="upload-file mb-0">
+
+                                                            <input asp-for="AdditionalPhotos" class="form-control"/>
+                                                            <span asp-validation-for="AdditionalPhotos" class="text-danger"></span>
+                                                            <i class="far fa-image"></i>
+                                                            <span>Click here or drop file to upload</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

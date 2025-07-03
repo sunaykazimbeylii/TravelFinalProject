@@ -16,17 +16,7 @@ namespace TravelFinalProject.Controllers
 
         }
 
-        //[Route("Home/ErrorPage")]
-        //public IActionResult ErrorPage()
-        //{
-        //    var exceptionHandlerPathFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-        //    if (exceptionHandlerPathFeature != null)
-        //    {
-        //        ViewBag.ErrorMessage = exceptionHandlerPathFeature.Error.Message;
-        //        ViewBag.ErrorPath = exceptionHandlerPathFeature.Path;
-        //    }
-        //    return View();
-        //}
+
         public async Task<IActionResult> Index(int? categoryId, string langCode = "en")
         {
             if (!string.IsNullOrEmpty(langCode))
@@ -115,6 +105,9 @@ namespace TravelFinalProject.Controllers
             };
             return View(detailVM);
         }
-
+        public async Task<IActionResult> Error(string errorMesage)
+        {
+            return View(model: errorMesage);
+        }
     }
 }

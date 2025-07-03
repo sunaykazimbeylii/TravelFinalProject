@@ -74,6 +74,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 ModelState.AddModelError(nameof(CreateTourVM.Photo), "File size cannot exceed 2 MB.");
                 return View(tourVM);
             }
+
             bool Exist = await _context.Tours.AnyAsync(t => t.TourTranslations.FirstOrDefault().Title == tourVM.Title);
             if (Exist)
             {
@@ -126,6 +127,8 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 IsPrimary = true,
                 CreatedAt = DateTime.Now
             };
+
+
             Tour tour = new Tour
             {
 
@@ -134,7 +137,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 Start_Date = tourVM.Start_Date,
                 End_Date = tourVM.End_Date,
                 Available_seats = tourVM.Available_seats.Value,
-                TourImages = new List<TourImage>(),
+                TourImages = new List<TourImage> { main },
                 DestinationId = tourVM.DestinationId,
                 CreatedAt = DateTime.Now
             };
@@ -151,6 +154,31 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 Description = tourVM.Description,
                 Location = tourVM.Location
             };
+            if (tourVM.AdditionalPhotos is not null)
+            {
+                string text = string.Empty;
+                foreach (var photo in tourVM.AdditionalPhotos)
+                {
+                    if (!photo.ValidateType("image/"))
+                    {
+                        text += $"<p>{photo.FileName} named image type is incorrect</p>";
+                        continue;
+                    }
+                    if (!photo.ValidateSize(FileSize.MB, 2))
+                    {
+                        text += $"<p>{photo.FileName} named image  is oversized</p>";
+                        continue;
+                    }
+                    tour.TourImages.Add(new TourImage
+                    {
+                        Image = await photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "trending"),
+                        IsPrimary = null,
+                        CreatedAt = DateTime.Now
+
+                    });
+                }
+                TempData["FileWarning"] = text;
+            }
             await _context.TourTranslations.AddAsync(translation);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -173,6 +201,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 DestinationId = tour.DestinationId,
                 Destinations = await _context.Destinations.ToListAsync(),
                 Image = tour.TourImages.FirstOrDefault(pi => pi.IsPrimary == true).Image,
+                TourImages = tour.TourImages.Where(ti => ti.IsPrimary == null).ToList(),
                 DestinationTranslations = await _context.DestinationTranslations.ToListAsync(),
             };
 
@@ -206,7 +235,13 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 ModelState.AddModelError(nameof(UpdateTourVM.Start_Date), "Start date cannot be in the past.");
                 return View(tourVM);
             }
-
+            if (tourVM.PhotoIds is null)
+            {
+                tourVM.PhotoIds = new();
+            }
+            List<TourImage> deleteImgs = existTour.TourImages.Where(ti => !tourVM.PhotoIds.Exists(imgId => ti.Id == imgId) && ti.IsPrimary == null).ToList();
+            deleteImgs.ForEach(di => di.Image.DeleteFile(_env.WebRootPath, "assets", "images", "trending"));
+            _context.TourImages.RemoveRange(deleteImgs);
             if (tourVM.Photo != null)
             {
                 if (!tourVM.Photo.ValidateType("image/"))
@@ -224,6 +259,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
 
 
             }
+
             if (tourVM.Photo != null)
             {
                 TourImage main = new TourImage
@@ -236,6 +272,31 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 exitedMain.Image.DeleteFile(_env.WebRootPath, "assets", "images", "trending");
                 existTour.TourImages.Remove(exitedMain);
                 existTour.TourImages.Add(main);
+            }
+            if (tourVM.AdditionalPhotos is not null)
+            {
+                string text = string.Empty;
+                foreach (var photo in tourVM.AdditionalPhotos)
+                {
+                    if (!photo.ValidateType("image/"))
+                    {
+                        text += $"<p>{photo.FileName} named image type is incorrect</p>";
+                        continue;
+                    }
+                    if (!photo.ValidateSize(FileSize.MB, 2))
+                    {
+                        text += $"<p>{photo.FileName} named image  is oversized</p>";
+                        continue;
+                    }
+                    existTour.TourImages.Add(new TourImage
+                    {
+                        Image = await photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "trending"),
+                        IsPrimary = null,
+                        CreatedAt = DateTime.Now
+
+                    });
+                }
+                TempData["FileWarning"] = text;
             }
             existTour.TourTranslations.FirstOrDefault().Title = tourVM.Title;
             existTour.TourTranslations.FirstOrDefault().Description = tourVM.Description;

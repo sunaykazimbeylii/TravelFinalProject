@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Stripe;
 using TravelFinalProject.DAL;
 using TravelFinalProject.Interfaces;
+using TravelFinalProject.Middlewares;
 using TravelFinalProject.Models;
 using TravelFinalProject.Services;
 using TravelFinalProject.Services.Implementations;
@@ -39,18 +40,11 @@ namespace TravelFinalProject
 
 
             var app = builder.Build();
-            //if (!app.Environment.IsDevelopment())
-            //{
-            //    app.UseExceptionHandler("/Home/ErrorPage");
-            //    app.UseHsts();
-            //}
-            //else
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
+
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseStaticFiles();
+            app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
             StripeConfiguration.ApiKey = builder.Configuration["Stripe:Secretkey"];
 
             app.MapControllerRoute(

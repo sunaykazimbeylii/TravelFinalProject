@@ -20,8 +20,11 @@ namespace TravelFinalProject.ViewModels.TourVM
         [Required]
         public int? Available_seats { get; set; }
         public string Location { get; set; }
+        public List<TourImage>? TourImages { get; set; }
         public string? Image { get; set; }
         public IFormFile? Photo { get; set; }
+        public List<IFormFile>? AdditionalPhotos { get; set; }
+        public List<int>? PhotoIds { get; set; }
         [Required]
         public int? DestinationId { get; set; }
         public List<Destination>? Destinations { get; set; }
