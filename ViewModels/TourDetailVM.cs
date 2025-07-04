@@ -10,5 +10,6 @@ namespace TravelFinalProject.ViewModels
         public Tour Tour { get; set; }
         public List<Tour> RelatedTour { get; set; }
         public TourTranslation SelectedTranslation { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }

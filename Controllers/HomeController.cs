@@ -105,9 +105,9 @@ namespace TravelFinalProject.Controllers
             };
             return View(detailVM);
         }
-        public async Task<IActionResult> Error(string errorMesage)
-        {
-            return View(model: errorMesage);
-        }
+        //public async Task<IActionResult> Error(string errorMesage)
+        //{
+        //    return View(model: errorMesage);
+        //}
     }
 }

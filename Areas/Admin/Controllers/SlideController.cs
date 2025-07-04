@@ -49,6 +49,14 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateSlideVM slideVM)
         {
+
+            var slides = await _context.Slides.Include(s => s.SlideTranslations).ToListAsync();
+            if (!ModelState.IsValid)
+            {
+                return View(slides);
+            }
+
+
             if (!slideVM.Photo.ValidateType("image/"))
             {
                 ModelState.AddModelError(nameof(CreateSlideVM.Photo), "File type is incorrect");
@@ -59,10 +67,12 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 ModelState.AddModelError(nameof(CreateSlideVM.Photo), "File size sould be less than 2MB");
                 return View();
             }
-            bool result = await _context.Slides.AnyAsync(s => s.Order == slideVM.Order);
+            bool result = await _context.Slides.Include(st => st.SlideTranslations)
+     .AnyAsync(s => s.Order == slideVM.Order && s.SlideTranslations.FirstOrDefault().LangCode == slideVM.LangCode);
+
             if (result)
             {
-                ModelState.AddModelError(nameof(CreateSlideVM.Order), $"{slideVM.Order} This order value already exists");
+                ModelState.AddModelError(nameof(CreateSlideVM.Order), $"{slideVM.Order} This order value already exists for selected language");
                 return View();
             }
             string fileName = await slideVM.Photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "slider");
@@ -102,22 +112,53 @@ namespace TravelFinalProject.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Update(int? id, string langCode = "en")
         {
-            if (id is null || id < 1) return BadRequest();
-            Slide? slide = await _context.Slides.Include(s => s.SlideTranslations.Where(t => t.LangCode == langCode)).FirstOrDefaultAsync(s => s.Id == id);
+            Slide? slide = await _context.Slides
+    .Include(s => s.SlideTranslations)
+    .FirstOrDefaultAsync(s => s.Id == id);
+
             if (slide is null) return NotFound();
-            UpdateSlideVM slideVM = new UpdateSlideVM
+
+            var translation = slide.SlideTranslations.FirstOrDefault(t => t.LangCode == langCode);
+            if (translation == null)
             {
 
-                Title = slide.SlideTranslations.FirstOrDefault().Title,
+                translation = slide.SlideTranslations.FirstOrDefault(t => t.LangCode == "en")
+                              ?? slide.SlideTranslations.FirstOrDefault();
+            }
+
+            UpdateSlideVM slideVM = new UpdateSlideVM
+            {
+                Title = translation?.Title ?? "",
                 Order = slide.Order,
-                Subtitle = slide.SlideTranslations.FirstOrDefault().Subtitle,
+                Subtitle = translation?.Subtitle ?? "",
                 Image = slide.ImageUrl,
-                ButtonText = slide.SlideTranslations.FirstOrDefault().ButtonText,
-                ButtonUrl = slide.ButtonUrl
+                ButtonText = translation?.ButtonText ?? "",
+                ButtonUrl = slide.ButtonUrl,
+                IsActive = slide.IsActive,
             };
+
             return View(slideVM);
+
+            //    if (id is null || id < 1) return BadRequest();
+            //    Slide? slide = await _context.Slides.Include(s => s.SlideTranslations.Where(t => t.LangCode == langCode)).FirstOrDefaultAsync(s => s.Id == id);
+            //    if (slide is null) return NotFound();
+            //    UpdateSlideVM slideVM = new UpdateSlideVM
+            //    {
+
+            //        Title = slide.SlideTranslations.FirstOrDefault().Title,
+            //        Order = slide.Order,
+            //        Subtitle = slide.SlideTranslations.FirstOrDefault().Subtitle,
+            //        Image = slide.ImageUrl,
+            //        ButtonText = slide.SlideTranslations.FirstOrDefault().ButtonText,
+            //        ButtonUrl = slide.ButtonUrl,
+            //        IsActive = slide.IsActive,
+
+            //    };
+            //    return View(slideVM);
+            //}
         }
         [HttpPost]
+
         public async Task<IActionResult> Update(int? id, UpdateSlideVM slideVM)
         {
             if (!ModelState.IsValid) return View(slideVM);

@@ -455,18 +455,19 @@
                     <li class="@(Model.CurrentCategoryId == null ? "active" : "")">
                         <a asp-action="Index" asp-route-categoryId="">All</a>
                     </li>
+
                     @foreach (DestinationCategory category in Model.DestinationCategories)
-                    { foreach (var dct in category.DestinationCategoryTranslations)
+                    {
+                        foreach (var dct in category.DestinationCategoryTranslations)
                         {
-                            
-                        <li class="@(Model.CurrentCategoryId == category.Id ? "active" : "")">
-                            <a asp-action="Index" asp-route-categoryId="@category.Id">
-                                @dct.Name
-                            </a>
-                        </li>
-                        @*   <li class="active"><a data-toggle="tab" href="#historical">@category.Name</a></li> *@
+                            <li class="@(Model.CurrentCategoryId == category.Id ? "active" : "")">
+                                <a asp-action="Index" asp-route-categoryId="@category.Id">
+                                    @dct.Name
+                                </a>
+                            </li>
                         }
                     }
+                </ul>
 
                 </ul>
             </div>

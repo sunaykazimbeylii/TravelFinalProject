@@ -23,6 +23,7 @@ namespace TravelFinalProject.ViewModels
         [Required]
         public int? CategoryId { get; set; }
         public bool IsFeatured { get; set; }
+        public List<IFormFile>? AdditionalPhotos { get; set; }
         public List<DestinationCategory>? Categories { get; set; }
         public List<DestinationCategoryTranslation>? DestinationCategories { get; set; }
 

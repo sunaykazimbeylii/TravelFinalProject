@@ -8,26 +8,30 @@
     <div class="dashboard-content">
         <div class="dashboard-review single-comments" style="width: 100%; max-width: 100%;">
             <div class="comments">
-                @foreach (var review in Model.Items)  
+                @foreach (var review in Model.Items)
                 {
                     <div class="comment-box d-flex" style="width: 100%; max-width: 100%;">
-                        <div class="comment-image">
+                        <div class="comment-image" style="height:250px; width:40%; ">
                             <img src="~/assets/images/trending/@(string.IsNullOrEmpty(review.UserImage) ? "ImagePP.webp" : review.UserImage)" alt="">
                         </div>
-                        <div class="comment-content" style="width: 70%;">
+                        <div class="comment-content" style="width: 60%; height:250px;">
                             <h5 class="m-0">@review.UserName</h5>
                             <p class="comment-date mb-2">@review.CreatedAt.ToString("MMMM dd, yyyy HH:mm")</p>
                             <span class="num-rating white">@review.Rating/5</span>
                             <p class="comment mt-2">@review.Comment</p>
-                          
-                                <form asp-action="Approve" method="post">
-                                    <input type="hidden" name="id" value="@review.Id" />
-                                    <label>
-                                        Show in Home Page?
-                                        <input type="checkbox" name="isApproved" value="true" @(review.IsApproved ? "checked" : "") onchange="this.form.submit()" />
-                                    </label>
-                                </form>
-                            
+                         
+
+                            <form asp-action="Approve" method="post">
+                                <input type="hidden" name="id" value="@review.Id" />
+                                <label>
+                                    Show in Home Page?
+                                    <input type="checkbox" name="isApproved" value="true" @(review.IsApproved ? "checked" : "") onchange="this.form.submit()" />
+                                </label>
+
+
+
+                            </form>
+
 
                         </div>
                     </div>

@@ -6,5 +6,6 @@
         public double TotalPage { get; set; }
         public int CurrentPage { get; set; }
         public List<T> Items { get; set; }
+        public string LangCode { get; set; }
     }
 }

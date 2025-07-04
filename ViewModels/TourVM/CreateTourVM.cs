@@ -24,7 +24,6 @@ namespace TravelFinalProject.ViewModels.TourVM
         public string Location { get; set; }
         public IFormFile Photo { get; set; }
 
-
         public List<IFormFile>? AdditionalPhotos { get; set; }
 
         [Required]

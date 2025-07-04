@@ -44,7 +44,7 @@
                     <div class="description-images mb-4">
                         <div class="thumbnail-images">
                             <div class="slider-store">
-                                @foreach (TourImage image in Model.Tour.TourImages)
+                                @foreach (TourImage image in Model.Tour.TourImages.Where(ti=>ti.IsPrimary==true))
                                 {
                                     <div>
                                         <img src="~/assets/images/trending/@image.Image" alt="1">
@@ -55,7 +55,7 @@
 
                             </div>
                             <div class="slider-thumbs">
-                                @foreach (TourImage image in Model.Tour.TourImages)
+                                @foreach (TourImage image in Model.Tour.TourImages.Where(ti=>ti.IsPrimary==null))
                                 {
                                     <div>
                                         <img src="~/assets/images/trending/@image.Image" alt="1">
@@ -205,158 +205,50 @@
                         </div>
                     </div>
 
-                    <div class="single-review mb-4">
-                        <h4>Average Reviews</h4>
-                        <div class="row d-flex align-items-center">
-                            <div class="col-lg-4 col-md-4">
-                                <div class="review-box bg-pink text-center pb-4 pt-4">
-                                    <h2 class="mb-1 white"><span>2.2</span>/5</h2>
-                                    <h4 class="white mb-1">"Feel so much worst than thinking"</h4>
-                                    <p class="mb-0 white font-italic">From 40 Reviews</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-8 col-md-8">
-                                <div class="review-progress">
-                                    <div class="progress-item">
-                                        <p>Cleanliness</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                                                <span class="sr-only">40% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-item">
-                                        <p>Facilities</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width:30%">
-                                                <span class="sr-only">30% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-item">
-                                        <p>Value for money</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-                                                <span class="sr-only">60% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-item">
-                                        <p>Service</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                                                <span class="sr-only">20% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-item">
-                                        <p>Location</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:45%">
-                                                <span class="sr-only">45% Complete</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- blog comment list -->
                     <div class="single-comments single-box mb-4">
                         <h5 class="border-b pb-2 mb-2">Showing 16 verified guest comments</h5>
-                        <div class="comment-box">
-                            <div class="comment-image">
-                                <img src="images/reviewer/1.jpg" alt="image">
-                            </div>
-                            <div class="comment-content">
-                                <h5 class="mb-1">Helena</h5>
-                                <p class="comment-date">April 25, 2019 at 10:46 am</p>
-                                <div class="comment-rate">
-                                    <div class="rating mar-right-15">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                    </div>
-                                    <span class="comment-title">The worst hotel ever"</span>
+                        @foreach (var review in Model.Reviews.Take(3))
+                        {
+                            <div class="comment-box d-flex align-items-start">
+                                <div class="comment-image mt-2">
+                                    <img src="@Url.Content("~/assets/images/trending/" + (review.User.Image ?? "ImagePP.webp"))"
+                                         alt="@review.User.Name"
+                                         style="width:50px; height:50px; border-radius:50%; object-fit:cover;" />
+
                                 </div>
 
-                                <p class="comment">Take in the iconic skyline and visit the neighbourhood hangouts that you've only ever seen on TV. Take in the iconic skyline and visit the neighbourhood.</p>
-                                <div class="comment-like">
-                                    <div class="like-title">
-                                        <a href="#" class="nir-btn">Reply</a>
-                                    </div>
-                                    <div class="like-btn pull-right">
-                                        <a href="#" class="like"><i class="fa fa-thumbs-up"></i> Like</a>
-                                        <a href="#" class="disike"><i class="fa fa-thumbs-down"></i> Dislike</a>
-                                        <a href="#" class="love"><i class="flaticon-like"></i> Love</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment-box">
-                            <div class="comment-image">
-                                <img src="images/reviewer/2.jpg" alt="image">
-                            </div>
-                            <div class="comment-content">
-                                <h5 class="mb-1">Helena</h5>
-                                <p class="comment-date">April 25, 2019 at 10:46 am</p>
-                                <div class="comment-rate">
-                                    <div class="rating mar-right-15">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                    </div>
-                                    <span class="comment-title">Was too noisy and not suitable for business meetings"</span>
-                                </div>
+                                <div class="comment-content" style="max-width: 500px; width: 100%;">
+                                    <h4 class="mb-1">@review.User.Name</h4>
+                                    <p class="comment-date">@review.CreatedAt.ToString("MMMM dd, yyyy 'at' hh:mm tt")</p>
 
-                                <p class="comment">Take in the iconic skyline and visit the neighbourhood hangouts that you've only ever seen on TV. Take in the iconic skyline and visit the neighbourhood.</p>
-                                <div class="comment-like">
-                                    <div class="like-title">
-                                        <a href="#" class="nir-btn">Reply</a>
+                                    <div class="comment-rate">
+                                        <div class="rating mar-right-15">
+                                            @for (int i = 1; i <= review.Rating; i++)
+                                            {
+                                                if (i <= review.Rating)
+                                                {
+                                                    <span class="fa fa-star checked"></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="fa fa-star"></span>
+                                                }
+                                            }
+                                        </div>
                                     </div>
-                                    <div class="like-btn pull-right">
-                                        <a href="#" class="like"><i class="fa fa-thumbs-up"></i> Like</a>
-                                        <a href="#" class="disike"><i class="fa fa-thumbs-down"></i> Dislike</a>
-                                        <a href="#" class="love"><i class="flaticon-like"></i> Love</a>
-                                    </div>
+
+                                    <p class="comment">@review.ReviewTranslations.FirstOrDefault().Comment</p>
+
+                                    
                                 </div>
                             </div>
-                        </div>
+                            
+                        }
+                      
                     </div>
 
-                    <!-- blog review -->
-                    <div class="single-add-review">
-                        <h4>Write a Review</h4>
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="email" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea>Comment</textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-btn">
-                                        <a href="#" class="nir-btn">Submit Review</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                
                 </div>
             </div>
 
@@ -514,9 +406,7 @@
             <div class="row team-slider">
                 @foreach (Tour tour in Model.RelatedTour)
                 {
-                    foreach (var t in tour.TourTranslations)
-                    {
-                        <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
+                        <div class="col-md-8 col-sm-6 col-xs-12 mb-4">
                             <div class="trend-item">
                                 <div class="trend-image">
                                     <img src="~/assets/images/trending/@tour.TourImages.FirstOrDefault(di=>di.IsPrimary==true).Image" alt="image">
@@ -527,7 +417,7 @@
                                 <div class="trend-content-main">
                                     <div class="trend-content">
                                         <h6 class="font-weight-normal"><i class="fa fa-map-marker-alt"></i>@tour.Destination.DestinationTranslations.FirstOrDefault().Country</h6>
-                                        <h4><a href="#">@t.Location</a></h4>
+                                        <h4><a href="#">@tour.TourTranslations.FirstOrDefault().Location</a></h4>
                                         <div class="rating-main d-flex align-items-center">
                                             <div class="rating">
                                                 <span class="fa fa-star checked"></span>
@@ -540,7 +430,7 @@
                                         </div>
                                     </div>
                                     <div class="trend-last-main">
-                                        <p class="mb-0 trend-para">@t.Description</p>
+                                        <p class="mb-0 trend-para">@tour.TourTranslations.FirstOrDefault().Description</p>
                                         <div class="trend-last d-flex align-items-center justify-content-between">
                                             <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i>@tour.Duration</p>
                                             <div class="trend-price">
@@ -552,7 +442,7 @@
                             </div>
                         </div>
                     }
-                }
+                
 
 
             </div>

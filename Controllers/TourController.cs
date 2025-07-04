@@ -169,6 +169,11 @@ namespace TravelFinalProject.Controllers
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (tour == null) throw new NotFoundException($"{id} id'li mehsul tapilmadi");
+            var reviews = await _context.Reviews
+     .Where(r => r.TourId == tour.Id && r.IsApproved)
+     .Include(r => r.ReviewTranslations)
+     .Include(r => r.User)
+     .ToListAsync();
 
             decimal originalPrice = tour.Price ?? 0m;
             string currencyCode = Request.Cookies["SelectedCurrency"] ?? "USD";
@@ -184,11 +189,11 @@ namespace TravelFinalProject.Controllers
                  .Where(t => t.DestinationId == tour.DestinationId && t.Id != id)
                 .Include(t => t.TourImages)
                 .ToListAsync(),
+                Reviews = reviews
             };
 
             return View(detailVM);
         }
-
 
 
 

@@ -10,7 +10,8 @@
                     <div class="addlist-title">
                         <h4 class="m-0"><i class="fa fa-user pr-2"></i>Tour Create</h4>
                     </div>
-                    <div>@Html.Raw(@TempData["FileWarning"])</div>
+                    <div>
+                        @Html.Raw(@TempData["FileWarning"])</div>
                     <div class="addlist-content bg-white">
                         <form method="post" enctype="multipart/form-data">
                             @Html.AntiForgeryToken()

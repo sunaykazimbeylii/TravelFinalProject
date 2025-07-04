@@ -86,7 +86,7 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 Price = destinationVM.Price,
                 IsFeatured = destinationVM.IsFeatured,
                 CategoryId = destinationVM.CategoryId,
-                DestinationImages = new List<DestinationImage>()
+                DestinationImages = new List<DestinationImage> { main }
 
             };
             destination.DestinationImages.Add(main);
@@ -102,6 +102,31 @@ namespace TravelFinalProject.Areas.Admin.Controllers
                 Address = destinationVM.Address,
                 DestinationId = destination.Id
             };
+            if (destinationVM.AdditionalPhotos is not null)
+            {
+                string text = string.Empty;
+                foreach (var photo in destinationVM.AdditionalPhotos)
+                {
+                    if (!photo.ValidateType("image/"))
+                    {
+                        text += $"<p>{photo.FileName} named image type is incorrect</p>";
+                        continue;
+                    }
+                    if (!photo.ValidateSize(FileSize.MB, 2))
+                    {
+                        text += $"<p>{photo.FileName} named image  is oversized</p>";
+                        continue;
+                    }
+                    destination.DestinationImages.Add(new DestinationImage
+                    {
+                        Image = await photo.CreateFileAsync(_env.WebRootPath, "assets", "images", "trending"),
+                        IsPrimary = null,
+                        CreatedAt = DateTime.Now
+
+                    });
+                }
+                TempData["FileWarning"] = text;
+            }
             await _context.DestinationTranslations.AddAsync(translation);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

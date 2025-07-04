@@ -13,5 +13,6 @@ namespace TravelFinalProject.ViewModels
         public List<Review> Reviews { get; set; }
         public int? CurrentCategoryId { get; set; }
         public TourSearchVM Search { get; set; }
+
     }
 }
