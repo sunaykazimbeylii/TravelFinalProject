@@ -256,7 +256,7 @@
                 <div class="sidebar-sticky">
                     <div class="list-sidebar">
                         <div class="sidebar-item">
-                            <form asp-action="Create" asp-controller="booking" asp-route-tourId="@Model.Tour.Id"
+                            <form asp-action="Create" asp-controller="booking" onsubmit="return validatePeopleCount()"
                                   method="get" class="form-content">
                                 <input type="hidden" id="TourId" name="TourId" value="@Model.Tour.Id" />
 
@@ -282,13 +282,15 @@
                                                 <label class="white">Adult</label>
                                                 <div class="input-box">
                                                     <i class="flaticon-add-user"></i>
-                                                    <select name="Adults" class="form-control">
+                                                    <select name="Adults" id="adultsSelect" class="form-control">
                                                         <option value="">Adults</option>
                                                         @for (int i = 1; i <= 3; i++)
                                                         {
                                                             <option value="@i">@i</option>
                                                         }
                                                     </select>
+
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -298,50 +300,37 @@
                                                 <label class="white">Children</label>
                                                 <div class="input-box">
                                                     <i class="flaticon-add-user"></i>
-                                                    <select name="Children" class="form-control">
+                                                    <select name="Children" id="childrenSelect" class="form-control" ">
                                                         <option value="">Children</option>
                                                         @for (int i = 0; i <= 3; i++)
-                                                       
-
-                                                            {
+                                                        {
                                                             <option value="@i">@i</option>
-                                                            }
-                                                        </select>
+                                                        }
+                                                    </select>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-12">
-                                            <div class="form-group bg-white p-3">
-                                                <ul>
-                                                    <li class="d-block pb-1">
-                                                        @Model.CurrencySymbol@Model.ConvertedPrice x <span id="peopleCount">1</span> guests
-                                                        <span class="float-right pink" id="subtotal">@Model.CurrencySymbol@Model.ConvertedPrice</span>
-                                                    </li>
-                                                    <li class="d-block pb-1">
-                                                        Booking fee + tax
-                                                        <span class="float-right pink">@Model.CurrencySymbol 10.00</span>
-                                                    </li>
-                                                    <li class="d-block pb-1">
-                                                        Book now & Save
-                                                        <span class="float-right pink">-@Model.CurrencySymbol 15.00</span>
-                                                    </li>
-                                                    <li class="d-block pb-1">
-                                                        Other fees
-                                                        <span class="float-right pink">Free</span>
-                                                    </li>
-                                                    <li class="d-block border-t">
-                                                        <div class="pt-1">
-                                                            <span>Total</span>
-                                                            @{
-                                                            var total = Model.ConvertedPrice + 10 - 15;
-                                                        }
-                                                        <span class="float-right pink" id="total">@Model.CurrencySymbol@total</span>
+                                        <div class="form-group bg-white p-3">
+                                            <ul>
+                                                <li class="d-block pb-1">
+                                                    <span id="subtotal">0 adults x 0 </br>
+                                                        0 children x 0</span>
+                                            
+                                                </li>
+                                                <li class="d-block border-t">
+                                                    <div class="pt-1">
+                                                        <span>Total</span>
+                                                        <span class="float-right pink" id="totalDisplay">@Model.CurrencySymbol 0.00</span>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
+
+
                                     </div>
 
 
@@ -449,4 +438,42 @@
         </div>
     </div>
 </section>
-<!-- Trending Ends -->
+<script>
+    function updateTotal() {
+        const adults = parseInt(document.getElementById('adultsSelect').value) || 0;
+        const children = parseInt(document.getElementById('childrenSelect').value) || 0;
+
+        const pricePerAdult = parseFloat('@Model.ConvertedPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)');
+        const pricePerChild = pricePerAdult * 0.5;
+
+        const adultsTotal = adults * pricePerAdult;
+        const childrenTotal = children * pricePerChild;
+        const total = adultsTotal + childrenTotal;
+
+        const currencySymbol = '@Html.Raw(Model.CurrencySymbol)';
+        const breakdown = `
+                ${adults} adult(s) x ${pricePerAdult.toFixed(2)} ${currencySymbol} = ${adultsTotal.toFixed(2)} ${currencySymbol}<br>
+                ${children} child(ren) x ${pricePerChild.toFixed(2)} ${currencySymbol} = ${childrenTotal.toFixed(2)} ${currencySymbol}
+            `;
+
+        document.getElementById('subtotal').innerHTML = breakdown;
+        document.getElementById('totalDisplay').textContent = currencySymbol + total.toFixed(2);
+    }
+
+    function validatePeopleCount() {
+        const adults = parseInt(document.getElementById('adultsSelect').value) || 0;
+        if (adults === 0) {
+            alert('Please select at least one adult.');
+            return false;
+        }
+        return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('adultsSelect').addEventListener('change', updateTotal);
+        document.getElementById('childrenSelect').addEventListener('change', updateTotal);
+        updateTotal();
+    });
+</script>
+
+
