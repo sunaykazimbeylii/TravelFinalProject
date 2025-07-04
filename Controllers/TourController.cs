@@ -4,6 +4,7 @@ using TravelFinalProject.DAL;
 using TravelFinalProject.Interfaces;
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities.Enums;
+using TravelFinalProject.Utilities.Exceptions;
 using TravelFinalProject.ViewModels;
 
 namespace TravelFinalProject.Controllers
@@ -97,7 +98,7 @@ namespace TravelFinalProject.Controllers
             int count = await query.CountAsync();
             int totalPages = (int)Math.Ceiling(count / (double)pageSize);
             if (totalPages == 0) totalPages = 1;
-            if (page < 1 || page > totalPages) return BadRequest();
+            if (page < 1 || page > totalPages) throw new BadRequestException("Səhv sorğu: Yanlış və ya boş id göndərildi.");
 
             var pagedTours = await query
                 .Skip((page - 1) * pageSize)
@@ -160,7 +161,7 @@ namespace TravelFinalProject.Controllers
 
         public async Task<IActionResult> TourDetail(int? id, string langCode = "en")
         {
-            if (id is null || id < 1) return BadRequest();
+            if (id is null || id < 1) throw new BadRequestException("Səhv sorğu: Yanlış və ya boş id göndərildi.");
 
             Tour tour = await _context.Tours
                 .Include(t => t.TourTranslations.Where(tt => tt.LangCode == langCode))
@@ -169,7 +170,7 @@ namespace TravelFinalProject.Controllers
                 .Include(t => t.Bookings)
                 .FirstOrDefaultAsync(t => t.Id == id);
 
-            if (tour == null) return NotFound();
+            if (tour == null) throw new NotFoundException("tapilmadi");
 
 
             var reviews = await _context.Reviews

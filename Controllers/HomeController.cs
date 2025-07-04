@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelFinalProject.DAL;
+using TravelFinalProject.Utilities.Exceptions;
 using TravelFinalProject.ViewModels;
 
 namespace TravelFinalProject.Controllers
@@ -86,7 +87,7 @@ namespace TravelFinalProject.Controllers
 
         public async Task<IActionResult> DestinationDetails(int? id, string langCode = "en")
         {
-            if (id is null || id < 1) return BadRequest();
+            if (id is null || id < 1) throw new BadRequestException("Səhv sorğu: Yanlış və ya boş id göndərildi.");
             var destination = await _context.Destinations.Include(d => d.DestinationTranslations.Where(d => d.LangCode == langCode))
                 .Include(d => d.Category)
                 .Include(d => d.DestinationImages)
@@ -95,7 +96,7 @@ namespace TravelFinalProject.Controllers
 
                 .FirstOrDefaultAsync(d => d.Id == id);
 
-            if (destination == null) return NotFound();
+            if (destination == null) throw new NotFoundException("tapilmadi");
             DestinationDetailVM detailVM = new DestinationDetailVM
             {
                 Destination = destination,
@@ -107,9 +108,9 @@ namespace TravelFinalProject.Controllers
             };
             return View(detailVM);
         }
-        //public async Task<IActionResult> Error(string errorMesage)
-        //{
-        //    return View(model: errorMesage);
-        //}
+        public async Task<IActionResult> Error(string errorMesage)
+        {
+            return View(model: errorMesage);
+        }
     }
 }

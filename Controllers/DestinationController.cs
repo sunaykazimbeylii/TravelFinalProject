@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TravelFinalProject.DAL;
 using TravelFinalProject.Interfaces;
+using TravelFinalProject.Utilities.Exceptions;
 using TravelFinalProject.ViewModels;
 
 namespace TravelFinalProject.Controllers
@@ -46,7 +47,7 @@ namespace TravelFinalProject.Controllers
             int count = await query.CountAsync();
             int totalPages = (int)Math.Ceiling(count / (double)pageSize);
             if (totalPages == 0) totalPages = 1;
-            if (page < 1 || page > totalPages) return BadRequest();
+            if (page < 1 || page > totalPages) throw new BadRequestException("Səhv sorğu: Yanlış və ya boş id göndərildi.");
 
             var pagedDestinations = await query
                 .Skip((page - 1) * pageSize)

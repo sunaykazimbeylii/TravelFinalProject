@@ -328,7 +328,7 @@ public class BookingController : Controller
     public async Task<IActionResult> BookingConfirmation(int id, string langCode = "en")
     {
         var booking = await _context.Bookings
-            .Include(b => b.Tour).ThenInclude(b => b.TourTranslations.Where(tt => tt.LangCode == langCode))  //bax buna
+            .Include(b => b.Tour).ThenInclude(b => b.TourTranslations.Where(tt => tt.LangCode == langCode))
             .Include(b => b.Travellers)
             .Include(b => b.User)
             .FirstOrDefaultAsync(b => b.Id == id);

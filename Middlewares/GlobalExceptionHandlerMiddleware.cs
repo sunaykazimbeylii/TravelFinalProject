@@ -8,17 +8,17 @@
         {
             _next = next;
         }
-        //public async Task InvokeAsync(HttpContext context)
-        //{
-        //    try
-        //    {
-        //        await _next.Invoke(context);
+        public async Task InvokeAsync(HttpContext context)
+        {
+            try
+            {
+                await _next.Invoke(context);
 
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        context.Response.Redirect(@$"/home/error?errorMessage={e.Message}");
-        //    }
-        //}
+            }
+            catch (Exception e)
+            {
+                context.Response.Redirect(@$"/home/error?errorMessage={e.Message}");
+            }
+        }
     }
 }

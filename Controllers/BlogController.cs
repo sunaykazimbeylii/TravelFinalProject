@@ -5,6 +5,7 @@ using System.Security.Claims;
 using TravelFinalProject.DAL;
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities.Enums;
+using TravelFinalProject.Utilities.Exceptions;
 using TravelFinalProject.ViewModels;
 using TravelFinalProject.ViewModels.BlogVM;
 
@@ -31,7 +32,7 @@ namespace TravelFinalProject.Controllers
             int count = await query.CountAsync();
             int totalPages = (int)Math.Ceiling(count / (double)pageSize);
             if (totalPages == 0) totalPages = 1;
-            if (page < 1 || page > totalPages) return BadRequest();
+            if (page < 1 || page > totalPages) throw new BadRequestException("Səhv sorğu: Yanlış və ya boş id göndərildi.");
 
             var pagedBlogs = await query
                 .OrderByDescending(b => b.PublishedDate)
@@ -80,7 +81,7 @@ namespace TravelFinalProject.Controllers
                 .FirstOrDefaultAsync(b => b.Id == id);
 
             if (blog == null)
-                return NotFound();
+                throw new NotFoundException("tapilmadi");
 
             var blogDetailVM = new BlogDetailVM
             {
@@ -123,7 +124,7 @@ namespace TravelFinalProject.Controllers
             var blog = await _context.Blogs.FindAsync(model.BlogId);
             if (blog == null)
             {
-                return NotFound();
+                throw new NotFoundException("tapilmadi");
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

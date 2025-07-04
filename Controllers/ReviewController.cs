@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TravelFinalProject.DAL;
 using TravelFinalProject.Models;
+using TravelFinalProject.Utilities.Exceptions;
 using TravelFinalProject.ViewModels.ReviewVM;
 
 namespace TravelFinalProject.Controllers
@@ -22,7 +23,7 @@ namespace TravelFinalProject.Controllers
     .Include(r => r.User)
     .ToListAsync();
             var tour = await _context.Tours.Include(t => t.TourTranslations.Where(m => m.LangCode == langCode)).FirstOrDefaultAsync(t => t.Id == tourId);
-            if (tour == null) return NotFound();
+            if (tour == null) throw new NotFoundException("tapilmadi");
 
             var vm = new ReviewVM
             {

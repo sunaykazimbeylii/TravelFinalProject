@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities;
+using TravelFinalProject.Utilities.Exceptions;
 using TravelFinalProject.ViewModels.ProfileVM;
 using TravelFinalProject.ViewModels.Users;
 
@@ -26,8 +27,7 @@ namespace TravelFinalProject.Controllers
                 return RedirectToAction("Login", "Account");
 
             var user = await _userManager.GetUserAsync(User);
-            if (user == null) return NotFound();
-
+            if (user == null) throw new NotFoundException("tapilmadi");
             var model = new ProfileVM
             {
                 Name = user.Name,
@@ -54,9 +54,8 @@ namespace TravelFinalProject.Controllers
 
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-                return NotFound();
+                throw new NotFoundException("tapilmadi");
 
-            // Profil məlumatlarını yenilə
             user.Name = model.Name;
             user.Surname = model.Surname;
             user.PhoneNumber = model.PhoneNumber;

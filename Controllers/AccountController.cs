@@ -7,6 +7,7 @@ using System.Net.Mail;
 using TravelFinalProject.Interfaces;
 using TravelFinalProject.Models;
 using TravelFinalProject.Utilities.Enums;
+using TravelFinalProject.Utilities.Exceptions;
 using TravelFinalProject.ViewModels;
 using TravelFinalProject.ViewModels.Users;
 using ResetPasswordVM = TravelFinalProject.ViewModels.Users.ResetPasswordVM;
@@ -77,9 +78,9 @@ namespace TravelFinalProject.Controllers
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
             AppUser user = await _userManager.FindByEmailAsync(email);
-            if (user == null) return NotFound();
+            if (user == null) throw new NotFoundException("Tələb olunan məlumat tapılmadı.");
             var result = await _userManager.ConfirmEmailAsync(user, token);
-            if (!result.Succeeded) return BadRequest();
+            if (!result.Succeeded) throw new BadRequestException("Səhv sorğu: Yanlış və ya boş id göndərildi.");
             await _signInManager.SignInAsync(user, isPersistent: false);
             return View();
         }
@@ -154,26 +155,7 @@ namespace TravelFinalProject.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> ForgotPassword(ForgotPasswordVM model)
-        //{ 
-        //    if (!ModelState.IsValid)
-        //        return View(model);
 
-        //    var user = await _userManager.FindByEmailAsync(model.Email);
-        //    if (user != null)
-        //    {
-        //        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-        //        var resetLink = Url.Action("ResetPassword", "Account", new { token = Uri.EscapeDataString(token), email = model.Email }, Request.Scheme);
-
-        //        string emailBody = $"Please reset your password by clicking here: <a href='{resetLink}'>link</a>";
-        //        await _emailService.SendMailAsync(model.Email, "Reset your password", emailBody, true);
-        //    }
-        //    ViewBag.Message = "If your email is registered, you will receive a password reset link.";
-
-        //    return View();
-        //}
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordVM model)
@@ -215,9 +197,9 @@ namespace TravelFinalProject.Controllers
         }
         public async Task<IActionResult> ResetPassword(string email, string token)
         {
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token)) return BadRequest();
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token)) throw new BadRequestException("Səhv sorğu: Yanlış və ya boş id göndərildi.");
             var user = await _userManager.FindByEmailAsync(email);
-            if (user == null) return NotFound();
+            if (user == null) throw new NotFoundException("tapilmadi");
 
             var model = new ResetPasswordVM
             {
@@ -234,14 +216,14 @@ namespace TravelFinalProject.Controllers
         public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
         {
 
-            if (string.IsNullOrWhiteSpace(model.Token)) return BadRequest();
+            if (string.IsNullOrWhiteSpace(model.Token)) throw new BadRequestException("Səhv sorğu: Yanlış və ya boş id göndərildi.");
 
             if (!ModelState.IsValid)
                 return View(model);
 
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-                return NotFound();
+            if (user == null) throw new NotFoundException("tapilmadi");
+
 
             var decodedToken = Uri.UnescapeDataString(model.Token);
             var result = await _userManager.ResetPasswordAsync(user, decodedToken, model.NewPassword);
