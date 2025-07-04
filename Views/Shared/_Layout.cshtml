@@ -77,7 +77,8 @@
                                     <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages<i class="icon-arrow-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
                                         <li><a asp-action="Index" asp-controller="Tour">Tour</a></li>
-                                        <li><a  asp-action="Blog" asp-controller="Blog">Blogs</a></li>
+                                        <li><a asp-action="Blog" asp-controller="Blog">Blogs</a></li>
+                                        <li><a asp-action="Index" asp-controller="Destination">Destinations</a></li>
                                       
                                     
                                     </ul>
@@ -111,33 +112,7 @@
                                 </li>
                             </ul>
                            
-                        </div><!-- /.navbar-collapse -->
-
-                      @*   <div class="register-login">
-                            <ul>
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <li>
-                                        <a href="my-account.html">@User.Identity.Name</a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Account" asp-action="Logout"> Log out</a>
-                                    </li>
-                                }
-                                else
-                                {
-
-                                    <li>
-                                        <a class="mr-2" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path.Value"><i class="icon-login mr-1"></i>Log in</a>
-                                    </li>
-                                    <li>
-                                        <a class="mr-2" asp-controller="Account" asp-action="Register"><i class="icon-user mr-1"></i>Register</a>
-                                    </li>
-                                }
-                            </ul>
-
                         </div>
- *@
                         <div id="slicknav-mobile"></div>
                     </div>
                 </div><!-- /.container-fluid -->
