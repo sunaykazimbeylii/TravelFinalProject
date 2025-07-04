@@ -13,6 +13,7 @@ using ResetPasswordVM = TravelFinalProject.ViewModels.Users.ResetPasswordVM;
 
 namespace TravelFinalProject.Controllers
 {
+
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

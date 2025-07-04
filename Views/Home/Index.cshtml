@@ -221,7 +221,7 @@
                             <div class="trend-last-main">
                                 <p class="mb-0 trend-para">@tour.TourTranslations.FirstOrDefault().Description</p>
                                 <div class="trend-last d-flex align-items-center justify-content-between">
-                                    <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
+                                    <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> @tour.Duration</p>
                                     <div class="trend-price">
                                         <p class="price white mb-0">From <span>$@tour.Price</span></p>
                                     </div>
@@ -231,9 +231,6 @@
                     </div>
 
                     }
-                }
-
-
             </div>
         </div>
     </div>

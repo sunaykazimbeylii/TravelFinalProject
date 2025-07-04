@@ -11,6 +11,7 @@ using TravelFinalProject.ViewModels.BlogVM;
 
 namespace TravelFinalProject.Controllers
 {
+
     public class BlogController : Controller
     {
         private readonly AppDbContext _context;

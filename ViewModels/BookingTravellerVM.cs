@@ -5,29 +5,7 @@ namespace TravelFinalProject.ViewModels
 {
     public class BookingTravellerVM
     {
-        //{
-        //    [Required]
-        //    public string FirstName { get; set; }
 
-        //    [Required]
-        //    public string LastName { get; set; }
-
-        //    [Required, EmailAddress]
-        //    public string Email { get; set; } 
-
-        //    [Required]
-        //    public string PhoneNumber { get; set; } 
-        //    [Required]
-        //    public string PassportNumber { get; set; }
-
-        //    [Required]
-        //    public Gender Gender { get; set; }
-
-        //    [Required]
-        //    public string Nationality { get; set; }
-
-        //    [Required]
-        //    public DateTime? DateOfBirth { get; set; }
         [Required]
         public string FirstName { get; set; }
 

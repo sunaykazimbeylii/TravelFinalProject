@@ -34,6 +34,7 @@ namespace TravelFinalProject.Controllers
                     langCode = "en";
                 }
             }
+            string currencyCode = Request.Cookies["currency"] ?? "USD";
             var destinationsQuery = _context.Destinations
                 .Include(m => m.DestinationTranslations.Where(t => t.LangCode == langCode))
                 .Include(d => d.Category)
@@ -81,6 +82,7 @@ namespace TravelFinalProject.Controllers
 
             return View(homeVM);
         }
+
 
         public async Task<IActionResult> DestinationDetails(int? id, string langCode = "en")
         {

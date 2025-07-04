@@ -158,44 +158,6 @@ namespace TravelFinalProject.Controllers
 
 
 
-        //   public async Task<IActionResult> TourDetail(int? id, string langCode = "en")
-        //   {
-        //       if (id is null || id < 1) throw new BadRequestException($"{id} is wrong");
-
-        //       Tour tour = await _context.Tours.Include(t => t.TourTranslations.Where(tt => tt.LangCode == langCode))
-        //           .Include(t => t.Destination).ThenInclude(d => d.DestinationTranslations)
-        //           .Include(t => t.TourImages)
-        //           .Include(t => t.Bookings)
-        //           .FirstOrDefaultAsync(t => t.Id == id);
-
-        //       if (tour == null) throw new NotFoundException($"{id} id'li mehsul tapilmadi");
-        //       var reviews = await _context.Reviews
-        //.Where(r => r.TourId == tour.Id && r.IsApproved)
-        //.Include(r => r.ReviewTranslations)
-        //.Include(r => r.User)
-        //.ToListAsync();
-
-        //       decimal originalPrice = tour.Price ?? 0m;
-        //       string currencyCode = Request.Cookies["SelectedCurrency"] ?? "USD";
-        //       decimal convertedPrice = await _currencyService.ConvertAsync(originalPrice, currencyCode);
-        //       string currencySymbol = _currencyService.GetSymbol(currencyCode);
-
-        //       TourDetailVM detailVM = new TourDetailVM
-        //       {
-        //           Tour = tour,
-        //           ConvertedPrice = convertedPrice,
-        //           CurrencySymbol = currencySymbol,
-        //           RelatedTour = await _context.Tours.Include(t => t.TourTranslations.Where(tt => tt.LangCode == langCode))
-        //            .Where(t => t.DestinationId == tour.DestinationId && t.Id != id)
-        //           .Include(t => t.TourImages)
-        //           .ToListAsync(),
-        //           Reviews = reviews
-        //       };
-
-        //       return View(detailVM);
-        //   }
-
-
 
         public async Task<IActionResult> TourDetail(int? id, string langCode = "en")
         {
@@ -218,7 +180,7 @@ namespace TravelFinalProject.Controllers
                 .ToListAsync();
 
             decimal originalPrice = tour.Price ?? 0m;
-            string currencyCode = Request.Cookies["SelectedCurrency"] ?? "USD";
+            string currencyCode = Request.Cookies["currency"] ?? "USD";
             decimal convertedPrice = await _currencyService.ConvertAsync(originalPrice, currencyCode);
             string currencySymbol = _currencyService.GetSymbol(currencyCode);
 
