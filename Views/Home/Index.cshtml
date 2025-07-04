@@ -206,7 +206,7 @@
                                     <i class="fa fa-map-marker-alt"></i>
                                     @(tour.TourTranslations.FirstOrDefault()?.Location ?? "Location not available")
                                 </h6>
-                                <h4><a asp-action="TourDetail" asp-controller="Tour" asp-route-id="@tour">@tour.TourTranslations.FirstOrDefault().Title</a></h4>
+                                <h4><a asp-action="TourDetail" asp-controller="Tour" asp-route-id="@tour.Id">@tour.TourTranslations.FirstOrDefault().Title</a></h4>
                                 <div class="rating-main d-flex align-items-center">
                                     <div class="rating">
                                         <span class="fa fa-star checked"></span>

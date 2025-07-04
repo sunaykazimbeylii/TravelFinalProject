@@ -12,6 +12,7 @@ namespace TravelFinalProject.ViewModels
         public string Country { get; set; }
         public string MainImage { get; set; }
         public string City { get; set; }
+        public string CurrencyCode { get; set; }
         [Required]
         public decimal? Price { get; set; }
 
@@ -19,6 +20,6 @@ namespace TravelFinalProject.ViewModels
         public string Address { get; set; }
         public bool IsFeatured { get; set; }
         public string CategoryName { get; set; }
-        //public List<Tour>? Tours { get; set; }
+
     }
 }
